@@ -93,6 +93,15 @@ Pilot-started, a few seconds long, one axis only, so she never steers:
 - Reported: CIG removed actor death and vehicle destruction events from the public log (kill trackers broke, SC Kill Monitor archived Nov 2025). Hit, damage and scan data were never in it. Check a real log from the PC before building on any event.
 - So: who's shooting, ship ID, owner, cargo, power state and signatures come from the screen (vision). The log is for whatever events remain (location, quantum, session) and for triggering Ayre and music.
 
+## Latency (why this fork exists)
+
+Upstream Wingman AI defaults to cloud services for speech-to-text, the model and the voice. Ours keeps the model in the cloud only when thinking or vision is needed:
+- Speech-to-text local (upstream's faster-whisper / whisper.cpp providers) on the 3090 Ti.
+- Instant phrases skip the model entirely: phrase, then key press, then a pre-rendered Ayre line.
+- Ayre's stock lines (confirmations, ready lines, callouts) are rendered once to audio files with her cloned voice and played instantly; only free-form answers are spoken live by the local voice model.
+- HUD reader and piloting assists are local code, no model in the loop.
+- The cloud model handles questions, plans and screen reading, and starts with a short pre-rendered acknowledgement so the wait is never silent.
+
 ## Voice
 
 - Gaming PC GPU: EVGA RTX 3090 Ti (24 GB), enough to train and run the clone locally.
