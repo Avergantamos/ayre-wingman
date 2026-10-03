@@ -1,0 +1,4 @@
+# The pilot's own keyboard changes, applied to the profile build_layer.py writes.
+# Ayre uses these keys too where she needs the same action.
+v_strafe_down: lctrl                    # back to the default
+v_ifcs_vector_decoupling_toggle: c      # back to the default

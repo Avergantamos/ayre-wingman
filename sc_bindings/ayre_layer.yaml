@@ -106,7 +106,8 @@
   v_dec_scan_focus_level: {name: Widen Scan Focus}
 
 "Flight - Movement":
-  v_flightready: {name: Flight Ready, say: ["Flight ready", "Wake her up"]}
+  # the pilot leans on the default keys for these two, so Ayre presses them instead of rebinding
+  v_flightready: {name: Flight Ready, say: ["Flight ready", "Wake her up"], key: ralt+r, hold_modifier: true}
   v_ifcs_vector_decoupling_on: {name: Decoupled On}
   v_ifcs_vector_decoupling_off: {name: Decoupled Off}
   v_ifcs_gsafe_on: {name: G-Safe On}
@@ -117,7 +118,7 @@
   v_vtol_off: {name: VTOL Off}
   v_deploy_landing_system: {name: Gear Down, say: ["Gear down"]}
   v_retract_landing_system: {name: Gear Up, say: ["Gear up"]}
-  v_atc_request: {name: Request Landing, say: ["Request landing", "Call the tower"]}
+  v_atc_request: {name: Request Landing, say: ["Request landing", "Call the tower", "Open the hangar"], key: lalt+n, context: Also opens the hangar doors}
   v_toggle_docking_request: {name: Request Docking}
   v_set_flight_mode: {name: Flight Mode}
   v_set_mining_mode: {name: Mining Mode}

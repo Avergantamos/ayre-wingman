@@ -49,17 +49,33 @@ def wingman_key(sc):
                "equals": {"hotkey": "=", "hotkey_codes": [13]}}
     if sc in special:
         return special[sc]
-    names = {"rctrl": "right ctrl", "ralt": "right alt", "lctrl": "ctrl", "lalt": "alt",
+    names = {"rctrl": "right ctrl", "ralt": "right alt", "lctrl": "left ctrl", "lalt": "left alt",
              "lshift": "shift", "rshift": "right shift"}
     parts = [names.get(p) or PUNCT.get(p) or (f"num {p[3:]}" if p.startswith("np_") else p) for p in sc.split("+")]
     return {"hotkey": "+".join(parts)}
 
 
-def kb_binds(action_el):
-    """Non-empty keyboard binds on an <action>, as SC tokens without the kb1_ prefix."""
+def wingman_actions(key, hold_modifier=False):
+    """Wingman actions for a key. hold_modifier: press the modifier, then the key, then
+    release, with the timing upstream found Star Citizen needs for Flight Ready."""
+    if key.startswith("mouse"):  # mouse4 / mouse5 are the side buttons x / x2
+        return [{"mouse": {"button": {"mouse4": "x", "mouse5": "x2"}.get(key, key)}}]
+    if not hold_modifier or "+" not in key:
+        return [{"keyboard": wingman_key(key)}]
+    mod, base = key.split("+", 1)
+    mod = wingman_key(mod)["hotkey"]
+    return [{"keyboard": {"hotkey": mod, "press": True}}, {"wait": 0.55},
+            {"keyboard": {"hotkey": wingman_key(base)["hotkey"], "hold": 0.1}}, {"wait": 0.15},
+            {"keyboard": {"hotkey": mod, "release": True}}]
+
+
+def kb_binds(action_el, mouse=False):
+    """Non-empty single-press binds in the keyboard/mouse slot of an <action>, as SC tokens
+    without the kb1_ prefix. Mouse buttons (kb1_mouse5) only when mouse=True."""
     return [rb.get("input")[4:] for rb in action_el.iter("rebind")
             if rb.get("input", "").startswith("kb1_") and rb.get("input")[4:].strip()
-            and not rb.get("input")[4:].startswith("mouse")]  # kb1_mouse5 is a mouse button
+            and (mouse or not rb.get("input")[4:].startswith("mouse"))
+            and not rb.get("activationMode") and not rb.get("multiTap")]
 
 
 def main(bdir):
@@ -69,26 +85,36 @@ def main(bdir):
     layer = yaml.safe_load((HERE / "ayre_layer.yaml").read_text())
     keys_file = HERE / "ayre_keys.json"
     keys = json.loads(keys_file.read_text()) if keys_file.exists() else {}
+    pilot = yaml.safe_load((HERE / "pilot_keys.yaml").read_text()) or {}
+    reserved = {spec["key"] for actions in layer.values() for spec in actions.values() if spec.get("key")}
 
     # every action the game knows, which actionmaps it sits in, and keys already taken
-    maps_of, taken = {}, {}
+    maps_of, taken, slot = {}, {}, {}
     for root in (live, export.getroot()):
         for amap in root.iter("actionmap"):
             for act in amap.iter("action"):
                 maps_of.setdefault(act.get("name"), set()).add(amap.get("name"))
+                if act.get("name") in pilot:
+                    continue
+                slot.setdefault(act.get("name"), set()).update(kb_binds(act, mouse=True))
                 for k in kb_binds(act):
                     taken.setdefault(k, set()).add(act.get("name"))
+    for action, k in pilot.items():
+        taken.setdefault(k, set()).add(action)
 
     problems, commands = [], []
-    free = [k for k in POOL if k not in taken and k not in keys.values()]
+    for action in [a for a, k in keys.items() if k in reserved | set(taken)]:
+        del keys[action]  # a pilot or default key now; she gets a fresh spare
+    free = [k for k in POOL if k not in taken and k not in reserved and k not in keys.values()]
     for category, actions in layer.items():
         for action, spec in actions.items():
             if action not in maps_of:
                 problems.append(f"{action}: not in your bindings files, skipped")
                 continue
-            own = [k for k in sorted(taken) if action in taken[k]]
+            own = sorted(slot.get(action, set()) | {k for k, acts in taken.items() if action in acts})
             if spec.get("key"):
                 key, source = spec["key"], "default"
+                keys.pop(action, None)
             elif own:
                 key, source = own[0], "yours"
                 keys.pop(action, None)
@@ -109,9 +135,8 @@ def main(bdir):
     name = root.get("profileName") + "_AYRE"
     root.set("profileName", name)
     root.find("CustomisationUIHeader").set("label", name)
-    for _, action, _, key, source in commands:
-        if source != "ayre":
-            continue
+    edits = [(a, k) for a, k in pilot.items()] + [(a, k) for _, a, _, k, src in commands if src == "ayre"]
+    for action, key in edits:
         for amap_name in sorted(maps_of[action]):
             amap = root.find(f"actionmap[@name='{amap_name}']")
             if amap is None:
@@ -131,9 +156,10 @@ def main(bdir):
     cat_ids = {c["name"]: c["id"] for c in tpl["command_categories"]}
     ours = {spec["name"] for _, _, spec, _, _ in commands}
     (bdir / "ayre_actions.json").write_text(json.dumps(
-        {action: wingman_key(key) for _, action, _, key, _ in commands}, indent=1, sort_keys=True))
+        {action: wingman_actions(key, spec.get("hold_modifier")) for _, action, spec, key, _ in commands},
+        indent=1, sort_keys=True))
     # keep a template command only if none of its keys hit the pilot's keys or Ayre's
-    used = {wingman_key(k)["hotkey"] for k in taken} | {wingman_key(k)["hotkey"] for _, _, _, k, _ in commands}
+    used = {wingman_key(k)["hotkey"] for k in set(taken) | {c[3] for c in commands} if not k.startswith("mouse")}
     kept = []
     for c in tpl["commands"]:
         if c["name"] in REPLACED | ours:
@@ -156,7 +182,7 @@ def main(bdir):
         cmd.update({"category_id": cat_ids[category], "is_system_command": False})
         if spec.get("say") and not spec.get("risky"):
             cmd["instant_activation"] = spec["say"]
-        cmd.update({"force_instant_activation": False, "actions": [{"keyboard": wingman_key(key)}]})
+        cmd.update({"force_instant_activation": False, "actions": wingman_actions(key, spec.get("hold_modifier"))})
         tpl["commands"].append(cmd)
 
     class Dumper(yaml.SafeDumper):

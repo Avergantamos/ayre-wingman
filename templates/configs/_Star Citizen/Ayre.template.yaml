@@ -589,15 +589,15 @@ commands:
   is_system_command: false
   force_instant_activation: false
   actions:
-  - keyboard:
-      hotkey: right ctrl+2
+  - mouse:
+      button: x2
 - name: Fewer Missiles Per Volley
   category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
   is_system_command: false
   force_instant_activation: false
   actions:
-  - keyboard:
-      hotkey: right ctrl+3
+  - mouse:
+      button: x
 - name: Main Power On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -860,7 +860,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+d
+      hotkey: right alt
+      press: true
+  - wait: 0.55
+  - keyboard:
+      hotkey: r
+      hold: 0.1
+  - wait: 0.15
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Decoupled On
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
@@ -936,15 +945,17 @@ commands:
   - keyboard:
       hotkey: right alt+n
 - name: Request Landing
+  additional_context: Also opens the hangar doors
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   instant_activation:
   - Request landing
   - Call the tower
+  - Open the hangar
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+o
+      hotkey: left alt+n
 - name: Request Docking
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
@@ -965,7 +976,7 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+r
+      hotkey: right alt+0
 - name: Salvage Mode
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
