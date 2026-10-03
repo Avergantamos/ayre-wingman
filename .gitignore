@@ -180,3 +180,6 @@ pocket-tts-voices/
 
 
 .claude/settings.json
+
+# ayre-wingman: voice clips, models, game audio (never commit)
+voice/
