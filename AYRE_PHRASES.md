@@ -12,7 +12,6 @@ naturally ("throw some flares", "give me more shields") and she works it out in 
 - **Missile mode**: Missile Mode
 - **Scan mode**: Scan Mode
 - **Ping**: Ping
-- **Flight ready / Wake her up**: Flight Ready
 - **Gear down**: Gear Down
 - **Gear up**: Gear Up
 - **Request landing / Call the tower / Open the hangar**: Request Landing

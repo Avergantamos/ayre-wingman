@@ -107,7 +107,7 @@
 
 "Flight - Movement":
   # the pilot leans on the default keys for these two, so Ayre presses them instead of rebinding
-  v_flightready: {name: Flight Ready, say: ["Flight ready", "Wake her up"], key: ralt+r, hold_modifier: true}
+  v_flightready: {name: Flight Ready, key: ralt+r, hold_modifier: true, context: "Boot sequence: run this, then read_loadout, then one short varied ready line naming the weapons and missiles"}
   v_ifcs_vector_decoupling_on: {name: Decoupled On}
   v_ifcs_vector_decoupling_off: {name: Decoupled Off}
   v_ifcs_gsafe_on: {name: G-Safe On}

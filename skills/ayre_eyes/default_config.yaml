@@ -1,0 +1,29 @@
+module: skills.ayre_eyes.main
+name: AyreEyes
+display_name: Ayre's Eyes
+author: ayre-wingman
+tags:
+  - Image
+  - Utility
+auto_activate: true
+discoverable_by_default: false
+platforms:
+  - windows
+  - darwin
+description:
+  en: Ayre reads the Star Citizen screen herself, targets, scans, ship status, landing readouts, and the ship's weapon loadout at boot.
+discovery_keywords:
+  - who is shooting me
+  - scan
+  - target
+  - cargo
+  - loadout
+  - weapons
+  - what do you see
+  - altitude
+custom_properties:
+  - id: display
+    name: Display to capture
+    property_type: number
+    required: true
+    value: 1

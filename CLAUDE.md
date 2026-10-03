@@ -53,6 +53,13 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Learn: a plan that worked can be saved by voice as a named routine ("remember this as salvage prep"). Saved routines run instantly with no model call next time.
 - Scope: setup and mode changes (industrial, recon, combat, flight). Not real time piloting or aiming; planning takes seconds.
 
+## Ayre's eyes (skill, built)
+
+- `skills/ayre_eyes`: `look` answers about the screen in her voice (one model call, no second summarizing pass); `read_loadout` opens Configuration, falls back to Ship Status, reads weapons, groups and missiles as JSON and stores them per ship; the current loadout is fed into her prompt so plain-words weapon and missile picks need no setup.
+- Every frame she reads is saved full resolution with its question and answer under Wingman's generated_files/AyreEyes/frames/<focus>/. That is the dataset for the fast HUD reader and its screen regions, collected from real play on the PC.
+- Runs on the official app: copy the folder to %APPDATA%\ShipBit\WingmanAI\custom_skills\ayre_eyes. Uses only libraries Wingman already bundles (mss, Pillow).
+- Screen capture needs Star Citizen in borderless or windowed mode; exclusive fullscreen can capture black.
+
 ## Flight sequences and partner behavior (planned)
 
 She acts like a good copilot: one short line per phase, wording varied from a pool of pre-written variants with no repeats close together, silent while numbers are not changing. "Quiet" and "talk more" by voice.
