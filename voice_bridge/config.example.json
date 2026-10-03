@@ -1,0 +1,9 @@
+{
+ "port": 9881,
+ "sovits_url": "http://127.0.0.1:9880",
+ "ref_audio": "C:/ayre-wingman/voice/clips/0601.wav",
+ "ref_text": "Raven, those unidentified machines were using encrypted communications.",
+ "gpt_weights": "C:/GPT-SoVITS/GPT_weights_v2/ayre-e15.ckpt",
+ "sovits_weights": "C:/GPT-SoVITS/SoVITS_weights_v2/ayre_e8_s400.pth",
+ "speed": 1.0
+}

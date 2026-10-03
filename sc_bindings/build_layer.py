@@ -192,6 +192,16 @@ def main(bdir):
     TEMPLATE.write_text(yaml.dump(tpl, Dumper=Dumper, sort_keys=False, allow_unicode=True, width=1000))
     keys_file.write_text(json.dumps(keys, indent=1, sort_keys=True) + "\n")
 
+    # cheat sheet: instant phrases skip the model; anything else said naturally still works
+    sheet = ["# Ayre: instant phrases", "",
+             "Say these exactly for an instant keypress with no thinking delay. Anything else, say it",
+             "naturally (\"throw some flares\", \"give me more shields\") and she works it out in a second or two.", ""]
+    for category, action, spec, _, _ in commands:
+        if spec.get("say") and not spec.get("risky"):
+            sheet.append(f"- **{' / '.join(spec['say'])}**: {spec['name']}")
+    sheet += ["", "Asks you first: " + ", ".join(spec["name"] for _, _, spec, _, _ in commands if spec.get("risky")) + "."]
+    (ROOT / "AYRE_PHRASES.md").write_text("\n".join(sheet) + "\n")
+
     print(f"{len(commands)} commands ({sum(c[4] == 'yours' for c in commands)} on your keys), "
           f"{len(free)} spare keys left")
     print(f"import in game: {out.name}")

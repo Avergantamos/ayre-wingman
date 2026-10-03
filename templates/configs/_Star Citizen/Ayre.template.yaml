@@ -26,6 +26,19 @@ prompts:
 
     **Personality:**
     - Steady under fire. Gently encouraging. Loyal to Raven above all.
+features:
+  tts_provider: edge_tts
+  stt_provider: fasterwhisper
+openai_compatible_tts:
+  api_key: not-needed
+  voice: ayre
+  model: ayre
+  base_url: http://127.0.0.1:9881/v1
+  speed: 1.0
+  output_streaming: false
+  voices_endpoint: /voices
+  use_tts_prompt: false
+  tts_prompt: ''
 record_key: end
 is_voice_activation_default: true
 inworld:

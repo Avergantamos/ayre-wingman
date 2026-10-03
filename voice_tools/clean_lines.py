@@ -8,7 +8,7 @@ from pathlib import Path
 
 CLIPS = Path("voice/clips")
 FIXES = {r"\bKor+a\b": "Coral", r"\bCorral\b": "Coral", r"\bRubikon\b": "Rubicon",
-         r"\b6-21\b": "621", r"\bAllmine?d?\b": "ALLMIND", r"\bAll Mind\b": "ALLMIND"}
+         r"\b6-21\b": "621", r"\bAllmine?d?\b": "ALLMIND", r"\bAll Mind\b": "ALLMIND", r"\bKarla\b": "Carla"}
 
 kept, seconds = [], 0.0
 for line in (CLIPS / "lines.list").read_text().splitlines():

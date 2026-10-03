@@ -108,3 +108,5 @@ Upstream Wingman AI defaults to cloud services for speech-to-text, the model and
 - Target is a true Ayre voice, not a sound-alike. Local clone (GPT-SoVITS or similar) trained on clean dialogue clips cut from YouTube (source: an 85 minute all-English-lines video, `voice/raw/`) with `yt-dlp` + `ffmpeg`, music and SFX removed with `demucs`.
 - Clips, trained voice models and any game audio stay out of git (`voice/` is gitignored) and never get shared.
 - Comms sound comes from the upstream `voice_changer` effects on top of the clone.
+- No Wingman code change for the voice: `voice_bridge/server.py` is an OpenAI-shaped speech endpoint in front of GPT-SoVITS api_v2, used through upstream's `openai_compatible` TTS provider. Every rendered line is cached in `voice/cache`, and `--prerender` renders `stock_lines.txt` ahead of time. Steps: `voice_tools/TRAINING.md`.
+- `AYRE_PHRASES.md` (written by the builder) lists the instant phrases; anything else works in natural speech through the model.

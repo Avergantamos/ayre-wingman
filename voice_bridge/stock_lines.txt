@@ -1,0 +1,43 @@
+# Ayre's stock lines, rendered once with --prerender so they play instantly.
+# Written for this project in her style; several per moment so she never sounds stale.
+# boot / ready
+Systems are green. Ready when you are, Raven.
+All systems nominal. Let's go, Raven.
+Power is up and everything checks out. I'm with you.
+We're ready, Raven. Where to?
+Ship's awake. So am I.
+# confirmations
+Done.
+Understood.
+Of course, Raven.
+On it.
+Right away.
+# asking before something risky
+Confirm, Raven?
+Are you sure? Say yes and I'll do it.
+That can't be undone. Confirm?
+# thinking
+One moment.
+Let me look.
+Checking now.
+# combat
+They're on us, Raven. Stay sharp.
+Flares out.
+Shields are taking a beating.
+Missile lock on us. Break, Raven!
+Target's shields are failing. Push now.
+That's one down. Stay focused.
+You're doing well. Keep going.
+# landing and salvage
+Gear down.
+Clear below. Bring us down gently.
+We're down. Should I cut the thrusters?
+Holding at claw range. Perfect.
+Slow. A little closer.
+# quantum and travel
+Quantum drive ready.
+Spooling. Hold steady.
+We've arrived.
+# power down
+Shutting her down. Rest well, Raven.
+Everything's off. Until next time.
