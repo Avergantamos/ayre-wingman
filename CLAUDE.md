@@ -61,6 +61,12 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Runs on the official app: copy the folder to %APPDATA%\ShipBit\WingmanAI\custom_skills\ayre_eyes. Uses only libraries Wingman already bundles (mss, Pillow).
 - Screen capture needs Star Citizen in borderless or windowed mode; exclusive fullscreen can capture black.
 
+## Flight assist and ship systems (skills, built, untested in game)
+
+- `skills/ayre_flight`: `calibrate_hud` (one vision call finds the readouts, kept only if the local reader reads them back; regions per resolution), `flight_assist(mode)`: landing_callouts, approach_callouts, descend, close_to_range, mark_range, stop. Region grabs at up to 5 Hz on CPU only while a mode runs, Windows OCR with a numpy digit matcher fallback. Assists: single axis, keys from an allowlist, abort on stale or jumpy readings, stick or button input, timeout, stop; keys always released. Logic in `flight_core.py`.
+- `skills/ayre_ship`: `risky_action` lock (pending request, fresh yes after it, 20 s), Game.log watcher (1 s size check, new bytes only, editable `events.yaml`, daily masked line shapes), music ducking under Ayre's voice only (pycaw, restores on finish, unload, error, 120 s).
+- `install/install_ayre.ps1` installs everything on the PC and rebuilds keys from the live bindings. Tests: `voice/.venv/bin/python tests/ayre/test_*.py`.
+
 ## Flight sequences and partner behavior (in her persona; detection is planned)
 
 Sequences, small talk, quips and music rules are in her backstory now and run from Raven's words and what she sees when she looks. Noticing on her own (combat starting, touchdown) waits for the HUD reader and Game.log watcher. Music is the upstream Spotify skill (needs a Spotify developer app and Premium); ducking under her voice is planned.

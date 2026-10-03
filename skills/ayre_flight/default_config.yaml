@@ -1,0 +1,40 @@
+module: skills.ayre_flight.main
+name: AyreFlight
+display_name: Ayre's Flight Assist
+author: ayre-wingman
+tags:
+  - Utility
+auto_activate: true
+discoverable_by_default: false
+platforms:
+  - windows
+  - darwin
+description:
+  en: Ayre reads altitude, speed and target distance from the Star Citizen HUD, calls out landings and approaches, and runs short pilot-started descent and close-to-range assists.
+discovery_keywords:
+  - landing callouts
+  - approach callouts
+  - descend
+  - land for me
+  - close to range
+  - claw range
+  - mark range
+  - calibrate hud
+custom_properties:
+  - id: display
+    name: Display to capture
+    property_type: number
+    required: true
+    value: 1
+  - id: max_assist_seconds
+    name: Assist time limit (seconds)
+    hint: An assist always ends after this long.
+    property_type: number
+    required: true
+    value: 90
+  - id: stick_deadzone
+    name: Stick deadzone for handing back control
+    hint: Any physical stick axis moving more than this from where it was at the start ends an assist.
+    property_type: number
+    required: true
+    value: 0.08

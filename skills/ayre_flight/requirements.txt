@@ -1,0 +1,11 @@
+# Optional: Windows built-in OCR for the HUD reader. Without these the skill uses its own
+# template matcher (numpy only). Install on the PC into this skill's dependencies/ folder:
+#   python -m pip install --target dependencies -r requirements.txt
+# (Python 3.11 to match Wingman AI; do not commit the wheels.)
+winrt-runtime; sys_platform == "win32"
+winrt-Windows.Foundation; sys_platform == "win32"
+winrt-Windows.Foundation.Collections; sys_platform == "win32"
+winrt-Windows.Globalization; sys_platform == "win32"
+winrt-Windows.Graphics.Imaging; sys_platform == "win32"
+winrt-Windows.Media.Ocr; sys_platform == "win32"
+winrt-Windows.Storage.Streams; sys_platform == "win32"
