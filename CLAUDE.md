@@ -36,7 +36,7 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 
 - Vocabulary: a compact list of named actions generated from the real bindings export (action name + one-line meaning). The model sees names, never keys. The executor maps names to keys.
 - Plan: an ordered list of action names with optional waits. The executor rejects any step not in the vocabulary; risky steps need a spoken yes.
-- State: Star Citizen exposes no state, and many binds are toggles. Prefer explicit on/off binds where they exist; otherwise read the state from the screen with vision before toggling, never toggle blind.
+- State: Star Citizen exposes no state, and many binds are toggles. Prefer explicit on/off binds where they exist; otherwise read the state from the screen with vision before toggling, never toggle blind. After any toggle, Ayre states the resulting state out loud ("Shields on", "Lights off"), confirmed from the screen when possible, and says so when she could not confirm it.
 - Verify: after running, read the relevant screen region or the game log and report what actually changed, not what was intended.
 - Learn: a plan that worked can be saved by voice as a named routine ("remember this as salvage prep"). Saved routines run instantly with no model call next time.
 - Scope: setup and mode changes (industrial, recon, combat, flight). Not real time piloting or aiming; planning takes seconds.
