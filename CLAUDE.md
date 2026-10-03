@@ -41,6 +41,12 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Learn: a plan that worked can be saved by voice as a named routine ("remember this as salvage prep"). Saved routines run instantly with no model call next time.
 - Scope: setup and mode changes (industrial, recon, combat, flight). Not real time piloting or aiming; planning takes seconds.
 
+## Game.log
+
+- Reading `Game.log` is passive (a text file on disk, no contact with the game process), the lowest risk data source we have.
+- Reported: CIG removed actor death and vehicle destruction events from the public log (kill trackers broke, SC Kill Monitor archived Nov 2025). Hit, damage and scan data were never in it. Check a real log from the PC before building on any event.
+- So: who's shooting, ship ID, owner, cargo, power state and signatures come from the screen (vision). The log is for whatever events remain (location, quantum, session) and for triggering Ayre and music.
+
 ## Voice
 
 - Gaming PC GPU: EVGA RTX 3090 Ti (24 GB), enough to train and run the clone locally.
