@@ -1,0 +1,13 @@
+{
+ "_source": "Space Combat Grip, factory profile. Numbers from Osiris-DevWorks/sc-profile-editor field maps checked against VKB's official SCG control sheets. Same numbers on EVO L and R (mirrored grip). Confirm a few in VKBDevCfg.",
+ "1": "main trigger, first stage", "2": "main trigger, full pull",
+ "3": "red button A2", "4": "side button B1", "5": "pinky button D1",
+ "6": "center hat A3 up", "7": "center hat A3 right", "8": "center hat A3 down", "9": "center hat A3 left", "10": "center hat A3 push",
+ "11": "top hat A4 up", "12": "top hat A4 right", "13": "top hat A4 down", "14": "top hat A4 left", "15": "top hat A4 push",
+ "16": "thumb hat C1 up", "17": "thumb hat C1 right", "18": "thumb hat C1 down", "19": "thumb hat C1 left", "20": "thumb hat C1 push",
+ "21": "flip trigger up", "22": "flip trigger down",
+ "23": "base encoder up", "24": "base encoder down",
+ "25": "base rocker up", "26": "base rocker down",
+ "27": "base button F1, middle", "28": "base button F2, top", "29": "base button F3, bottom",
+ "hat up": "ministick up", "hat down": "ministick down", "hat left": "ministick left", "hat right": "ministick right"
+}

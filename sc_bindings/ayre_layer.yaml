@@ -113,8 +113,8 @@
   v_set_salvage_mode: {name: Salvage Mode}
 
 "Lights":
-  v_lights_on: {name: Lights On}
-  v_lights_off: {name: Lights Off, say: ["Lights off", "Go dark"]}
+  v_lights_on: {name: Lights On, say: ["Lights on", "Lamp on"]}
+  v_lights_off: {name: Lights Off, say: ["Lights off", "Lamp off"]}
   v_light_amplification_on: {name: Night Vision On}
   v_light_amplification_off: {name: Night Vision Off}
 

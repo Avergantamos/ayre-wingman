@@ -14,6 +14,9 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+GLADIATOR = {k: v for k, v in json.loads((Path(__file__).parent / "vkb_gladiator_evo.json").read_text()).items()
+             if not k.startswith("_")}
+
 LIVE = Path(r"C:\Program Files\Roberts Space Industries\StarCitizen\LIVE\user\client\0\Profiles\default\actionmaps.xml")
 
 
@@ -42,7 +45,12 @@ def describe(raw, devices):
         if num == "65536":  # placeholder device, never a real binding
             return None
         key = key.replace("button", "button ").replace("hat1_", "hat ")
-        return f"{devices.get(num, 'joystick ' + num)} {key}"
+        name = devices.get(num, "joystick " + num)
+        if "Gladiator" in name:
+            stick = "left stick" if name.endswith(" L") else "right stick"
+            physical = GLADIATOR.get(key.replace("button ", ""))
+            return f"{stick}, {physical}" if physical else f"{stick} {key}"
+        return f"{name} {key}"
     return raw
 
 

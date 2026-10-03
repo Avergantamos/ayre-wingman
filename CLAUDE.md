@@ -48,6 +48,19 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Learn: a plan that worked can be saved by voice as a named routine ("remember this as salvage prep"). Saved routines run instantly with no model call next time.
 - Scope: setup and mode changes (industrial, recon, combat, flight). Not real time piloting or aiming; planning takes seconds.
 
+## Intent commands (planned)
+
+- Weapons: "best weapons to pop this guy", "ballistics", "lasers", "shut him down" (distortion, else the best fallback). Needs the loadout per ship: which groups hold lasers, ballistics, distortion. Learned once per ship by reading the weapons screen with vision ("Ayre, learn my loadout"), stored per ship. She picks the group from the target's state (shields up: energy; shields down: ballistics; disable: distortion). Selects only, never fires.
+- Missiles: "EM missiles", "biggest missile", "best to one-shot him". Rack contents learned the same way; seeker type matched to the target's strongest signature from a scan; size and damage from public ship and item data. "One-shot" is an estimate, she says so.
+
+## Callout modes: fast HUD reader (planned, core building block)
+
+- Fixed screen regions read with local OCR several times a second, no LLM in the loop: altitude, vertical speed, speed, target distance, closure rate.
+- Landing callouts for dark ground with no external cameras: radar altitude and descent rate countdown, drift, "contact". Pairs with lights, night vision, gear down.
+- Parking callouts for the Reclaimer claw and salvage heads: target the wreck, she calls distance and closure until the marked range. Range is calibrated once by voice ("mark this as claw range") instead of guessed.
+- Mining: laser range and charge window callouts.
+- She talks the pilot in; she never flies the ship. Holding the controls is automated piloting (the botting line) and too slow to be safe anyway.
+
 ## Game.log
 
 - Reading `Game.log` is passive (a text file on disk, no contact with the game process), the lowest risk data source we have.

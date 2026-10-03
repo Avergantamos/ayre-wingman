@@ -976,6 +976,9 @@ commands:
 - name: Lights On
   category_id: 7b4d2e70-c42d-4b43-8266-b82b39e6c9b9
   is_system_command: false
+  instant_activation:
+  - Lights on
+  - Lamp on
   force_instant_activation: false
   actions:
   - keyboard:
@@ -985,7 +988,7 @@ commands:
   is_system_command: false
   instant_activation:
   - Lights off
-  - Go dark
+  - Lamp off
   force_instant_activation: false
   actions:
   - keyboard:
