@@ -14,7 +14,9 @@ A personal Star Citizen ship AI with Ayre's voice and character (Armored Core VI
 
 ## Safety rules (do not relax these)
 
-- Every action is triggered by the pilot's voice. Ayre never targets, aims, fires or acts on her own.
+- Ayre never fires weapons or launches missiles, and never aims.
+- State changes (power, modes, doors, flight) happen only when the pilot asks or says yes to her offer. On her own she may only switch screens and read them (boot loadout read, status checks).
+- Piloting assists (below) are pilot-started, short, single-axis, speed-limited, and end the moment the pilot touches a stick or says stop.
 - The model picks from a fixed list of named commands. Only command definitions send keys or clicks, never free text from the model.
 - Irreversible or dangerous actions (self destruct, eject, quantum jump, power down) need a spoken "yes" first.
 
@@ -48,9 +50,28 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Learn: a plan that worked can be saved by voice as a named routine ("remember this as salvage prep"). Saved routines run instantly with no model call next time.
 - Scope: setup and mode changes (industrial, recon, combat, flight). Not real time piloting or aiming; planning takes seconds.
 
+## Flight sequences and partner behavior (planned)
+
+She acts like a good copilot: one short line per phase, wording varied from a pool of pre-written variants with no repeats close together, silent while numbers are not changing. "Quiet" and "talk more" by voice.
+
+- Boot ("flight ready"): power up, switch an MFD to the view that lists weapons and missiles (Configuration or Self Status, confirm on the PC), read and store the loadout for this ship every boot, check shields, power, fuel. Then one ready line that includes the loadout ("Lasers on one, ballistics on two, four Arresters. Ready, Raven.").
+- Takeoff: after liftoff and climbing, she offers gear up.
+- SCM / NAV: confirms the mode change; on NAV she readies quantum.
+- Landing: offers lights and night vision when the view is dark, gear down near the ground, descent assist if asked. On touchdown: "Down. Cut thrusters?" so the ship does not slide away.
+- Power down ("shut her down"): one confirmation, then thrusters, shields, weapons, main power off, and a short sign-off.
+
+## Piloting assists (planned)
+
+Pilot-started, a few seconds long, one axis only, so she never steers:
+- Descent: in coupled mode IFCS already holds the hover and kills drift, so landing only needs the descent rate. She pulses strafe down from the radar altitude reading, slowing toward the ground, and stops at contact.
+- Close to range: the pilot points the ship at a targeted wreck; she moves fore and aft only, using target distance and closure, until the marked claw or salvage range, then brakes.
+- Guards: speed limiter set low first; abort and brake if a reading is lost or stale; any physical stick input or "stop" hands control back instantly; never near other players' ships.
+- Needs: the fast HUD reader, and Ayre's vJoy device so her strafe inputs live on their own device.
+
 ## Intent commands (planned)
 
-- Weapons: "best weapons to pop this guy", "ballistics", "lasers", "shut him down" (distortion, else the best fallback). Needs the loadout per ship: which groups hold lasers, ballistics, distortion. Learned once per ship by reading the weapons screen with vision ("Ayre, learn my loadout"), stored per ship. She picks the group from the target's state (shields up: energy; shields down: ballistics; disable: distortion). Selects only, never fires.
+- Loadout comes from the boot read (no separate command needed).
+- Weapons: "best weapons to pop this guy", "ballistics", "lasers", "shut him down" (distortion, else the best fallback). Needs the loadout per ship: which groups hold lasers, ballistics, distortion. Read at every boot. She picks the group from the target's state (shields up: energy; shields down: ballistics; disable: distortion). Selects only, never fires.
 - Missiles: "EM missiles", "biggest missile", "best to one-shot him". Rack contents learned the same way; seeker type matched to the target's strongest signature from a scan; size and damage from public ship and item data. "One-shot" is an estimate, she says so.
 
 ## Callout modes: fast HUD reader (planned, core building block)
@@ -59,7 +80,7 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Landing callouts for dark ground with no external cameras: radar altitude and descent rate countdown, drift, "contact". Pairs with lights, night vision, gear down.
 - Parking callouts for the Reclaimer claw and salvage heads: target the wreck, she calls distance and closure until the marked range. Range is calibrated once by voice ("mark this as claw range") instead of guessed.
 - Mining: laser range and charge window callouts.
-- She talks the pilot in; she never flies the ship. Holding the controls is automated piloting (the botting line) and too slow to be safe anyway.
+- Callouts by default; the descent and close-to-range assists above use the same readings.
 
 ## Game.log
 
