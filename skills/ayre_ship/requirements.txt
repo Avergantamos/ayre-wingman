@@ -1,0 +1,4 @@
+# Windows only: per-app volume for music ducking. Installed into dependencies/ on the PC.
+pycaw
+comtypes
+psutil

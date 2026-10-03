@@ -1,0 +1,45 @@
+module: skills.ayre_ship.main
+name: AyreShip
+display_name: Ayre's Ship
+author: ayre-wingman
+tags:
+  - Utility
+auto_activate: true
+discoverable_by_default: false
+platforms:
+  - windows
+  - darwin
+description:
+  en: Ayre's ship systems. Confirmation lock for quantum and power-off actions, Star Citizen Game.log events, and music ducking while she speaks.
+discovery_keywords:
+  - quantum
+  - power off
+  - shields off
+  - thrusters off
+  - game log
+custom_properties:
+  - id: game_log_path
+    name: Star Citizen Game.log
+    hint: Full path to Game.log. Missing files are fine; she waits for it.
+    property_type: string
+    required: true
+    value: C:\Program Files\Roberts Space Industries\StarCitizen\LIVE\Game.log
+  - id: music_processes
+    name: Music apps to duck
+    hint: Process names, comma separated.
+    property_type: string
+    required: true
+    value: Spotify.exe
+  - id: duck_level
+    name: Music level while she speaks (%)
+    hint: Percent of the app's own volume. 100 turns ducking off.
+    property_type: slider
+    required: true
+    options:
+      - label: "min"
+        value: 0
+      - label: "max"
+        value: 100
+      - label: "step"
+        value: 5
+    value: 30

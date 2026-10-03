@@ -1,0 +1,50 @@
+# Game.log events Ayre reacts to. Edit freely; the skill reloads this file within 10 s.
+#
+# Each entry:
+#   name:       short id, shown to the model in her prompt
+#   regex:      Python regex searched in each new log line. Named groups like (?P<location>...)
+#               can be used in the lines below as {location}.
+#   say:        optional list of short lines, one picked at random. She never says more than
+#               one proactive line per 10 s.
+#   music:      optional mood hint: combat, calm or null
+#   cooldown_s: ignore repeats of this event for this many seconds
+# First matching entry wins for a line.
+#
+# EVERY PATTERN BELOW IS UNVERIFIED. CIG has trimmed the public log (actor death and vehicle
+# destruction were reported removed in 2025). Check the daily shape samples written to
+# generated_files/AyreShip/log_shapes/ on the PC and rewrite these against real lines.
+
+# UNVERIFIED: the first line of a fresh Game.log
+- name: session_start
+  regex: 'Log started on'
+  say: []
+  music: calm
+  cooldown_s: 60
+
+# UNVERIFIED: guessed wording for quantum spool / travel start
+- name: quantum_start
+  regex: '(?i)quantum ?drive.*(spool|start|travel|engag)'
+  say: ["Quantum.", "Spooling up, Raven.", "Going quantum."]
+  music: calm
+  cooldown_s: 30
+
+# UNVERIFIED: guessed wording for quantum arrival
+- name: quantum_end
+  regex: '(?i)quantum ?drive.*(arriv|exit|end|complete)'
+  say: ["Out of quantum.", "We've arrived, Raven.", "Drop complete."]
+  music: null
+  cooldown_s: 30
+
+# UNVERIFIED: older kill trackers read the location from inventory requests
+- name: location_change
+  regex: '<RequestLocationInventory>.*Location\[(?P<location>[^\]]+)\]'
+  say: []
+  music: null
+  cooldown_s: 60
+
+# UNVERIFIED and probably gone from current builds
+- name: actor_death
+  regex: "<Actor Death>.*'(?P<victim>[^']+)'.*killed by '(?P<killer>[^']+)'"
+  say: ["Kill confirmed.", "Contact down."]
+  music: combat
+  cooldown_s: 5
