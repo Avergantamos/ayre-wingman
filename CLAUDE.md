@@ -30,6 +30,13 @@ A personal Star Citizen ship AI with Ayre's voice and character (Armored Core VI
    - Calm, quantum, landing: picked from the OST later.
 7. Routines (dynamic sequences), see below.
 
+## Ayre's layer (her own keys)
+
+- `sc_bindings/ayre_layer.yaml` lists what she controls: attacker/hostile cycling, countermeasures, quantum and NAV/SCM, weapon groups, interdiction, missiles, explicit power on/off and engineering allocation, MFD screens, scanning, flight systems, lights, doors.
+- The pilot keeps toggles on the sticks. Ayre gets explicit on/off and set actions only, so she never has to guess a state.
+- `python sc_bindings/build_layer.py` gives each action a spare right-hand combo (rctrl/ralt + numpad, F-keys, digits, letters), stable in `ayre_keys.json`, reuses the pilot's own keyboard key where one exists, merges them into a copy of the exported profile (`bindings/layout_<PROFILE>_AYRE_exported.xml`, imported in game) and regenerates her commands in the template. It drops any upstream template command whose key collides with the pilot's binds.
+- Re-run it after any rebind. Never fires weapons or launches missiles; countermeasures, interdiction and target selection are fine.
+
 ## Routines: the model plans, the executor acts
 
 The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model builds a plan, the executor runs it, Ayre reports the outcome.

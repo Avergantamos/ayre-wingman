@@ -1,0 +1,123 @@
+# Ayre's layer: Star Citizen actions she controls by voice.
+# build_layer.py gives each one a spare keyboard combo (kept stable in ayre_keys.json),
+# merges them into the pilot's exported profile, and writes her Wingman commands.
+# If the pilot already has a keyboard key on an action, she uses that key instead.
+#
+# name: the command name the model sees. say: instant phrases (skip the model, fastest).
+# risky: no instant phrases, and her context tells her to get a spoken yes first.
+# Toggles stay with the pilot on the sticks; Ayre gets explicit on/off and set actions.
+
+"Vehicles - Target Cycling":
+  v_target_cycle_attacker_fwd: {name: Next Attacker, say: ["Next attacker"], context: For "who is shooting me" press this, then read the target panel with vision and report ship, pilot, distance, shields and hull}
+  v_target_cycle_attacker_back: {name: Previous Attacker}
+  v_target_cycle_attacker_reset: {name: Reset Attacker Cycle}
+  v_target_cycle_hostile_fwd: {name: Next Hostile, say: ["Next hostile"]}
+  v_target_cycle_hostile_back: {name: Previous Hostile}
+  v_target_cycle_hostile_reset: {name: Reset Hostile Cycle}
+  v_target_cycle_friendly_fwd: {name: Next Friendly}
+  v_target_cycle_subitem_fwd: {name: Next Subtarget, context: Cycles the selected ship's components (engines, shields, weapons)}
+  v_target_cycle_subitem_reset: {name: Reset Subtarget}
+  v_target_pin_selected: {name: Pin Target}
+  v_target_remove_all_pins: {name: Clear All Pins}
+
+"Vehicles - Shields and Countermeasures":
+  v_weapon_countermeasure_decoy_launch: {name: Launch Flares, say: ["Flares"]}
+  v_weapon_countermeasure_noise_launch: {name: Launch Noise, say: ["Noise", "Chaff"]}
+  v_weapon_countermeasure_decoy_launch_panic: {name: Dump Flares, say: ["Dump flares"]}
+  v_weapon_countermeasure_decoy_burst_increase: {name: Bigger Flare Bursts}
+  v_weapon_countermeasure_decoy_burst_decrease: {name: Smaller Flare Bursts}
+
+"Flight - Quantum Travel":
+  v_set_quantum_mode: {name: Quantum Mode}
+  v_toggle_qdrive_engagement: {name: Engage Quantum Drive, risky: true}
+  v_master_mode_set_nav: {name: NAV Mode}
+  v_master_mode_set_scm: {name: SCM Mode, say: ["SCM mode", "Combat mode"]}
+
+"Vehicles - Weapons":
+  v_set_guns_mode: {name: Guns Mode}
+  v_weapon_preset_guns0: {name: Weapon Group 1, context: Selects group 1 without firing}
+  v_weapon_preset_guns1: {name: Weapon Group 2, context: Selects group 2 without firing}
+  v_weapon_preset_guns2: {name: Weapon Group 3, context: Selects group 3 without firing}
+  v_weapon_preset_guns3: {name: Weapon Group 4, context: Selects group 4 without firing}
+  v_weapon_gimbals_state_set_locked: {name: Lock Gimbals}
+  v_weapon_gimbals_state_set_unlocked: {name: Unlock Gimbals}
+  v_weapon_staggered_fire_on: {name: Staggered Fire On}
+  v_weapon_staggered_fire_off: {name: Staggered Fire Off}
+  v_weapon_convergence_distance_set_default: {name: Reset Convergence}
+  v_weapon_preset_qid_jammer: {name: Quantum Jammer, context: Quantum interdiction jammer}
+  v_weapon_preset_qid_pulse: {name: Quantum Pulse, context: Quantum interdiction pulse, pulls ships out of quantum}
+
+"Vehicles - Missiles":
+  v_set_missile_mode: {name: Missile Mode, say: ["Missile mode"]}
+  v_weapon_cycle_missile_fwd: {name: Next Missile Type}
+  v_weapon_cycle_missile_back: {name: Previous Missile Type}
+  v_weapon_increase_max_missiles: {name: More Missiles Per Volley}
+  v_weapon_decrease_max_missiles: {name: Fewer Missiles Per Volley}
+
+"Flight - Power":
+  v_power_set_on: {name: Main Power On}
+  v_power_set_off: {name: Main Power Off, risky: true}
+  v_power_set_shields_on: {name: Shields On}
+  v_power_set_shields_off: {name: Shields Off, risky: true}
+  v_power_set_thrusters_on: {name: Thrusters On}
+  v_power_set_thrusters_off: {name: Thrusters Off, risky: true}
+  v_power_set_weapons_on: {name: Weapons Power On}
+  v_power_set_weapons_off: {name: Weapons Power Off}
+  v_engineering_assignment_engine_max: {name: Max Power to Engines}
+  v_engineering_assignment_engine_min: {name: Min Power to Engines}
+  v_engineering_assignment_engine_increase: {name: More Power to Engines}
+  v_engineering_assignment_engine_decrease: {name: Less Power to Engines}
+  v_engineering_assignment_shields_max: {name: Max Power to Shields}
+  v_engineering_assignment_shields_min: {name: Min Power to Shields}
+  v_engineering_assignment_shields_increase: {name: More Power to Shields}
+  v_engineering_assignment_shields_decrease: {name: Less Power to Shields}
+  v_engineering_assignment_weapons_max: {name: Max Power to Weapons}
+  v_engineering_assignment_weapons_min: {name: Min Power to Weapons}
+  v_engineering_assignment_weapons_increase: {name: More Power to Weapons}
+  v_engineering_assignment_weapons_decrease: {name: Less Power to Weapons}
+  v_engineering_assignment_reset: {name: Balance Power}
+  v_cooler_throttle_up: {name: Coolers Up}
+  v_cooler_throttle_down: {name: Coolers Down}
+
+"Vehicles - Multi Function Displays (MFDs)":
+  v_mfd_select_view_scanning_short: {name: Show Scan Screen}
+  v_mfd_select_view_target_status_short: {name: Show Target Status}
+  v_mfd_select_view_self_status_short: {name: Show Ship Status}
+  v_mfd_select_view_resource_network_short: {name: Show Power Screen}
+  v_mfd_select_view_diagnostics_short: {name: Show Diagnostics}
+  v_mfd_select_view_comms_short: {name: Show Comms}
+
+"Vehicles - Scanning":
+  v_set_scan_mode: {name: Scan Mode, say: ["Scan mode"]}
+  v_invoke_ping: {name: Ping, say: ["Ping"]}
+  v_scanning_trigger_scan: {name: Scan Target, context: Only works in scan mode}
+  v_inc_scan_focus_level: {name: Narrow Scan Focus}
+  v_dec_scan_focus_level: {name: Widen Scan Focus}
+
+"Flight - Movement":
+  v_flightready: {name: Flight Ready, say: ["Flight ready", "Wake her up"]}
+  v_ifcs_vector_decoupling_on: {name: Decoupled On}
+  v_ifcs_vector_decoupling_off: {name: Decoupled Off}
+  v_ifcs_gsafe_on: {name: G-Safe On}
+  v_ifcs_gsafe_off: {name: G-Safe Off}
+  v_ifcs_proximity_assist_on: {name: Proximity Assist On}
+  v_ifcs_proximity_assist_off: {name: Proximity Assist Off}
+  v_vtol_on: {name: VTOL On}
+  v_vtol_off: {name: VTOL Off}
+  v_deploy_landing_system: {name: Gear Down, say: ["Gear down"]}
+  v_retract_landing_system: {name: Gear Up, say: ["Gear up"]}
+  v_atc_request: {name: Request Landing, say: ["Request landing", "Call the tower"]}
+  v_toggle_docking_request: {name: Request Docking}
+  v_set_flight_mode: {name: Flight Mode}
+  v_set_mining_mode: {name: Mining Mode}
+  v_set_salvage_mode: {name: Salvage Mode}
+
+"Lights":
+  v_lights_on: {name: Lights On}
+  v_lights_off: {name: Lights Off, say: ["Lights off", "Go dark"]}
+  v_light_amplification_on: {name: Night Vision On}
+  v_light_amplification_off: {name: Night Vision Off}
+
+"Vehicles - Cockpit":
+  v_open_all_doors: {name: Open and Unlock All Doors, say: ["Open the doors"], context: One key opens and unlocks every door and port}
+  v_close_all_doors: {name: Close and Lock All Doors, say: ["Close the doors", "Lock it down"], context: One key closes and locks every door and port}
