@@ -37,6 +37,8 @@ A personal Star Citizen ship AI with Ayre's voice and character (Armored Core VI
 - `sc_bindings/ayre_layer.yaml` lists what she controls: attacker/hostile cycling, countermeasures, quantum and NAV/SCM, weapon groups, interdiction, missiles, explicit power on/off and engineering allocation, MFD screens, scanning, flight systems, lights, doors.
 - The pilot keeps toggles on the sticks. Ayre gets explicit on/off and set actions only, so she never has to guess a state.
 - `python sc_bindings/build_layer.py` gives each action a spare right-hand combo (rctrl/ralt + numpad, F-keys, digits, letters), stable in `ayre_keys.json`, reuses the pilot's own keyboard key where one exists, merges them into a copy of the exported profile (`bindings/layout_<PROFILE>_AYRE_exported.xml`, imported in game) and regenerates her commands in the template. It drops any upstream template command whose key collides with the pilot's binds.
+- Keyboard only, by the pilot's choice: no vJoy for Ayre (joysticks are grouped in game and an extra one would disturb his sticks). Her combos replace Star Citizen's keyboard default only on her own actions; the pilot flies on sticks. Assist strafing presses the keyboard defaults (W, S, A, D, Space, his C) without rebinding them.
+- `assist_only` actions (screen navigation, strafe, pitch, yaw) are bound for her code but never exposed to the model as voice commands. `bindings/ayre_actions.json` maps every action to the key she presses.
 - Re-run it after any rebind. Never fires weapons or launches missiles; countermeasures, interdiction and target selection are fine.
 
 ## Routines: the model plans, the executor acts
@@ -66,11 +68,13 @@ Pilot-started, a few seconds long, one axis only, so she never steers:
 - Descent: in coupled mode IFCS already holds the hover and kills drift, so landing only needs the descent rate. She pulses strafe down from the radar altitude reading, slowing toward the ground, and stops at contact.
 - Close to range: the pilot points the ship at a targeted wreck; she moves fore and aft only, using target distance and closure, until the marked claw or salvage range, then brakes.
 - Guards: speed limiter set low first; abort and brake if a reading is lost or stale; any physical stick input or "stop" hands control back instantly; never near other players' ships.
-- Needs: the fast HUD reader, and Ayre's vJoy device so her strafe inputs live on their own device.
+- Steering: allowed when needed (yaw and pitch to face a wreck, lateral strafe to line up), only with weapons powered off for the whole assist and only toward derelicts (scan shows no owner) or the ground. Weapons off is what makes it impossible to use as an aim assist.
+- Needs: the fast HUD reader (target marker position on screen, distance, altitude, speeds).
 
 ## Intent commands (planned)
 
 - Loadout comes from the boot read (no separate command needed).
+- Weapon groups: the first group (guns0) always holds every weapon and is never changed. At boot Ayre arranges the other groups by type (for example lasers, ballistics, distortion) through the MFD weapons screen, using the MFD navigation keys and vision to check each step, then names them in the ready line.
 - Weapons: "best weapons to pop this guy", "ballistics", "lasers", "shut him down" (distortion, else the best fallback). Needs the loadout per ship: which groups hold lasers, ballistics, distortion. Read at every boot. She picks the group from the target's state (shields up: energy; shields down: ballistics; disable: distortion). Selects only, never fires.
 - Missiles: "EM missiles", "biggest missile", "best to one-shot him". Rack contents learned the same way; seeker type matched to the target's strongest signature from a scan; size and damage from public ship and item data. "One-shot" is an estimate, she says so.
 

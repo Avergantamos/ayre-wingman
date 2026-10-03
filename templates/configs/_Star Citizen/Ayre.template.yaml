@@ -237,13 +237,6 @@ commands:
   actions:
   - keyboard:
       hotkey: e
-- name: Change Turret Position
-  category_id: 2e6724e6-3c0e-46b4-8fa8-3ca421817a2b
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: s
 - name: Cycle Weapon Aim Mode
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
@@ -485,8 +478,8 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+f1
-- name: Weapon Group 1
-  additional_context: Selects group 1 without firing
+- name: All Weapons
+  additional_context: First group always holds every weapon. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -494,7 +487,7 @@ commands:
   - keyboard:
       hotkey: right ctrl+f2
 - name: Weapon Group 2
-  additional_context: Selects group 2 without firing
+  additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -502,7 +495,7 @@ commands:
   - keyboard:
       hotkey: right ctrl+f3
 - name: Weapon Group 3
-  additional_context: Selects group 3 without firing
+  additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -510,7 +503,7 @@ commands:
   - keyboard:
       hotkey: right ctrl+f4
 - name: Weapon Group 4
-  additional_context: Selects group 4 without firing
+  additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -811,6 +804,13 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+x
+- name: Show Configuration
+  category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right alt+x
 - name: Scan Mode
   category_id: 971fcc06-4bb7-4cd7-b400-fefff52895de
   is_system_command: false

@@ -6,6 +6,8 @@
 # name: the command name the model sees. say: instant phrases (skip the model, fastest).
 # risky: no instant phrases, and her context tells her to get a spoken yes first.
 # Toggles stay with the pilot on the sticks; Ayre gets explicit on/off and set actions.
+# assist_only: bound in the profile for her code (assists, screen navigation) but not
+# exposed as a voice command. key: press this existing key instead of binding a new one.
 
 "Vehicles - Target Cycling":
   v_target_cycle_attacker_fwd: {name: Next Attacker, say: ["Next attacker"], context: For "who is shooting me" press this, then read the target panel with vision and report ship, pilot, distance, shields and hull}
@@ -35,10 +37,10 @@
 
 "Vehicles - Weapons":
   v_set_guns_mode: {name: Guns Mode}
-  v_weapon_preset_guns0: {name: Weapon Group 1, context: Selects group 1 without firing}
-  v_weapon_preset_guns1: {name: Weapon Group 2, context: Selects group 2 without firing}
-  v_weapon_preset_guns2: {name: Weapon Group 3, context: Selects group 3 without firing}
-  v_weapon_preset_guns3: {name: Weapon Group 4, context: Selects group 4 without firing}
+  v_weapon_preset_guns0: {name: All Weapons, context: First group always holds every weapon. Selects without firing}
+  v_weapon_preset_guns1: {name: Weapon Group 2, context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing}
+  v_weapon_preset_guns2: {name: Weapon Group 3, context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing}
+  v_weapon_preset_guns3: {name: Weapon Group 4, context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing}
   v_weapon_gimbals_state_set_locked: {name: Lock Gimbals}
   v_weapon_gimbals_state_set_unlocked: {name: Unlock Gimbals}
   v_weapon_staggered_fire_on: {name: Staggered Fire On}
@@ -86,6 +88,15 @@
   v_mfd_select_view_resource_network_short: {name: Show Power Screen}
   v_mfd_select_view_diagnostics_short: {name: Show Diagnostics}
   v_mfd_select_view_comms_short: {name: Show Comms}
+  v_mfd_select_view_configuration_short: {name: Show Configuration}
+  # screen navigation for her own use (reading and arranging weapon groups)
+  v_mfd_movement_up_short: {name: MFD Up, assist_only: true}
+  v_mfd_movement_down_short: {name: MFD Down, assist_only: true}
+  v_mfd_movement_left_short: {name: MFD Left, assist_only: true}
+  v_mfd_movement_right_short: {name: MFD Right, assist_only: true}
+  v_mfd_interact_cycle_forwards_short: {name: MFD Next Item, assist_only: true}
+  v_mfd_interact_cycle_backwards_short: {name: MFD Previous Item, assist_only: true}
+  v_mfd_soft_select_mfd_primary_short: {name: MFD Select, assist_only: true}
 
 "Vehicles - Scanning":
   v_set_scan_mode: {name: Scan Mode, say: ["Scan mode"]}
@@ -121,3 +132,17 @@
 "Vehicles - Cockpit":
   v_open_all_doors: {name: Open and Unlock All Doors, say: ["Open the doors"], context: One key opens and unlocks every door and port}
   v_close_all_doors: {name: Close and Lock All Doors, say: ["Close the doors", "Lock it down"], context: One key closes and locks every door and port}
+
+# Piloting assists only (her code drives these, never the model). Strafe uses the
+# keyboard defaults so the pilot's own keys keep working; confirm them on the PC.
+"Assists":
+  v_strafe_forward: {name: Strafe Forward, assist_only: true, key: w}
+  v_strafe_back: {name: Strafe Back, assist_only: true, key: s}
+  v_strafe_left: {name: Strafe Left, assist_only: true, key: a}
+  v_strafe_right: {name: Strafe Right, assist_only: true, key: d}
+  v_strafe_up: {name: Strafe Up, assist_only: true, key: space}
+  v_strafe_down: {name: Strafe Down, assist_only: true}
+  v_pitch_up: {name: Pitch Up, assist_only: true}
+  v_pitch_down: {name: Pitch Down, assist_only: true}
+  v_yaw_left: {name: Yaw Left, assist_only: true}
+  v_yaw_right: {name: Yaw Right, assist_only: true}

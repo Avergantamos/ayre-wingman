@@ -19,12 +19,18 @@ ROOT = Path(__file__).resolve().parent.parent
 HERE = ROOT / "sc_bindings"
 TEMPLATE = ROOT / "templates/configs/_Star Citizen/Ayre.template.yaml"
 
+PUNCT = {"comma": ",", "period": ".", "slash": "/", "semicolon": ";", "apostrophe": "'",
+         "lbracket": "[", "rbracket": "]", "minus": "-", "backslash": "\\"}
+
 # Spare combos, in the order they get handed out. Right-hand modifiers only: Star
 # Citizen's defaults and the pilot's own binds live on the left-hand ones.
 POOL = ([f"rctrl+np_{n}" for n in range(10)] + [f"ralt+np_{n}" for n in range(10)]
         + [f"rctrl+f{n}" for n in range(1, 13)] + [f"rctrl+{n}" for n in "1234567890"]
         + [f"rctrl+{c}" for c in "abdefghijklmnopqrstuwxyz"]  # no ctrl+c/ctrl+v
-        + [f"ralt+{c}" for c in "abcdefghijklmnopqrstuvwxyz"])
+        + [f"ralt+{c}" for c in "abcdefghijklmnopqrstuvwxyz"]
+        + [f"ralt+{n}" for n in "1234567890"]
+        + [f"ralt+f{n}" for n in (1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12)]  # never alt+f4
+        + [f"{m}+{p}" for m in ("rctrl", "ralt") for p in PUNCT])
 
 # Template commands Ayre's layer replaces (toggles and duplicates of the same action).
 REPLACED = {"Cycle Attacker", "Cycle Hostile", "Launch Countermeasure Decoy", "Launch Countermeasure Noise",
@@ -45,7 +51,7 @@ def wingman_key(sc):
         return special[sc]
     names = {"rctrl": "right ctrl", "ralt": "right alt", "lctrl": "ctrl", "lalt": "alt",
              "lshift": "shift", "rshift": "right shift"}
-    parts = [names.get(p, f"num {p[3:]}" if p.startswith("np_") else p) for p in sc.split("+")]
+    parts = [names.get(p) or PUNCT.get(p) or (f"num {p[3:]}" if p.startswith("np_") else p) for p in sc.split("+")]
     return {"hotkey": "+".join(parts)}
 
 
@@ -81,7 +87,9 @@ def main(bdir):
                 problems.append(f"{action}: not in your bindings files, skipped")
                 continue
             own = [k for k in sorted(taken) if action in taken[k]]
-            if own:
+            if spec.get("key"):
+                key, source = spec["key"], "default"
+            elif own:
                 key, source = own[0], "yours"
                 keys.pop(action, None)
             else:
@@ -122,6 +130,8 @@ def main(bdir):
     tpl = yaml.safe_load(TEMPLATE.read_text())
     cat_ids = {c["name"]: c["id"] for c in tpl["command_categories"]}
     ours = {spec["name"] for _, _, spec, _, _ in commands}
+    (bdir / "ayre_actions.json").write_text(json.dumps(
+        {action: wingman_key(key) for _, action, _, key, _ in commands}, indent=1, sort_keys=True))
     # keep a template command only if none of its keys hit the pilot's keys or Ayre's
     used = {wingman_key(k)["hotkey"] for k in taken} | {wingman_key(k)["hotkey"] for _, _, _, k, _ in commands}
     kept = []
@@ -135,6 +145,8 @@ def main(bdir):
         kept.append(c)
     tpl["commands"] = kept
     for category, action, spec, key, _ in commands:
+        if spec.get("assist_only"):
+            continue
         context = spec.get("context", "")
         if spec.get("risky"):
             context = (context + ". " if context else "") + "Dangerous: ask Raven to confirm and wait for a yes first."
