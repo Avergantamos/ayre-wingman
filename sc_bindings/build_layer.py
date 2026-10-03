@@ -155,9 +155,11 @@ def main(bdir):
     tpl = yaml.safe_load(TEMPLATE.read_text())
     cat_ids = {c["name"]: c["id"] for c in tpl["command_categories"]}
     ours = {spec["name"] for _, _, spec, _, _ in commands}
-    (bdir / "ayre_actions.json").write_text(json.dumps(
+    actions_json = json.dumps(
         {action: wingman_actions(key, spec.get("hold_modifier")) for _, action, spec, key, _ in commands},
-        indent=1, sort_keys=True))
+        indent=1, sort_keys=True)
+    (bdir / "ayre_actions.json").write_text(actions_json)
+    (ROOT / "skills/ayre_eyes/ayre_actions.json").write_text(actions_json)  # her skill presses from this
     # keep a template command only if none of its keys hit the pilot's keys or Ayre's
     used = {wingman_key(k)["hotkey"] for k in set(taken) | {c[3] for c in commands} if not k.startswith("mouse")}
     kept = []
