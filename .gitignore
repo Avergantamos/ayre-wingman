@@ -183,3 +183,4 @@ pocket-tts-voices/
 
 # ayre-wingman: voice clips, models, game audio (never commit)
 voice/
+bindings/

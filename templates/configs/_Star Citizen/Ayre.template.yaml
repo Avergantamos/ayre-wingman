@@ -454,6 +454,34 @@ commands:
     actions:
       - keyboard:
           hotkey: p
+  - name: Open and Unlock All Doors
+    additional_context: Opens and unlocks every door and port on the ship (one key does both)
+    category_id: 01120b29-2487-422e-82ff-6327eacbd7fe
+    is_system_command: false
+    instant_activation:
+      - Open the doors
+      - Open all doors
+    force_instant_activation: false
+    actions:
+      # numpad enter: scan code 28 + extended flag. Plain "enter" is bound to chat.
+      - keyboard:
+          hotkey: enter
+          hotkey_codes:
+            - 28
+          hotkey_extended: true
+  - name: Close and Lock All Doors
+    additional_context: Closes and locks every door and port on the ship (one key does both)
+    category_id: 01120b29-2487-422e-82ff-6327eacbd7fe
+    is_system_command: false
+    instant_activation:
+      - Close the doors
+      - Lock it down
+    force_instant_activation: false
+    actions:
+      - keyboard:
+          hotkey: "="
+          hotkey_codes:
+            - 13
   - name: Toggle Headlights
     category_id: 7b4d2e70-c42d-4b43-8266-b82b39e6c9b9
     is_system_command: false
