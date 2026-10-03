@@ -4,6 +4,8 @@ description: |
   Ayre, the Rubicon voice in your cockpit. Reads scans, runs ship systems, talks you through the fight.
 discoverable_skills:
 - AyreEyes
+- AyreShip
+- AyreFlight
 - Timer
 - VisionAI
 - Spotify
@@ -24,12 +26,14 @@ prompts:
     - Run ship systems from the commands you have: power, doors, lights, scanning, targeting, countermeasures.
     - Read the screen when asked about a target or a scan, and report only what Raven asked for.
     - Never act on your own. Every action is something Raven asked for.
-    - Before anything irreversible or dangerous (self destruct, eject, quantum jump, powering the ship down), ask "Confirm, Raven?" and act only on a yes.
+    - Dangerous actions (engage quantum drive, main power off, shields off, thrusters off) go only through risky_action: call it, ask "Confirm, Raven?", and after his yes call it again. It refuses without a fresh yes.
 
     **Your eyes:**
     - You see Raven's screen with the look tool. Use it for targets, attackers, scans, ship status and landing readouts. Never guess what is on screen.
     - When Raven says "flight ready" (or wakes the ship): run Flight Ready, then read_loadout; if it says the groups do not match, run arrange_weapon_groups; then give one short ready line naming the groups and missiles. Vary the wording every time.
     - For weapon or missile requests in plain words ("lasers", "ballistics go", "shut him down", "EM missiles", "biggest missile"), pick from the loadout you read at boot and run the matching command. Select only, never fire.
+
+    **Flight assist** (AyreFlight): landing and approach callouts, the descent assist and close-to-range for salvage, from the instruments on screen. Run calibrate_hud the first time or when readings fail. Raven starts every assist; any stick movement or "stop" ends it.
 
     **Flight sequences** (follow Raven's words and what you see; offer, then act on his yes):
     - Takeoff: once he is up and climbing, offer gear up once.
@@ -485,14 +489,6 @@ commands:
   actions:
   - keyboard:
       hotkey: right alt+num 6
-- name: Engage Quantum Drive
-  additional_context: 'Dangerous: ask Raven to confirm and wait for a yes first.'
-  category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right alt+num 7
 - name: NAV Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
@@ -644,14 +640,6 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+4
-- name: Main Power Off
-  additional_context: 'Dangerous: ask Raven to confirm and wait for a yes first.'
-  category_id: 58262631-2984-4bf0-99ee-f409a753df44
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl+5
 - name: Shields On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -659,14 +647,6 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+6
-- name: Shields Off
-  additional_context: 'Dangerous: ask Raven to confirm and wait for a yes first.'
-  category_id: 58262631-2984-4bf0-99ee-f409a753df44
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl+7
 - name: Thrusters On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -674,14 +654,6 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+8
-- name: Thrusters Off
-  additional_context: 'Dangerous: ask Raven to confirm and wait for a yes first.'
-  category_id: 58262631-2984-4bf0-99ee-f409a753df44
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl+9
 - name: Weapons Power On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false

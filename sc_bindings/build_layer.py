@@ -80,7 +80,12 @@ def kb_binds(action_el, mouse=False):
 
 def main(bdir):
     live = ET.parse(bdir / "actionmaps.xml").getroot()
-    export_path = next(p for p in sorted(bdir.glob("layout_*_exported.xml")) if "_AYRE_" not in p.name)
+    layouts = [p for p in bdir.glob("layout_*_exported.xml") if "_AYRE_" not in p.name]
+    export_path = max(layouts, key=lambda p: p.stat().st_mtime)
+    if (bdir / "attributes.xml").exists():  # the profile the game actually uses (Preset0)
+        attrs = ET.parse(bdir / "attributes.xml").getroot()
+        preset = next((a.get("value") for a in attrs.iter("Attr") if a.get("name") == "Preset0"), "")
+        export_path = next((p for p in layouts if p.name.lower() == Path(preset).name.lower()), export_path)
     export = ET.parse(export_path)
     layer = yaml.safe_load((HERE / "ayre_layer.yaml").read_text())
     keys_file = HERE / "ayre_keys.json"
@@ -159,7 +164,9 @@ def main(bdir):
         {action: wingman_actions(key, spec.get("hold_modifier")) for _, action, spec, key, _ in commands},
         indent=1, sort_keys=True)
     (bdir / "ayre_actions.json").write_text(actions_json)
-    (ROOT / "skills/ayre_eyes/ayre_actions.json").write_text(actions_json)  # her skill presses from this
+    for skill in ("ayre_eyes", "ayre_flight", "ayre_ship"):  # her skills press from this
+        if (ROOT / "skills" / skill).is_dir():
+            (ROOT / "skills" / skill / "ayre_actions.json").write_text(actions_json)
     # keep a template command only if none of its keys hit the pilot's keys or Ayre's
     used = {wingman_key(k)["hotkey"] for k in set(taken) | {c[3] for c in commands} if not k.startswith("mouse")}
     kept = []
@@ -173,8 +180,8 @@ def main(bdir):
         kept.append(c)
     tpl["commands"] = kept
     for category, action, spec, key, _ in commands:
-        if spec.get("assist_only"):
-            continue
+        if spec.get("assist_only") or spec.get("risky"):
+            continue  # risky ones are pressed only through AyreShip's risky_action lock
         context = spec.get("context", "")
         if spec.get("risky"):
             context = (context + ". " if context else "") + "Dangerous: ask Raven to confirm and wait for a yes first."
@@ -201,7 +208,7 @@ def main(bdir):
     for category, action, spec, _, _ in commands:
         if spec.get("say") and not spec.get("risky"):
             sheet.append(f"- **{' / '.join(spec['say'])}**: {spec['name']}")
-    sheet += ["", "Asks you first: " + ", ".join(spec["name"] for _, _, spec, _, _ in commands if spec.get("risky")) + "."]
+    sheet += ["", "Asks you first, and only presses after your yes (locked in code): " + ", ".join(spec["name"] for _, _, spec, _, _ in commands if spec.get("risky")) + "."]
     (ROOT / "AYRE_PHRASES.md").write_text("\n".join(sheet) + "\n")
 
     print(f"{len(commands)} commands ({sum(c[4] == 'yours' for c in commands)} on your keys), "
