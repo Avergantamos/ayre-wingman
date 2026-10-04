@@ -55,6 +55,7 @@ def _sibling(name: str):
 
 
 core = _sibling("flight_core")
+voice = _sibling("ayre_voice")
 readers = _sibling("flight_readers")
 
 ACTIONS = json.loads((HERE / "ayre_actions.json").read_text())
@@ -116,8 +117,20 @@ class AyreFlight(Skill):
             self.retrieve_custom_property_value(prop, errors)
         return errors
 
+    async def prepare(self) -> None:
+        await super().prepare()
+        self._gate = voice.SpeechGate.get(self.wingman, asyncio.get_running_loop())
+        self.wingman.audio_player.playback_events.subscribe("finished", self._spoken)
+
+    async def _spoken(self, _wingman_name=None) -> None:
+        self._gate.playback_finished()
+
     async def unload(self) -> None:
         self._halt()
+        try:
+            self.wingman.audio_player.playback_events.unsubscribe("finished", self._spoken)
+        except (ValueError, AttributeError):
+            pass
         await super().unload()
 
     # ------------------------------------------------------------ config and storage
@@ -231,8 +244,13 @@ class AyreFlight(Skill):
         await self.wingman.execute_action(CommandConfig.model_validate({"name": action, "actions": steps}))
         return True
 
-    def _say(self, line: str) -> None:
-        self.threaded_execution(self.wingman.play_to_user, line, True)
+    def _say(self, line: str, priority: int = voice.CALLOUT) -> None:
+        """Everything goes through the shared gate: no backlog, no talking over herself."""
+        gate = getattr(self, "_gate", None)
+        if gate:
+            gate.say(line, priority)
+        else:
+            self.threaded_execution(self.wingman.play_to_user, line, True)
 
     # ------------------------------------------------------------ sticks
 
@@ -287,7 +305,7 @@ class AyreFlight(Skill):
                 target(*args)
             except Exception as e:  # never die silently with a mode marked active
                 self.printr.print(f"[AyreFlight] {mode} failed: {e}", server_only=True)
-                self._say("Flight assist error. Off.")
+                self._say("Flight assist error. Off.", voice.SAFETY)
             finally:
                 self._mode = None
 
@@ -323,7 +341,7 @@ class AyreFlight(Skill):
                 speaker.tick()
                 now = time.monotonic()
                 if now - last_ok > 20:
-                    self._say("Lost the readout. Callouts off.")
+                    self._say("Lost the readout. Callouts off.", voice.SAFETY)
                     break
                 if contact_at and now - contact_at > 3:
                     break
@@ -345,7 +363,7 @@ class AyreFlight(Skill):
             if descend:
                 run(self._key("v_deploy_landing_system"))
                 if self._stop.wait(1.5):
-                    self._say("Assist off: stopped.")
+                    self._say("Assist off: stopped.", voice.SAFETY)
                     return
             speaker = core.Speaker(self._say, time.monotonic)
             assist = core.DescendAssist() if descend else core.RangeAssist(mark)
@@ -356,7 +374,7 @@ class AyreFlight(Skill):
                 now=time.monotonic, sleep=time.sleep, stopped=self._stop.is_set, joystick=joystick,
                 say=speaker.say, period=PERIOD, max_s=float(self._prop("max_assist_seconds", 90)))
             outcome, why = runner.run()
-            self._say(FINISH.get(why, "Assist done.") if outcome == "done" else f"Assist off: {why}.")
+            self._say(FINISH.get(why, "Assist done.") if outcome == "done" else f"Assist off: {why}.", voice.SAFETY)
         finally:
             read.close()
             aloop.close()

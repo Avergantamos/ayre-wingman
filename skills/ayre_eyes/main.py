@@ -130,6 +130,10 @@ class AyreEyes(Skill):
         return Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX")
 
     async def _ask(self, image: Image.Image, system: str, question: str, label: str) -> str:
+        sample = image.resize((64, 27)).convert("L")
+        lo, hi = sample.getextrema()
+        if hi < 12 and sum(sample.getdata()) / (64 * 27) < 4:  # black capture: exclusive fullscreen
+            return "I can't see the screen, Raven: it comes through black. Set Star Citizen to borderless window."
         # wide enough that HUD numbers stay readable on a 3440 px ultrawide
         w = min(2048, image.width)
         small = image.resize((w, int(image.height * w / image.width)))

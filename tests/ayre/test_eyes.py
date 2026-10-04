@@ -29,7 +29,7 @@ async def llm(messages):
 e = m.AyreEyes(None, None, W())
 e.llm_call = llm; e.get_generated_files_dir = lambda: str(OUT)
 e.retrieve_custom_property_value = lambda k, errs: 1
-e._grab = lambda: Image.new("RGB", (64, 32))
+e._grab = lambda: Image.new("RGB", (64, 32), (40, 90, 120))  # not black: a real screen
 _real_sleep = asyncio.sleep; m.asyncio.sleep = lambda s: _real_sleep(0)
 print("read ->", asyncio.run(e.read_loadout()))
 print("arrange ->", asyncio.run(e.arrange_weapon_groups()))

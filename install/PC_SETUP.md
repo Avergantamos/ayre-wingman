@@ -30,7 +30,10 @@ Ayre is a personal Star Citizen ship AI built on Wingman AI (ShipBit). Repo: htt
    - installs `Ayre.yaml` into the newest Wingman version's `configs\_Star Citizen`
 
    Read its output and fix any error before going on.
-7. **Optional sanity tests:** `py -3.11 -m pip install numpy pillow pyyaml mss`, then run each of `tests\ayre\test_eyes.py`, `test_ship.py` and `test_flight.py` with `py -3.11`. They passed on the Mac.
+7. **Safety checks before the game** (Star Citizen closed):
+   - `py -3.11 tests\ayre\test_profile.py`: the pilot's binds all survived, Ayre's keys don't overlap his. Must say all passed.
+   - `py -3.11 install\keytest.py` (needs `py -3.11 -m pip install keyboard` only if the import fails): every Ayre key leaves Windows correctly, numpad Enter is really numpad Enter, nothing stays held. Must say all keys arrived correctly.
+   **Optional sanity tests:** `py -3.11 -m pip install numpy pillow pyyaml mss`, then run each of `tests\ayre\test_eyes.py`, `test_ship.py` and `test_flight.py` with `py -3.11`. Also `test_voice.py` and `test_health.py`. All passed on the Mac.
 8. **Pilot steps in Wingman AI.** Restart it and select Ayre. Confirm:
    - Conversation provider: Local LLM, endpoint as above, model `qwen3-vl:30b`
    - Speech-to-text: fasterwhisper
@@ -50,6 +53,7 @@ Ayre is a personal Star Citizen ship AI built on Wingman AI (ShipBit). Repo: htt
 
 ## Report back to the Mac session
 
+- What she said at startup: "Online, Raven" (all good) or the problem she named. "Status check" repeats it on demand.
 - Which test lines worked and which didn't, and what Ayre said.
 - Exact error text from the installer and from Wingman AI (its log is under `%APPDATA%\ShipBit\WingmanAI`).
 - FPS in game with Ayre running vs closed, and GPU memory in Task Manager.

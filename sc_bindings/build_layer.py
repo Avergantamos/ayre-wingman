@@ -167,6 +167,8 @@ def main(bdir):
     for skill in ("ayre_eyes", "ayre_flight", "ayre_ship"):  # her skills press from this
         if (ROOT / "skills" / skill).is_dir():
             (ROOT / "skills" / skill / "ayre_actions.json").write_text(actions_json)
+            if skill != "ayre_eyes":  # one speech gate source, copied to every skill
+                (ROOT / "skills" / skill / "ayre_voice.py").write_text((ROOT / "skills/ayre_eyes/ayre_voice.py").read_text())
     # keep a template command only if none of its keys hit the pilot's keys or Ayre's
     used = {wingman_key(k)["hotkey"] for k in set(taken) | {c[3] for c in commands} if not k.startswith("mouse")}
     kept = []

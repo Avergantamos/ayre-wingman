@@ -42,6 +42,47 @@ except Exception:  # pragma: no cover - depends on the machine
     AudioUtilities = None
 
 HERE = Path(__file__).parent
+
+
+def _load_voice():
+    """The shared speech gate, loaded from this folder (custom_skills loads main.py outside a package)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("ayre_voice_ship", HERE / "ayre_voice.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+VOICE = _load_voice()
+
+
+def screen_is_black(pixels: list[tuple[int, int, int]]) -> bool:
+    """True when a capture is (nearly) all black: Star Citizen in exclusive fullscreen."""
+    if not pixels:
+        return True
+    lum = [(r + g + b) / 3 for r, g, b in pixels]
+    mean = sum(lum) / len(lum)
+    spread = max(lum) - min(lum)
+    return mean < 4 and spread < 12
+
+
+def health_summary(checks: dict[str, tuple[bool, str]]) -> tuple[str | None, str]:
+    """(line to speak on a problem or None, full report). Critical checks first."""
+    order = ["brain", "screen", "keys", "game_log", "music_ducking"]
+    critical = ["brain", "screen", "keys"]
+    report = "; ".join(f"{k}: {'ok' if ok else 'PROBLEM'} ({why})" for k, (ok, why) in
+                       sorted(checks.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99))
+    for k in critical:
+        if k in checks and not checks[k][0]:
+            return checks[k][1], report
+    return None, report
+
+
+PROBLEM_LINES = {
+    "brain": "Raven, I can't reach my brain on the Mac. Is it awake and on the same network?",
+    "screen": "Raven, I can't see the screen. Set Star Citizen to borderless window.",
+    "keys": "Raven, my key map is missing. Rerun the installer.",
+}
 ACTIONS = json.loads((HERE / "ayre_actions.json").read_text())
 
 # ---------------------------------------------------------------- confirmation lock
@@ -416,6 +457,9 @@ class AyreShip(Skill):
 
     async def prepare(self) -> None:
         await super().prepare()
+        self.gate = VOICE.SpeechGate.get(self.wingman, asyncio.get_running_loop())
+        self._health: tuple[str | None, str] = (None, "not checked yet")
+        self._startup_check = asyncio.create_task(self._self_check(startup=True))
         folder = Path(self.get_generated_files_dir())
         self.watcher = LogWatcher(HERE / "events.yaml", folder / "log_shapes")
         self.ducker = Ducker(PycawBackend(), self._music_names, self._duck_level)
@@ -425,6 +469,9 @@ class AyreShip(Skill):
         self._watch_task = asyncio.create_task(self._watch_loop())
 
     async def unload(self) -> None:
+        task = getattr(self, "_startup_check", None)
+        if task and not task.done():
+            task.cancel()
         await super().unload()
         if self._watch_task:
             self._watch_task.cancel()
@@ -444,6 +491,8 @@ class AyreShip(Skill):
             await self.ducker.duck()
 
     async def _on_finished(self, wingman_name=None) -> None:
+        if getattr(self, "gate", None) and wingman_name in (None, self.wingman.name):
+            self.gate.playback_finished()
         if self.ducker and wingman_name in (None, self.wingman.name):
             await self.ducker.restore()
 
@@ -452,9 +501,7 @@ class AyreShip(Skill):
             await asyncio.sleep(self.poll_s)
             try:
                 for text in self.watcher.poll(self._log_path()):
-                    task = asyncio.create_task(self.wingman.play_to_user(text, True))
-                    self._speech.add(task)
-                    task.add_done_callback(self._speech.discard)
+                    self.gate.say(text, VOICE.CHATTER)  # dropped if she's busy, never queued
             except asyncio.CancelledError:
                 raise
             except Exception as e:  # never let one bad tick kill the watcher
@@ -493,6 +540,56 @@ class AyreShip(Skill):
                   "no_answer": "Raven has not answered yet",
                   "refused": "Raven did not say yes"}[result]
         return f"{label} not pressed: {reason}. Request cleared; tell Raven in a few words."
+
+    async def _check_brain(self) -> tuple[bool, str]:
+        try:
+            reply = await asyncio.wait_for(self.llm_call([{"role": "user", "content": "Reply with: ok"}]), 45)
+            ok = bool(reply and reply.choices and reply.choices[0].message.content)
+            return ok, "model answered" if ok else PROBLEM_LINES["brain"]
+        except Exception as e:
+            return False, PROBLEM_LINES["brain"] + f" ({type(e).__name__})"
+
+    def _check_screen(self) -> tuple[bool, str]:
+        try:
+            from mss import mss
+            with mss() as sct:
+                mon = sct.monitors[1]
+                w, h = mon["width"], mon["height"]
+                shot = sct.grab({"left": mon["left"] + w // 4, "top": mon["top"] + h // 4,
+                                 "width": w // 2, "height": h // 2})
+            px = [shot.pixel(x, y) for x in range(0, shot.width, 37) for y in range(0, shot.height, 37)]
+            if screen_is_black(px):
+                return False, PROBLEM_LINES["screen"]
+            return True, f"capture {w}x{h} has picture"
+        except Exception as e:
+            return False, f"screen capture failed ({type(e).__name__})"
+
+    async def _self_check(self, startup: bool = False) -> str:
+        if startup:
+            await asyncio.sleep(8)  # let Wingman finish starting and the model load
+        checks = {
+            "brain": await self._check_brain(),
+            "screen": self._check_screen(),
+            "keys": (len(ACTIONS) > 50 and all(a in ACTIONS for a in RISKY),
+                     f"{len(ACTIONS)} actions" if len(ACTIONS) > 50 else PROBLEM_LINES["keys"]),
+            "game_log": (Path(self._log_path()).exists(), self._log_path()),
+            "music_ducking": (bool(self.ducker and self.ducker.backend.available), "pycaw"),
+        }
+        self._health = health_summary(checks)
+        problem, report = self._health
+        self.printr.print(f"AyreShip self-check: {report}", server_only=True)
+        if startup:
+            if problem:
+                self.gate.say(problem, VOICE.SAFETY)
+            else:
+                self.gate.say(random.choice(["Online, Raven.", "I'm here, Raven.", "Systems linked. Ready."]), VOICE.CHATTER)
+        return report
+
+    @tool(description="""Check Ayre's own systems: her brain on the Mac, whether she can see the
+        screen, her keys, the game log and music ducking. Use when Raven asks for a status check
+        or says something isn't working.""", wait_response=True)
+    async def status_check(self) -> str:
+        return await self._self_check()
 
     async def get_prompt(self) -> str | None:
         base = await super().get_prompt() or ""
