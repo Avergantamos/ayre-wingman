@@ -34,14 +34,17 @@ def sovits(path, payload=None):
 
 def speak(text):
     """WAV bytes for text in Ayre's voice, from cache when she has said it before."""
-    key = hashlib.sha1(f"{CONFIG['ref_audio']}|{CONFIG.get('speed', 1.0)}|{text}".encode()).hexdigest()
+    split, gap = CONFIG.get("split", "cut4"), CONFIG.get("fragment_interval", 0.12)
+    key = hashlib.sha1(f"{CONFIG['ref_audio']}|{CONFIG.get('speed', 1.0)}|{split}|{gap}|{text}".encode()).hexdigest()
     cached = CACHE / f"{key}.wav"
     if cached.exists():
         return cached.read_bytes()
     wav = sovits("/tts", {
         "text": text, "text_lang": "en",
         "ref_audio_path": CONFIG["ref_audio"], "prompt_text": CONFIG["ref_text"], "prompt_lang": "en",
-        "speed_factor": CONFIG.get("speed", 1.0), "text_split_method": "cut5",
+        "speed_factor": CONFIG.get("speed", 1.0),
+        # cut4 splits at sentence ends only (cut5 split at every comma, each joined by a pause)
+        "text_split_method": split, "fragment_interval": gap,
         "media_type": "wav", "streaming_mode": False,
     })
     cached.write_bytes(wav)
