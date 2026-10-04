@@ -61,4 +61,19 @@ assert "No cargo" in asyncio.run(e.scan_target())
 assert "Last scan: Caterpillar" in asyncio.run(e.get_prompt())  # follow-ups answer without rescanning
 replies = iter(['{"visible": false}', '{"visible": false}'])
 assert "No scan results" in asyncio.run(e.scan_target())
+# QD: group 4, confirm QED on the HUD, fire once, third person spine check, back to cockpit and all weapons
+fired = []
+async def run_steps(name, *steps): fired.append((name, steps))
+e._run = run_steps
+pressed.clear(); replies = iter(['{"qed_selected": true, "label": "QED"}', '{"spine_glow": true, "why": "red spine"}'])
+out = asyncio.run(e.activate_qd())
+assert pressed == ["v_weapon_preset_guns3", "v_weapon_preset_guns0"], pressed
+assert [n for n, _ in fired] == ["Fire QED", "Third person", "Cockpit view"] and "active" in out, (fired, out)
+# guns still selected: never fires, goes back to all weapons
+pressed.clear(); fired.clear(); replies = iter(['{"qed_selected": false, "label": "GUNS (ALL)"}'])
+out = asyncio.run(e.activate_qd())
+assert fired == [] and pressed == ["v_weapon_preset_guns3", "v_weapon_preset_guns0"] and "Nothing fired" in out, out
+# fired but no glow: says QD may be off or bugged
+fired.clear(); replies = iter(['{"qed_selected": true, "label": "QED"}', '{"spine_glow": false, "why": "only wingtips"}'])
+assert "QD may not be ON" in asyncio.run(e.activate_qd())
 print("eyes: all checks passed")

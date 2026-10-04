@@ -97,12 +97,27 @@ owner_type: player when a player handle is shown; npc when the owner is a game f
 security force, or the HUD marks it as an NPC; unknown when no owner is readable. Set "visible" to
 false if no scan results are on screen yet. Include only what you can read; never guess."""
 
+QED_SELECTED = """Look at the Star Citizen HUD weapon indicator. Is the selected weapon group the quantum
+dampener / QED group (labelled QED, Q DAMPENER, QUANTUM DAMPENER or JAMMER)? Return JSON only:
+{"qed_selected": true|false, "label": "<the selected group's label as shown, or null>"}
+Answer true only if the label clearly says QED / dampener / jammer; guns or lasers selected is false."""
+
+SPINE_GLOW = """This is a third-person view of Raven's ship. When the quantum dampener is active there is a
+red glow along the ship's central spine (the middle ridge on top of the hull). Red lights at the
+wingtips are navigation lights and do NOT count. Return JSON only:
+{"spine_glow": true|false|null, "why": "<short>"}  (null if the ship isn't visible)"""
+
+QED_GROUP = "v_weapon_preset_guns3"  # weapon group 4, the QED on the Sabre Raven EX
+CAMERA = {"keyboard": {"hotkey": "f4"}}  # Star Citizen default: cockpit <-> third person
+FIRE = {"mouse": {"button": "left"}}     # Star Citizen default fire (mouse 1); his profile doesn't rebind it
+
 STEP = """You are operating a Star Citizen ship MFD (multi-function display) with keys only.
 Goal for the weapon groups: {goal}
 Available keys: up, down, left, right (move the highlight), next, previous (cycle the value of the
 highlighted item), select (activate the highlighted item).
 Look at the screen and return JSON only:
 {{"done": true|false, "key": "<one key from the list, or null when done>", "why": "<short>"}}
+Never change a group that holds the QED / quantum dampener / jammer.
 Set done to true only when the groups on screen already match the goal. If the weapons screen is
 not visible or you cannot tell how to proceed, return {{"done": false, "key": null, "why": "..."}}."""
 
@@ -333,6 +348,40 @@ class AyreEyes(Skill):
         else:
             lead = "Cargo not visible in the scan: say so briefly, then ship and owner."
         return f"Scan read: {scan_summary(data)} {lead} Power and shields only if asked."
+
+    async def _run(self, name: str, *steps: dict) -> None:
+        await self.wingman.execute_action(CommandConfig.model_validate({"name": name, "actions": list(steps)}))
+
+    @tool(
+        description="""Activate the quantum dampener (QED) on the Sabre Raven EX: selects weapon group 4,
+        checks on the HUD that the QED is selected, fires it once, then checks in third person for the
+        red glow on the ship's spine and switches back to all weapons. Use for 'QD', 'cutie' (QD
+        misheard), 'activate my QD', 'quantum dampener', 'dampener on', 'jammer', 'QED'. The QD must be
+        ON first (cockpit QD ON button or 3 power); if there's no glow, say QD may be off or bugged.""",
+        wait_response=True,
+    )
+    async def activate_qd(self) -> str:
+        await self._press(QED_GROUP)
+        await asyncio.sleep(0.6)
+        sel = parse_json(await self._ask(self._grab(), "Return JSON only.", QED_SELECTED, "qed", full_res=True))
+        if not sel.get("qed_selected"):
+            await self._press("v_weapon_preset_guns0")  # back to all weapons; nothing fired
+            return (f"Weapon group 4 didn't show as the QED (saw {sel.get('label') or 'nothing readable'}). "
+                    "Nothing fired; back on all weapons. Tell Raven in a few words.")
+        await self._run("Fire QED", FIRE)  # the one fire she's allowed: the QED, never guns or missiles
+        await asyncio.sleep(1.0)
+        await self._run("Third person", CAMERA)
+        await asyncio.sleep(1.5)
+        glow = parse_json(await self._ask(self._grab(), "Return JSON only.", SPINE_GLOW, "qed"))
+        await self._run("Cockpit view", CAMERA)
+        await asyncio.sleep(0.5)
+        await self._press("v_weapon_preset_guns0")  # his trigger fires guns again
+        if glow.get("spine_glow"):
+            return "Quantum dampener active: red glow on the spine. Back on all weapons. Tell Raven it's up."
+        if glow.get("spine_glow") is False:
+            return ("Fired the QED but no glow on the spine: QD may not be ON, or Q DAMPENER ACTIVATE is bugged. "
+                    "Back on all weapons. Tell Raven to check QD ON.")
+        return "Fired the QED but couldn't see the ship to confirm. Back on all weapons. Tell Raven it's unconfirmed."
 
     def _summary(self, data: dict) -> str:
         groups = "; ".join(

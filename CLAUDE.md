@@ -15,6 +15,7 @@ A personal Star Citizen ship AI with Ayre's voice and character (Armored Core VI
 ## Safety rules (do not relax these)
 
 - Ayre never fires weapons or launches missiles, and never aims.
+  - One exception, the pilot's decision (2026-10-03): `activate_qd` fires the Sabre Raven EX's quantum dampener (QED, weapon group 4, area effect, not a weapon). It fires only after the HUD shows the QED group selected, then switches back to all weapons. The game has no working dampener keybind; group + fire is how it activates.
 - State changes (power, modes, doors, flight) happen only when the pilot asks or says yes to her offer. On her own she may only switch screens and read them (boot loadout read, status checks).
 - Piloting assists (below) are pilot-started, short, single-axis, speed-limited, and end the moment the pilot touches a stick or says stop.
 - The model picks from a fixed list of named commands. Only command definitions send keys or clicks, never free text from the model.
