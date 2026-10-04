@@ -245,9 +245,42 @@ async def test_ducking():
     check("duck: no-op without pycaw (this Mac)", not d2.saved)
 
 
+async def test_songs():
+    for said, want in [("Allmind", "allmind"), ("all mind", "allmind"), ("Play all mine.", "allmind"),
+                       ("play me Allmind", "allmind"), ("contact with you", "contact with you"),
+                       ("Balteus", "contact with you"), ("cries of coral", "cries of coral"),
+                       ("the man who passed the torch", "the man who passed the torch"), ("Fires of Rubicon", "fires of rubicon")]:
+        check(f"song: {said!r} -> {want}", m.match_song(said) == want)
+    check("song: unknown -> None", m.match_song("Bohemian Rhapsody") is None)
+
+    class FakeSp:
+        def __init__(self, active):
+            self.active, self.played = active, []
+        def search(self, q, type, limit):
+            self.q = q
+            return {"tracks": {"items": [{"uri": "spotify:track:1", "name": "Allmind", "artists": [{"name": "Shoi Miyazawa"}]}]}}
+        def start_playback(self, uris, device_id=None):
+            if not self.active and device_id is None:
+                raise Exception("http status: 404, code: -1 - Player command failed: No active device found, reason: NO_ACTIVE_DEVICE")
+            self.played.append((uris, device_id))
+        def devices(self):
+            return {"devices": [{"id": "phone", "type": "Smartphone"}, {"id": "pc", "type": "Computer"}]}
+
+    s = m.AyreShip(None, None, None)
+    s._sp = FakeSp(active=True)
+    out = await s.play_song("all mind")
+    check("play_song: plays Allmind by Shoi Miyazawa", out.startswith("Now playing Allmind by Shoi Miyazawa"))
+    check("play_song: searches exact track and artist", s._sp.q == "track:Allmind artist:Shoi Miyazawa")
+    s._sp = FakeSp(active=False)
+    out = await s.play_song("Allmind")
+    check("play_song: no active player -> wakes the PC's Spotify", s._sp.played == [(["spotify:track:1"], "pc")])
+    check("play_song: not one of her songs -> says so", "isn't one of her songs" in await s.play_song("Bohemian Rhapsody"))
+
+
 async def main():
     await test_watcher()
     await test_ducking()
+    await test_songs()
     failed = [n for n, ok in results if not ok]
     print(f"\n{len(results) - len(failed)}/{len(results)} passed")
     sys.exit(1 if failed else 0)

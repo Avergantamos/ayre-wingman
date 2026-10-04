@@ -382,6 +382,33 @@ class Ducker:
 
 # ---------------------------------------------------------------- the skill
 
+# ---------------------------------------------------------------- her songs (Spotify)
+
+# Armored Core VI OST, exactly as Spotify lists them (any other artist finds nothing)
+SONGS = {"allmind": ("Allmind", "Shoi Miyazawa"),
+         "contact with you": ("Contact With You", "Kota Hoshino"),
+         "cries of coral": ("Cries Of Coral", "Kota Hoshino"),
+         "the man who passed the torch": ("The Man Who Passed The Torch", "Kota Hoshino"),
+         "fires of rubicon": ("Fires Of Rubicon", "Takashi Onodera")}
+SONG_ALIASES = {"all mind": "allmind", "all mine": "allmind", "almond": "allmind", "balteus": "contact with you",
+                "boss": "allmind", "man who passed the torch": "the man who passed the torch", "torch": "the man who passed the torch",
+                "coral": "cries of coral", "rubicon": "fires of rubicon", "calm": "fires of rubicon"}
+
+
+def match_song(name: str) -> str | None:
+    """Raven's words (or a speech-to-text mishearing) -> a SONGS key."""
+    import difflib
+    n = re.sub(r"[^a-z ]", "", (name or "").lower()).strip()
+    n = re.sub(r"^(play( me)?|put on|the song) ", "", n).strip()
+    if n in SONGS:
+        return n
+    for alias, key in SONG_ALIASES.items():
+        if alias in n:
+            return key
+    hit = difflib.get_close_matches(n, list(SONGS) + list(SONG_ALIASES), n=1, cutoff=0.6)
+    return (SONG_ALIASES.get(hit[0], hit[0])) if hit else None
+
+
 class AyreShip(Skill):
     def __init__(self, config: SkillConfig, settings: SettingsConfig, wingman: "OpenAiWingman") -> None:
         super().__init__(config=config, settings=settings, wingman=wingman)
@@ -513,6 +540,64 @@ class AyreShip(Skill):
         or says something isn't working.""", wait_response=True)
     async def status_check(self) -> str:
         return await self._self_check()
+
+    async def _spotify(self):
+        """A Spotify client on the login Wingman's Spotify skill already saved (no browser)."""
+        if getattr(self, "_sp", None):
+            return self._sp
+        import spotipy
+        from spotipy.oauth2 import SpotifyOAuth
+        skill = next((s for s in self.wingman.config.skills or [] if "spotify" in str(getattr(s, "module", ""))), None)
+        props = {p.id: p.value for p in getattr(skill, "custom_properties", None) or []}
+        errors: list = []
+        secret = await self.retrieve_secret("spotify_client_secret", errors)
+        if not (skill and props.get("spotify_client_id") and secret):
+            raise RuntimeError("Spotify isn't set up in Wingman (client id or secret missing)")
+        cache = Path(self.get_generated_files_dir()).parent / "Spotify" / ".cache"
+        auth = SpotifyOAuth(client_id=props["spotify_client_id"].strip(), client_secret=secret,
+                            redirect_uri=(props.get("spotify_redirect_url") or "http://127.0.0.1:8082").strip(),
+                            scope=["user-read-playback-state", "user-modify-playback-state"],
+                            cache_handler=spotipy.cache_handler.CacheFileHandler(cache_path=str(cache)), open_browser=False)
+        self._sp = spotipy.Spotify(auth_manager=auth)
+        return self._sp
+
+    @tool(description="""Play one of Ayre's songs on Spotify, for real: Allmind, Contact With You
+        (Balteus), Cries Of Coral, The Man Who Passed The Torch, Fires Of Rubicon. Use for every
+        request to play one of these, misheard names too ('all mind', 'all mine'). Returns what is
+        actually playing; say only that.""", wait_response=True)
+    async def play_song(self, song: str) -> str:
+        """
+        Args:
+            song: The song as Raven said it, e.g. "Allmind" or "all mind".
+        """
+        key = match_song(song)
+        if not key:
+            return f"'{song}' isn't one of her songs. Say which ones you can play."
+        track, artist = SONGS[key]
+        try:
+            sp = await self._spotify()
+            items = []
+            for q in (f"track:{track} artist:{artist}", f"{track} {artist}"):  # exact first, then plain
+                found = await asyncio.to_thread(sp.search, q=q, type="track", limit=1)
+                items = found.get("tracks", {}).get("items", [])
+                if items:
+                    break
+            if not items:
+                return f"Spotify didn't find {track}. Tell Raven."
+            uri = items[0]["uri"]
+            try:
+                await asyncio.to_thread(sp.start_playback, uris=[uri])
+            except Exception as e:  # no active player: wake the Spotify app on this PC
+                if "NO_ACTIVE_DEVICE" not in str(e) and "404" not in str(e):
+                    raise
+                devices = (await asyncio.to_thread(sp.devices)).get("devices", [])
+                if not devices:
+                    return "Spotify isn't open anywhere. Tell Raven to open the Spotify app."
+                pc = next((d for d in devices if d.get("type") == "Computer"), devices[0])
+                await asyncio.to_thread(sp.start_playback, device_id=pc["id"], uris=[uri])
+            return f"Now playing {items[0]['name']} by {items[0]['artists'][0]['name']}."
+        except Exception as e:
+            return f"Couldn't play {track}: {type(e).__name__}: {str(e)[:120]}. Tell Raven in a few words."
 
     async def get_prompt(self) -> str | None:
         base = await super().get_prompt() or ""
