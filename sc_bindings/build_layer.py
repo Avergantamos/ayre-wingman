@@ -88,7 +88,8 @@ def main(bdir):
     if (bdir / "attributes.xml").exists():  # the profile the game actually uses (Preset0)
         attrs = ET.parse(bdir / "attributes.xml").getroot()
         preset = next((a.get("value") for a in attrs.iter("Attr") if a.get("name") == "Preset0"), "")
-        export_path = next((p for p in layouts if p.name.lower() == Path(preset).name.lower()), export_path)
+        preset = Path(preset).name.lower().replace("_ayre_", "_")  # her own profile loaded: its base is the pilot's
+        export_path = next((p for p in layouts if p.name.lower() == preset), export_path)
     export = ET.parse(export_path)
     layer = yaml.safe_load((HERE / "ayre_layer.yaml").read_text())
     keys_file = HERE / "ayre_keys.json"
@@ -104,8 +105,10 @@ def main(bdir):
                 maps_of.setdefault(act.get("name"), set()).add(amap.get("name"))
                 if act.get("name") in pilot:
                     continue
-                slot.setdefault(act.get("name"), set()).update(kb_binds(act, mouse=True))
-                for k in kb_binds(act):
+                # with her profile loaded in game the live file holds her own keys: not the pilot's
+                mine = {keys.get(act.get("name"))} if root is live else set()
+                slot.setdefault(act.get("name"), set()).update(set(kb_binds(act, mouse=True)) - mine)
+                for k in set(kb_binds(act)) - mine:
                     taken.setdefault(k, set()).add(act.get("name"))
     for action, k in pilot.items():
         taken.setdefault(k, set()).add(action)

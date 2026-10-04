@@ -13,8 +13,8 @@ function Step($text) { Write-Host "`n== $text" -ForegroundColor Cyan }
 
 Step "Checking what's installed"
 if (-not (Test-Path $wingman)) { throw "Wingman AI not found. Install it from wingman-ai.com and start it once." }
-$version = Get-ChildItem $wingman -Directory | Where-Object { $_.Name -match '^\d+\.\d+\.\d+$' } |
-    Sort-Object { [version]$_.Name } | Select-Object -Last 1
+$version = Get-ChildItem $wingman -Directory | Where-Object { $_.Name -match '^\d+[._]\d+[._]\d+$' } |
+    Sort-Object { [version]($_.Name -replace '_','.') } | Select-Object -Last 1
 if (-not $version) { throw "No Wingman AI version folder yet. Start Wingman AI once, then rerun." }
 $user = Join-Path $StarCitizen "user\client\0"
 if (-not (Test-Path (Join-Path $user "Profiles\default\actionmaps.xml"))) { throw "Star Citizen bindings not found under $StarCitizen. Pass -StarCitizen <path to LIVE>." }
@@ -32,7 +32,8 @@ Copy-Item (Join-Path $user "controls\mappings\layout_*_exported.xml") $bindings 
 & py -3.11 -m pip install --quiet pyyaml
 & py -3.11 (Join-Path $repo "sc_bindings\build_layer.py") $bindings
 if ($LASTEXITCODE -ne 0) { throw "Building Ayre's keys failed (see above)." }
-$ayreProfile = Get-ChildItem $bindings -Filter "layout_*_AYRE_exported.xml" | Select-Object -First 1
+$ayreProfile = Get-ChildItem $bindings -Filter "layout_*_AYRE_exported.xml" |
+    Sort-Object LastWriteTime | Select-Object -Last 1  # the one just built, not an older one
 Copy-Item $ayreProfile.FullName (Join-Path $user "controls\mappings") -Force
 Write-Host "Profile ready in game: $($ayreProfile.BaseName -replace '^layout_|_exported$','')"
 
