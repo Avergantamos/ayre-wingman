@@ -361,7 +361,9 @@ commands:
   - Ayre, Next attacker.
   - Ayre Next attacker.
   - Next attacker, Ayre.
+  - Next attacker, Raven.
   - Next attacker please.
+  - Next attacker, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -438,7 +440,9 @@ commands:
   - Ayre, Next hostile.
   - Ayre Next hostile.
   - Next hostile, Ayre.
+  - Next hostile, Raven.
   - Next hostile please.
+  - Next hostile, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -626,7 +630,9 @@ commands:
   - Ayre, Flares.
   - Ayre Flares.
   - Flares, Ayre.
+  - Flares, Raven.
   - Flares please.
+  - Flares, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -652,14 +658,18 @@ commands:
   - Ayre, Noise.
   - Ayre Noise.
   - Noise, Ayre.
+  - Noise, Raven.
   - Noise please.
+  - Noise, please.
   - Chaff
   - Chaff.
   - Chaff!
   - Ayre, Chaff.
   - Ayre Chaff.
   - Chaff, Ayre.
+  - Chaff, Raven.
   - Chaff please.
+  - Chaff, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -685,7 +695,9 @@ commands:
   - Ayre, Dump flares.
   - Ayre Dump flares.
   - Dump flares, Ayre.
+  - Dump flares, Raven.
   - Dump flares please.
+  - Dump flares, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -740,6 +752,25 @@ commands:
 - name: Quantum Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
+  instant_activation:
+  - Quantum mode
+  - Quantum mode.
+  - Quantum mode!
+  - Ayre, Quantum mode.
+  - Ayre Quantum mode.
+  - Quantum mode, Ayre.
+  - Quantum mode, Raven.
+  - Quantum mode please.
+  - Quantum mode, please.
+  - Switch to quantum mode
+  - Switch to quantum mode.
+  - Switch to quantum mode!
+  - Ayre, Switch to quantum mode.
+  - Ayre Switch to quantum mode.
+  - Switch to quantum mode, Ayre.
+  - Switch to quantum mode, Raven.
+  - Switch to quantum mode please.
+  - Switch to quantum mode, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -765,14 +796,18 @@ commands:
   - Ayre, Engage quantum.
   - Ayre Engage quantum.
   - Engage quantum, Ayre.
+  - Engage quantum, Raven.
   - Engage quantum please.
+  - Engage quantum, please.
   - Punch it
   - Punch it.
   - Punch it!
   - Ayre, Punch it.
   - Ayre Punch it.
   - Punch it, Ayre.
+  - Punch it, Raven.
   - Punch it please.
+  - Punch it, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -791,6 +826,61 @@ commands:
 - name: NAV Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
+  instant_activation:
+  - NAV mode
+  - NAV mode.
+  - NAV mode!
+  - Ayre, NAV mode.
+  - Ayre NAV mode.
+  - NAV mode, Ayre.
+  - NAV mode, Raven.
+  - NAV mode please.
+  - NAV mode, please.
+  - Switch to NAV mode
+  - Switch to NAV mode.
+  - Switch to NAV mode!
+  - Ayre, Switch to NAV mode.
+  - Ayre Switch to NAV mode.
+  - Switch to NAV mode, Ayre.
+  - Switch to NAV mode, Raven.
+  - Switch to NAV mode please.
+  - Switch to NAV mode, please.
+  - Switch to nav
+  - Switch to nav.
+  - Switch to nav!
+  - Ayre, Switch to nav.
+  - Ayre Switch to nav.
+  - Switch to nav, Ayre.
+  - Switch to nav, Raven.
+  - Switch to nav please.
+  - Switch to nav, please.
+  - Give me nav
+  - Give me nav.
+  - Give me nav!
+  - Ayre, Give me nav.
+  - Ayre Give me nav.
+  - Give me nav, Ayre.
+  - Give me nav, Raven.
+  - Give me nav please.
+  - Give me nav, please.
+  - Give me back nav
+  - Give me back nav.
+  - Give me back nav!
+  - Ayre, Give me back nav.
+  - Ayre Give me back nav.
+  - Give me back nav, Ayre.
+  - Give me back nav, Raven.
+  - Give me back nav please.
+  - Give me back nav, please.
+  - Navigation mode
+  - Navigation mode.
+  - Navigation mode!
+  - Ayre, Navigation mode.
+  - Ayre Navigation mode.
+  - Navigation mode, Ayre.
+  - Navigation mode, Raven.
+  - Navigation mode please.
+  - Navigation mode, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -816,14 +906,54 @@ commands:
   - Ayre, SCM mode.
   - Ayre SCM mode.
   - SCM mode, Ayre.
+  - SCM mode, Raven.
   - SCM mode please.
+  - SCM mode, please.
   - Combat mode
   - Combat mode.
   - Combat mode!
   - Ayre, Combat mode.
   - Ayre Combat mode.
   - Combat mode, Ayre.
+  - Combat mode, Raven.
   - Combat mode please.
+  - Combat mode, please.
+  - Switch to SCM mode
+  - Switch to SCM mode.
+  - Switch to SCM mode!
+  - Ayre, Switch to SCM mode.
+  - Ayre Switch to SCM mode.
+  - Switch to SCM mode, Ayre.
+  - Switch to SCM mode, Raven.
+  - Switch to SCM mode please.
+  - Switch to SCM mode, please.
+  - Bring me to SCM mode
+  - Bring me to SCM mode.
+  - Bring me to SCM mode!
+  - Ayre, Bring me to SCM mode.
+  - Ayre Bring me to SCM mode.
+  - Bring me to SCM mode, Ayre.
+  - Bring me to SCM mode, Raven.
+  - Bring me to SCM mode please.
+  - Bring me to SCM mode, please.
+  - Give me SCM
+  - Give me SCM.
+  - Give me SCM!
+  - Ayre, Give me SCM.
+  - Ayre Give me SCM.
+  - Give me SCM, Ayre.
+  - Give me SCM, Raven.
+  - Give me SCM please.
+  - Give me SCM, please.
+  - SCM
+  - SCM.
+  - SCM!
+  - Ayre, SCM.
+  - Ayre SCM.
+  - SCM, Ayre.
+  - SCM, Raven.
+  - SCM please.
+  - SCM, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1083,7 +1213,9 @@ commands:
   - Ayre, Missile mode.
   - Ayre Missile mode.
   - Missile mode, Ayre.
+  - Missile mode, Raven.
   - Missile mode please.
+  - Missile mode, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1161,6 +1293,43 @@ commands:
 - name: Main Power On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
+  instant_activation:
+  - Power on
+  - Power on.
+  - Power on!
+  - Ayre, Power on.
+  - Ayre Power on.
+  - Power on, Ayre.
+  - Power on, Raven.
+  - Power on please.
+  - Power on, please.
+  - Main power on
+  - Main power on.
+  - Main power on!
+  - Ayre, Main power on.
+  - Ayre Main power on.
+  - Main power on, Ayre.
+  - Main power on, Raven.
+  - Main power on please.
+  - Main power on, please.
+  - Power me up
+  - Power me up.
+  - Power me up!
+  - Ayre, Power me up.
+  - Ayre Power me up.
+  - Power me up, Ayre.
+  - Power me up, Raven.
+  - Power me up please.
+  - Power me up, please.
+  - Power up
+  - Power up.
+  - Power up!
+  - Ayre, Power up.
+  - Ayre Power up.
+  - Power up, Ayre.
+  - Power up, Raven.
+  - Power up please.
+  - Power up, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1189,14 +1358,63 @@ commands:
   - Ayre, Power off.
   - Ayre Power off.
   - Power off, Ayre.
+  - Power off, Raven.
   - Power off please.
+  - Power off, please.
   - Main power off
   - Main power off.
   - Main power off!
   - Ayre, Main power off.
   - Ayre Main power off.
   - Main power off, Ayre.
+  - Main power off, Raven.
   - Main power off please.
+  - Main power off, please.
+  - Power me down
+  - Power me down.
+  - Power me down!
+  - Ayre, Power me down.
+  - Ayre Power me down.
+  - Power me down, Ayre.
+  - Power me down, Raven.
+  - Power me down please.
+  - Power me down, please.
+  - Power me off
+  - Power me off.
+  - Power me off!
+  - Ayre, Power me off.
+  - Ayre Power me off.
+  - Power me off, Ayre.
+  - Power me off, Raven.
+  - Power me off please.
+  - Power me off, please.
+  - Power down
+  - Power down.
+  - Power down!
+  - Ayre, Power down.
+  - Ayre Power down.
+  - Power down, Ayre.
+  - Power down, Raven.
+  - Power down please.
+  - Power down, please.
+  - Shut her down
+  - Shut her down.
+  - Shut her down!
+  - Ayre, Shut her down.
+  - Ayre Shut her down.
+  - Shut her down, Ayre.
+  - Shut her down, Raven.
+  - Shut her down please.
+  - Shut her down, please.
+  - Shut it down
+  - Shut it down.
+  - Shut it down!
+  - Ayre, Shut it down.
+  - Ayre Shut it down.
+  - Shut it down, Ayre.
+  - Shut it down, Raven.
+  - Shut it down please.
+  - Shut it down, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1246,7 +1464,54 @@ commands:
   - Ayre, Shields off.
   - Ayre Shields off.
   - Shields off, Ayre.
+  - Shields off, Raven.
   - Shields off please.
+  - Shields off, please.
+  - Power me down
+  - Power me down.
+  - Power me down!
+  - Ayre, Power me down.
+  - Ayre Power me down.
+  - Power me down, Ayre.
+  - Power me down, Raven.
+  - Power me down please.
+  - Power me down, please.
+  - Power me off
+  - Power me off.
+  - Power me off!
+  - Ayre, Power me off.
+  - Ayre Power me off.
+  - Power me off, Ayre.
+  - Power me off, Raven.
+  - Power me off please.
+  - Power me off, please.
+  - Power down
+  - Power down.
+  - Power down!
+  - Ayre, Power down.
+  - Ayre Power down.
+  - Power down, Ayre.
+  - Power down, Raven.
+  - Power down please.
+  - Power down, please.
+  - Shut her down
+  - Shut her down.
+  - Shut her down!
+  - Ayre, Shut her down.
+  - Ayre Shut her down.
+  - Shut her down, Ayre.
+  - Shut her down, Raven.
+  - Shut her down please.
+  - Shut her down, please.
+  - Shut it down
+  - Shut it down.
+  - Shut it down!
+  - Ayre, Shut it down.
+  - Ayre Shut it down.
+  - Shut it down, Ayre.
+  - Shut it down, Raven.
+  - Shut it down please.
+  - Shut it down, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1296,14 +1561,63 @@ commands:
   - Ayre, Thrusters off.
   - Ayre Thrusters off.
   - Thrusters off, Ayre.
+  - Thrusters off, Raven.
   - Thrusters off please.
+  - Thrusters off, please.
   - Cut thrusters
   - Cut thrusters.
   - Cut thrusters!
   - Ayre, Cut thrusters.
   - Ayre Cut thrusters.
   - Cut thrusters, Ayre.
+  - Cut thrusters, Raven.
   - Cut thrusters please.
+  - Cut thrusters, please.
+  - Power me down
+  - Power me down.
+  - Power me down!
+  - Ayre, Power me down.
+  - Ayre Power me down.
+  - Power me down, Ayre.
+  - Power me down, Raven.
+  - Power me down please.
+  - Power me down, please.
+  - Power me off
+  - Power me off.
+  - Power me off!
+  - Ayre, Power me off.
+  - Ayre Power me off.
+  - Power me off, Ayre.
+  - Power me off, Raven.
+  - Power me off please.
+  - Power me off, please.
+  - Power down
+  - Power down.
+  - Power down!
+  - Ayre, Power down.
+  - Ayre Power down.
+  - Power down, Ayre.
+  - Power down, Raven.
+  - Power down please.
+  - Power down, please.
+  - Shut her down
+  - Shut her down.
+  - Shut her down!
+  - Ayre, Shut her down.
+  - Ayre Shut her down.
+  - Shut her down, Ayre.
+  - Shut her down, Raven.
+  - Shut her down please.
+  - Shut her down, please.
+  - Shut it down
+  - Shut it down.
+  - Shut it down!
+  - Ayre, Shut it down.
+  - Ayre Shut it down.
+  - Shut it down, Ayre.
+  - Shut it down, Raven.
+  - Shut it down please.
+  - Shut it down, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1346,6 +1660,52 @@ commands:
 - name: Weapons Power Off
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
+  instant_activation:
+  - Power me down
+  - Power me down.
+  - Power me down!
+  - Ayre, Power me down.
+  - Ayre Power me down.
+  - Power me down, Ayre.
+  - Power me down, Raven.
+  - Power me down please.
+  - Power me down, please.
+  - Power me off
+  - Power me off.
+  - Power me off!
+  - Ayre, Power me off.
+  - Ayre Power me off.
+  - Power me off, Ayre.
+  - Power me off, Raven.
+  - Power me off please.
+  - Power me off, please.
+  - Power down
+  - Power down.
+  - Power down!
+  - Ayre, Power down.
+  - Ayre Power down.
+  - Power down, Ayre.
+  - Power down, Raven.
+  - Power down please.
+  - Power down, please.
+  - Shut her down
+  - Shut her down.
+  - Shut her down!
+  - Ayre, Shut her down.
+  - Ayre Shut her down.
+  - Shut her down, Ayre.
+  - Shut her down, Raven.
+  - Shut her down please.
+  - Shut her down, please.
+  - Shut it down
+  - Shut it down.
+  - Shut it down!
+  - Ayre, Shut it down.
+  - Ayre Shut it down.
+  - Shut it down, Ayre.
+  - Shut it down, Raven.
+  - Shut it down please.
+  - Shut it down, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1367,6 +1727,34 @@ commands:
 - name: Max Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
+  instant_activation:
+  - Full power to engines
+  - Full power to engines.
+  - Full power to engines!
+  - Ayre, Full power to engines.
+  - Ayre Full power to engines.
+  - Full power to engines, Ayre.
+  - Full power to engines, Raven.
+  - Full power to engines please.
+  - Full power to engines, please.
+  - Max power to engines
+  - Max power to engines.
+  - Max power to engines!
+  - Ayre, Max power to engines.
+  - Ayre Max power to engines.
+  - Max power to engines, Ayre.
+  - Max power to engines, Raven.
+  - Max power to engines please.
+  - Max power to engines, please.
+  - Max engines
+  - Max engines.
+  - Max engines!
+  - Ayre, Max engines.
+  - Ayre Max engines.
+  - Max engines, Ayre.
+  - Max engines, Raven.
+  - Max engines please.
+  - Max engines, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1451,6 +1839,34 @@ commands:
 - name: Max Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
+  instant_activation:
+  - Full power to shields
+  - Full power to shields.
+  - Full power to shields!
+  - Ayre, Full power to shields.
+  - Ayre Full power to shields.
+  - Full power to shields, Ayre.
+  - Full power to shields, Raven.
+  - Full power to shields please.
+  - Full power to shields, please.
+  - Max power to shields
+  - Max power to shields.
+  - Max power to shields!
+  - Ayre, Max power to shields.
+  - Ayre Max power to shields.
+  - Max power to shields, Ayre.
+  - Max power to shields, Raven.
+  - Max power to shields please.
+  - Max power to shields, please.
+  - Max shields
+  - Max shields.
+  - Max shields!
+  - Ayre, Max shields.
+  - Ayre Max shields.
+  - Max shields, Ayre.
+  - Max shields, Raven.
+  - Max shields please.
+  - Max shields, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1535,6 +1951,34 @@ commands:
 - name: Max Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
+  instant_activation:
+  - Full power to weapons
+  - Full power to weapons.
+  - Full power to weapons!
+  - Ayre, Full power to weapons.
+  - Ayre Full power to weapons.
+  - Full power to weapons, Ayre.
+  - Full power to weapons, Raven.
+  - Full power to weapons please.
+  - Full power to weapons, please.
+  - Max power to weapons
+  - Max power to weapons.
+  - Max power to weapons!
+  - Ayre, Max power to weapons.
+  - Ayre Max power to weapons.
+  - Max power to weapons, Ayre.
+  - Max power to weapons, Raven.
+  - Max power to weapons please.
+  - Max power to weapons, please.
+  - Max weapons
+  - Max weapons.
+  - Max weapons!
+  - Ayre, Max weapons.
+  - Ayre Max weapons.
+  - Max weapons, Ayre.
+  - Max weapons, Raven.
+  - Max weapons please.
+  - Max weapons, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1619,6 +2063,25 @@ commands:
 - name: Balance Power
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
+  instant_activation:
+  - Balance power
+  - Balance power.
+  - Balance power!
+  - Ayre, Balance power.
+  - Ayre Balance power.
+  - Balance power, Ayre.
+  - Balance power, Raven.
+  - Balance power please.
+  - Balance power, please.
+  - Reset power
+  - Reset power.
+  - Reset power!
+  - Ayre, Reset power.
+  - Ayre Reset power.
+  - Reset power, Ayre.
+  - Reset power, Raven.
+  - Reset power please.
+  - Reset power, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1832,7 +2295,9 @@ commands:
   - Ayre, Scan mode.
   - Ayre Scan mode.
   - Scan mode, Ayre.
+  - Scan mode, Raven.
   - Scan mode please.
+  - Scan mode, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1861,7 +2326,9 @@ commands:
   - Ayre, Ping.
   - Ayre Ping.
   - Ping, Ayre.
+  - Ping, Raven.
   - Ping please.
+  - Ping, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2084,7 +2551,9 @@ commands:
   - Ayre, Gear down.
   - Ayre Gear down.
   - Gear down, Ayre.
+  - Gear down, Raven.
   - Gear down please.
+  - Gear down, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2108,7 +2577,9 @@ commands:
   - Ayre, Gear up.
   - Ayre Gear up.
   - Gear up, Ayre.
+  - Gear up, Raven.
   - Gear up please.
+  - Gear up, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2133,112 +2604,225 @@ commands:
   - Ayre, Request landing.
   - Ayre Request landing.
   - Request landing, Ayre.
+  - Request landing, Raven.
   - Request landing please.
+  - Request landing, please.
   - Call the tower
   - Call the tower.
   - Call the tower!
   - Ayre, Call the tower.
   - Ayre Call the tower.
   - Call the tower, Ayre.
+  - Call the tower, Raven.
   - Call the tower please.
+  - Call the tower, please.
   - Open the hangar
   - Open the hangar.
   - Open the hangar!
   - Ayre, Open the hangar.
   - Ayre Open the hangar.
   - Open the hangar, Ayre.
+  - Open the hangar, Raven.
   - Open the hangar please.
+  - Open the hangar, please.
+  - Open the hanger
+  - Open the hanger.
+  - Open the hanger!
+  - Ayre, Open the hanger.
+  - Ayre Open the hanger.
+  - Open the hanger, Ayre.
+  - Open the hanger, Raven.
+  - Open the hanger please.
+  - Open the hanger, please.
   - Hail ATC
   - Hail ATC.
   - Hail ATC!
   - Ayre, Hail ATC.
   - Ayre Hail ATC.
   - Hail ATC, Ayre.
+  - Hail ATC, Raven.
   - Hail ATC please.
+  - Hail ATC, please.
   - Hail the ATC
   - Hail the ATC.
   - Hail the ATC!
   - Ayre, Hail the ATC.
   - Ayre Hail the ATC.
   - Hail the ATC, Ayre.
+  - Hail the ATC, Raven.
   - Hail the ATC please.
+  - Hail the ATC, please.
   - Call ATC
   - Call ATC.
   - Call ATC!
   - Ayre, Call ATC.
   - Ayre Call ATC.
   - Call ATC, Ayre.
+  - Call ATC, Raven.
   - Call ATC please.
+  - Call ATC, please.
   - Get me a hangar
   - Get me a hangar.
   - Get me a hangar!
   - Ayre, Get me a hangar.
   - Ayre Get me a hangar.
   - Get me a hangar, Ayre.
+  - Get me a hangar, Raven.
   - Get me a hangar please.
+  - Get me a hangar, please.
+  - Get me a hanger
+  - Get me a hanger.
+  - Get me a hanger!
+  - Ayre, Get me a hanger.
+  - Ayre Get me a hanger.
+  - Get me a hanger, Ayre.
+  - Get me a hanger, Raven.
+  - Get me a hanger please.
+  - Get me a hanger, please.
   - Request a hangar
   - Request a hangar.
   - Request a hangar!
   - Ayre, Request a hangar.
   - Ayre Request a hangar.
   - Request a hangar, Ayre.
+  - Request a hangar, Raven.
   - Request a hangar please.
+  - Request a hangar, please.
+  - Request a hanger
+  - Request a hanger.
+  - Request a hanger!
+  - Ayre, Request a hanger.
+  - Ayre Request a hanger.
+  - Request a hanger, Ayre.
+  - Request a hanger, Raven.
+  - Request a hanger please.
+  - Request a hanger, please.
   - Get us a hangar
   - Get us a hangar.
   - Get us a hangar!
   - Ayre, Get us a hangar.
   - Ayre Get us a hangar.
   - Get us a hangar, Ayre.
+  - Get us a hangar, Raven.
   - Get us a hangar please.
+  - Get us a hangar, please.
+  - Get us a hanger
+  - Get us a hanger.
+  - Get us a hanger!
+  - Ayre, Get us a hanger.
+  - Ayre Get us a hanger.
+  - Get us a hanger, Ayre.
+  - Get us a hanger, Raven.
+  - Get us a hanger please.
+  - Get us a hanger, please.
   - Get a hangar
   - Get a hangar.
   - Get a hangar!
   - Ayre, Get a hangar.
   - Ayre Get a hangar.
   - Get a hangar, Ayre.
+  - Get a hangar, Raven.
   - Get a hangar please.
+  - Get a hangar, please.
+  - Get a hanger
+  - Get a hanger.
+  - Get a hanger!
+  - Ayre, Get a hanger.
+  - Ayre Get a hanger.
+  - Get a hanger, Ayre.
+  - Get a hanger, Raven.
+  - Get a hanger please.
+  - Get a hanger, please.
   - I need a hangar
   - I need a hangar.
   - I need a hangar!
   - Ayre, I need a hangar.
   - Ayre I need a hangar.
   - I need a hangar, Ayre.
+  - I need a hangar, Raven.
   - I need a hangar please.
+  - I need a hangar, please.
+  - I need a hanger
+  - I need a hanger.
+  - I need a hanger!
+  - Ayre, I need a hanger.
+  - Ayre I need a hanger.
+  - I need a hanger, Ayre.
+  - I need a hanger, Raven.
+  - I need a hanger please.
+  - I need a hanger, please.
   - Find me a hangar
   - Find me a hangar.
   - Find me a hangar!
   - Ayre, Find me a hangar.
   - Ayre Find me a hangar.
   - Find me a hangar, Ayre.
+  - Find me a hangar, Raven.
   - Find me a hangar please.
+  - Find me a hangar, please.
+  - Find me a hanger
+  - Find me a hanger.
+  - Find me a hanger!
+  - Ayre, Find me a hanger.
+  - Ayre Find me a hanger.
+  - Find me a hanger, Ayre.
+  - Find me a hanger, Raven.
+  - Find me a hanger please.
+  - Find me a hanger, please.
   - Request hangar
   - Request hangar.
   - Request hangar!
   - Ayre, Request hangar.
   - Ayre Request hangar.
   - Request hangar, Ayre.
+  - Request hangar, Raven.
   - Request hangar please.
+  - Request hangar, please.
+  - Request hanger
+  - Request hanger.
+  - Request hanger!
+  - Ayre, Request hanger.
+  - Ayre Request hanger.
+  - Request hanger, Ayre.
+  - Request hanger, Raven.
+  - Request hanger please.
+  - Request hanger, please.
   - Hangar please
   - Hangar please.
   - Hangar please!
   - Ayre, Hangar please.
   - Ayre Hangar please.
   - Hangar please, Ayre.
+  - Hangar please, Raven.
   - Hangar please please.
+  - Hangar please, please.
+  - hanger please
+  - hanger please.
+  - hanger please!
+  - Ayre, hanger please.
+  - Ayre hanger please.
+  - hanger please, Ayre.
+  - hanger please, Raven.
+  - hanger please please.
+  - hanger please, please.
   - Get me a landing pad
   - Get me a landing pad.
   - Get me a landing pad!
   - Ayre, Get me a landing pad.
   - Ayre Get me a landing pad.
   - Get me a landing pad, Ayre.
+  - Get me a landing pad, Raven.
   - Get me a landing pad please.
+  - Get me a landing pad, please.
   - Get me a pad
   - Get me a pad.
   - Get me a pad!
   - Ayre, Get me a pad.
   - Ayre Get me a pad.
   - Get me a pad, Ayre.
+  - Get me a pad, Raven.
   - Get me a pad please.
+  - Get me a pad, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2326,14 +2910,18 @@ commands:
   - Ayre, Lights on.
   - Ayre Lights on.
   - Lights on, Ayre.
+  - Lights on, Raven.
   - Lights on please.
+  - Lights on, please.
   - Lamp on
   - Lamp on.
   - Lamp on!
   - Ayre, Lamp on.
   - Ayre Lamp on.
   - Lamp on, Ayre.
+  - Lamp on, Raven.
   - Lamp on please.
+  - Lamp on, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2357,14 +2945,18 @@ commands:
   - Ayre, Lights off.
   - Ayre Lights off.
   - Lights off, Ayre.
+  - Lights off, Raven.
   - Lights off please.
+  - Lights off, please.
   - Lamp off
   - Lamp off.
   - Lamp off!
   - Ayre, Lamp off.
   - Ayre Lamp off.
   - Lamp off, Ayre.
+  - Lamp off, Raven.
   - Lamp off please.
+  - Lamp off, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2421,7 +3013,9 @@ commands:
   - Ayre, Open the doors.
   - Ayre Open the doors.
   - Open the doors, Ayre.
+  - Open the doors, Raven.
   - Open the doors please.
+  - Open the doors, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -2440,14 +3034,18 @@ commands:
   - Ayre, Close the doors.
   - Ayre Close the doors.
   - Close the doors, Ayre.
+  - Close the doors, Raven.
   - Close the doors please.
+  - Close the doors, please.
   - Lock it down
   - Lock it down.
   - Lock it down!
   - Ayre, Lock it down.
   - Ayre Lock it down.
   - Lock it down, Ayre.
+  - Lock it down, Raven.
   - Lock it down please.
+  - Lock it down, please.
   force_instant_activation: false
   actions:
   - keyboard:

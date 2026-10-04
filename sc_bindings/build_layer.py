@@ -9,6 +9,7 @@ Writes  bindings/layout_<PROFILE>_AYRE_exported.xml  (import this in game)
         Ayre's commands in templates/configs/_Star Citizen/Ayre.template.yaml
 """
 import json
+import re
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -109,9 +110,12 @@ def spoken_variants(phrases: list[str]) -> list[str]:
     out = []
     for p in phrases:
         p = p.strip().rstrip(".!?")
-        for v in (p, f"{p}.", f"{p}!", f"Ayre, {p}.", f"Ayre {p}.", f"{p}, Ayre.", f"{p} please."):
-            if v.lower() not in {o.lower() for o in out}:
-                out.append(v)
+        # speech-to-text writes "hangar" as "hanger"; Raven also ends with "Raven"
+        for base in dict.fromkeys([p, re.sub(r"(?i)hangar", "hanger", p)]):
+            for v in (base, f"{base}.", f"{base}!", f"Ayre, {base}.", f"Ayre {base}.", f"{base}, Ayre.",
+                      f"{base}, Raven.", f"{base} please.", f"{base}, please."):
+                if v.lower() not in {o.lower() for o in out}:
+                    out.append(v)
     return out
 
 

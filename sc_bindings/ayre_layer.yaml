@@ -29,10 +29,10 @@
   v_weapon_countermeasure_decoy_burst_decrease: {name: Smaller Flare Bursts}
 
 "Flight - Quantum Travel":
-  v_set_quantum_mode: {name: Quantum Mode}
+  v_set_quantum_mode: {name: Quantum Mode, say: ["Quantum mode", "Switch to quantum mode"]}
   v_toggle_qdrive_engagement: {name: Engage Quantum Drive, say: ["Engage quantum", "Punch it"]}
-  v_master_mode_set_nav: {name: NAV Mode}
-  v_master_mode_set_scm: {name: SCM Mode, say: ["SCM mode", "Combat mode"]}
+  v_master_mode_set_nav: {name: NAV Mode, say: ["NAV mode", "Switch to NAV mode", "Switch to nav", "Give me nav", "Give me back nav", "Navigation mode"]}
+  v_master_mode_set_scm: {name: SCM Mode, say: ["SCM mode", "Combat mode", "Switch to SCM mode", "Bring me to SCM mode", "Give me SCM", "SCM"]}
 
 "Vehicles - Weapons":
   v_set_guns_mode: {name: Guns Mode}
@@ -56,27 +56,27 @@
   v_weapon_decrease_max_missiles: {name: Fewer Missiles Per Volley}
 
 "Flight - Power":
-  v_power_set_on: {name: Main Power On}
-  v_power_set_off: {name: Main Power Off, say: ["Power off", "Main power off"]}
+  v_power_set_on: {name: Main Power On, say: ["Power on", "Main power on", "Power me up", "Power up"]}
+  v_power_set_off: {name: Main Power Off, say: ["Power off", "Main power off", "Power me down", "Power me off", "Power down", "Shut her down", "Shut it down"]}
   v_power_set_shields_on: {name: Shields On}
-  v_power_set_shields_off: {name: Shields Off, say: ["Shields off"]}
+  v_power_set_shields_off: {name: Shields Off, say: ["Shields off", "Power me down", "Power me off", "Power down", "Shut her down", "Shut it down"]}
   v_power_set_thrusters_on: {name: Thrusters On}
-  v_power_set_thrusters_off: {name: Thrusters Off, say: ["Thrusters off", "Cut thrusters"]}
+  v_power_set_thrusters_off: {name: Thrusters Off, say: ["Thrusters off", "Cut thrusters", "Power me down", "Power me off", "Power down", "Shut her down", "Shut it down"]}
   v_power_set_weapons_on: {name: Weapons Power On}
-  v_power_set_weapons_off: {name: Weapons Power Off}
-  v_engineering_assignment_engine_max: {name: Max Power to Engines, hold: 1.0}
+  v_power_set_weapons_off: {name: Weapons Power Off, say: ["Power me down", "Power me off", "Power down", "Shut her down", "Shut it down"]}
+  v_engineering_assignment_engine_max: {name: Max Power to Engines, hold: 1.0, say: ["Full power to engines", "Max power to engines", "Max engines"]}
   v_engineering_assignment_engine_min: {name: Min Power to Engines, hold: 1.0}
   v_engineering_assignment_engine_increase: {name: More Power to Engines}
   v_engineering_assignment_engine_decrease: {name: Less Power to Engines}
-  v_engineering_assignment_shields_max: {name: Max Power to Shields, hold: 1.0}
+  v_engineering_assignment_shields_max: {name: Max Power to Shields, hold: 1.0, say: ["Full power to shields", "Max power to shields", "Max shields"]}
   v_engineering_assignment_shields_min: {name: Min Power to Shields, hold: 1.0}
   v_engineering_assignment_shields_increase: {name: More Power to Shields}
   v_engineering_assignment_shields_decrease: {name: Less Power to Shields}
-  v_engineering_assignment_weapons_max: {name: Max Power to Weapons, hold: 1.0}
+  v_engineering_assignment_weapons_max: {name: Max Power to Weapons, hold: 1.0, say: ["Full power to weapons", "Max power to weapons", "Max weapons"]}
   v_engineering_assignment_weapons_min: {name: Min Power to Weapons, hold: 1.0}
   v_engineering_assignment_weapons_increase: {name: More Power to Weapons}
   v_engineering_assignment_weapons_decrease: {name: Less Power to Weapons}
-  v_engineering_assignment_reset: {name: Balance Power}
+  v_engineering_assignment_reset: {name: Balance Power, say: ["Balance power", "Reset power"]}
   v_cooler_throttle_up: {name: Coolers Up}
   v_cooler_throttle_down: {name: Coolers Down}
 

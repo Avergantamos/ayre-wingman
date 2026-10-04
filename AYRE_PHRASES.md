@@ -8,12 +8,20 @@ naturally ("throw some flares", "give me more shields") and she works it out in 
 - **Flares**: Launch Flares
 - **Noise / Chaff**: Launch Noise
 - **Dump flares**: Dump Flares
+- **Quantum mode / Switch to quantum mode**: Quantum Mode
 - **Engage quantum / Punch it**: Engage Quantum Drive
-- **SCM mode / Combat mode**: SCM Mode
+- **NAV mode / Switch to NAV mode / Switch to nav / Give me nav / Give me back nav / Navigation mode**: NAV Mode
+- **SCM mode / Combat mode / Switch to SCM mode / Bring me to SCM mode / Give me SCM / SCM**: SCM Mode
 - **Missile mode**: Missile Mode
-- **Power off / Main power off**: Main Power Off
-- **Shields off**: Shields Off
-- **Thrusters off / Cut thrusters**: Thrusters Off
+- **Power on / Main power on / Power me up / Power up**: Main Power On
+- **Power off / Main power off / Power me down / Power me off / Power down / Shut her down / Shut it down**: Main Power Off
+- **Shields off / Power me down / Power me off / Power down / Shut her down / Shut it down**: Shields Off
+- **Thrusters off / Cut thrusters / Power me down / Power me off / Power down / Shut her down / Shut it down**: Thrusters Off
+- **Power me down / Power me off / Power down / Shut her down / Shut it down**: Weapons Power Off
+- **Full power to engines / Max power to engines / Max engines**: Max Power to Engines
+- **Full power to shields / Max power to shields / Max shields**: Max Power to Shields
+- **Full power to weapons / Max power to weapons / Max weapons**: Max Power to Weapons
+- **Balance power / Reset power**: Balance Power
 - **Scan mode**: Scan Mode
 - **Ping**: Ping
 - **Gear down**: Gear Down
