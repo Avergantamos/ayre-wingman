@@ -65,8 +65,16 @@ if (Test-Path "$target.bak") {
     & py -3.11 (Join-Path $repo "install\keep_pilot_settings.py") "$target.bak" $target  # push-to-talk etc.
 }
 Copy-Item (Join-Path $repo "templates\configs\_Star Citizen\Ayre.png") $configs -Force
+# her voice is served by the Mac; the .local name doesn't always answer on the voice port from the PC
+$voice = "http://Ians-MacBook-Pro.local:9881/v1"
+try { Invoke-RestMethod "$voice/voices" -TimeoutSec 5 | Out-Null; Write-Host "  voice: $voice" }
+catch {
+    $ip = "http://10.0.0.96:9881/v1"
+    try { Invoke-RestMethod "$ip/voices" -TimeoutSec 5 | Out-Null; (Get-Content $target -Raw).Replace($voice, $ip) | Set-Content $target -NoNewline -Encoding utf8; Write-Host "  voice: $ip (the .local name didn't answer)" }
+    catch { Write-Host "  voice: the Mac's voice service isn't answering; she'll be silent until it is" -ForegroundColor Yellow }
+}
 
 Step "Done"
 Write-Host "1. Restart Wingman AI. Ayre appears under Star Citizen."
-Write-Host "2. In Star Citizen: Options > Keybindings > Control Profiles > $($ayreProfile.BaseName -replace '^layout_|_exported$','')"
+Write-Host "2. In Star Citizen the AYRE profile is already active. Don't reload it in Control Profiles: that drops her MFD keys (rerun this installer if you do)."
 Write-Host "3. Set Star Citizen to borderless window so she can see the screen."

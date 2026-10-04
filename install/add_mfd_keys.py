@@ -54,6 +54,14 @@ for name, key in sorted(want.items()):
     added.append(f"{name} = {key}")
 ET.indent(tree, " ")
 tree.write(live, encoding="utf-8", xml_declaration=False)  # as the game writes it: no declaration, no BOM
+# make her profile the game's active one, so nothing needs loading in game (loading drops these keys)
+attrs = live.with_name("attributes.xml")
+if attrs.exists():
+    import re
+    a = attrs.read_text(encoding="utf-8")
+    want_preset = f"%savedata%/controls/mappings/{profile.name.lower()}"
+    attrs.write_text(re.sub(r'(name="Preset0" value=")[^"]*"', rf'\g<1>{want_preset}"', a), encoding="utf-8")
+    print(f"active profile: {profile.name}")
 print(f"backup: {backup.name}")
 print(f"wrote {len(added)} MFD keys into the live bindings:")
 for a in added:
