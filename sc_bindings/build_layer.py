@@ -40,7 +40,12 @@ REPLACED = {"Cycle Attacker", "Cycle Hostile", "Launch Countermeasure Decoy", "L
             "Toggle VToL", "Ping Area for Resources and Vehicles", "Toggle Headlights",
             "Toggle Light Amplification", "Contact ATC",
             # blind toggle chains; routines replace them
-            "Launch Sequence", "Landing Sequence"}
+            "Launch Sequence", "Landing Sequence",
+            # blind toggles Ayre has explicit set commands for; the model picked the toggle over
+            # "SCM Mode" ("Switch to SCM mode"), which can flip the wrong way
+            "Toggle Quantum or Navigation or SCM or Master Mode", "Toggle Mining or Salvage Mode",
+            # stock camera views sent as "f4+num 3": Wingman's numpad encoding misses the game
+            "View 3", "Save View 3"}
 
 
 # Star Citizen reads scan codes. Wingman's keyboard package sends "right ctrl" as the Pause key

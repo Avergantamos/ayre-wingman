@@ -221,14 +221,6 @@ commands:
   - keyboard:
       hotkey: n
       hold: 2.0
-- name: Toggle Quantum or Navigation or SCM or Master Mode
-  category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: b
-      hold: 2.0
 - name: Open Jump Gate
   additional_context: Energy burst fired, jump gate is opening
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
@@ -335,45 +327,6 @@ commands:
   - keyboard:
       hotkey: i
       hold: 3.0
-- name: Save View 3
-  category_id: 072f382d-9a38-49b6-9ad6-90a4adf7a9a4
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: f4
-      press: true
-  - wait: 0.8
-  - keyboard:
-      hotkey: num 3
-      hold: 4.0
-  - wait: 0.35
-  - keyboard:
-      hotkey: f4
-      release: true
-- name: View 3
-  category_id: 072f382d-9a38-49b6-9ad6-90a4adf7a9a4
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: f4
-      press: true
-  - wait: 0.6
-  - keyboard:
-      hotkey: num 3
-      hold: 0.1
-  - wait: 0.15
-  - keyboard:
-      hotkey: f4
-      release: true
-- name: Toggle Mining or Salvage Mode
-  category_id: 8483a2f5-5273-435f-82ee-561c5a485317
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: m
 - name: Next Attacker
   additional_context: For "who is shooting me" press this
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
