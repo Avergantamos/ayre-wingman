@@ -17,12 +17,13 @@ before = {"ship": "Cutlass Black", "visible": True,
 after = dict(before, groups=[{"number": 1, "weapons": ["Panther", "Mass Driver"]},
   {"number": 2, "weapons": ["Mass Driver"]}, {"number": 3, "weapons": ["Panther", "Panther"]}])
 replies = iter([
+  '{"visible": false}',                       # first look, before pressing anything: no weapons
   '{"visible": false}',                       # configuration view: no weapons here
   json.dumps(before),                         # self status view: weapons found
   '{"done": false, "key": "down", "why": "move to group 1"}',
   '{"done": false, "key": "next", "why": "add Mass Driver"}',
   '{"done": true, "key": null, "why": "matches"}',
-  json.dumps(after),                          # re-read: tries the remembered view first
+  json.dumps(after),                          # re-read: the weapons screen is already up, nothing pressed
 ])
 async def llm(messages):
     return types.SimpleNamespace(choices=[types.SimpleNamespace(message=types.SimpleNamespace(content=next(replies)))])
@@ -37,9 +38,13 @@ print("pressed:", pressed)
 print("views memory:", json.loads((OUT / "views.json").read_text()))
 print("wanted:", m.wanted_groups(after))
 assert pressed == ["select_view_configuration_short", "select_view_self_status_short", "movement_down_short",
-                   "interact_cycle_forwards_short", "select_view_self_status_short"], pressed
-assert json.loads((OUT / "views.json").read_text()) == {"v_mfd_select_view_self_status_short": 2}
+                   "interact_cycle_forwards_short"], pressed  # re-read found the screen already up
+assert json.loads((OUT / "views.json").read_text()) == {"v_mfd_select_view_self_status_short": 1}
 assert m.groups_match(e.loadout)
+# a read that lists weapons but says "not visible" still counts, and nothing gets pressed
+pressed.clear()
+replies = iter([json.dumps(dict(before, visible=False))])
+assert asyncio.run(e._find_loadout()).get("weapons") and pressed == []
 
 # scan: scan mode, scan screen, trigger, then read; retries once while results fill in
 pressed.clear()

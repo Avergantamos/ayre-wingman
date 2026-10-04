@@ -56,7 +56,9 @@ hull, power and fuel; in landing mode the HUD shows radar altitude and vertical 
 Answer only what was asked, numbers first, one or two short sentences, calm and direct, in
 character, calling the pilot Raven. If something is not visible, say so plainly; never guess."""
 
-LOADOUT = """Read this Star Citizen ship screen and return JSON only, no prose:
+LOADOUT = """Read this Star Citizen ship screen and return JSON only, no prose. The cockpit has several MFD
+screens; the weapons list may be on any of them (often titled WEAPON CONFIG or VEHICLE CONFIGURATION,
+listing weapon names with group columns, e.g. a "GUNS (ALL)" header). Read whichever one shows it:
 {"ship": "<ship name if shown, else null>",
  "groups": [{"number": <group number as shown>, "weapons": ["<weapon name>", ...]}],
  "weapons": [{"name": "...", "size": <int or null>, "type": "laser|ballistic|distortion|neutron|tachyon|other"}],
@@ -157,13 +159,13 @@ class AyreEyes(Skill):
             shot = sct.grab(sct.monitors[display])
         return Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX")
 
-    async def _ask(self, image: Image.Image, system: str, question: str, label: str) -> str:
+    async def _ask(self, image: Image.Image, system: str, question: str, label: str, full_res: bool = False) -> str:
         sample = image.resize((64, 27)).convert("L")
         lo, hi = sample.getextrema()
         if hi < 12 and sum(sample.getdata()) / (64 * 27) < 4:  # black capture: exclusive fullscreen
             return "I can't see the screen, Raven: it comes through black. Set Star Citizen to borderless window."
-        # wide enough that HUD numbers stay readable on a 3440 px ultrawide
-        w = min(2048, image.width)
+        # wide enough that HUD numbers stay readable on a 3440 px ultrawide; MFD text needs full resolution
+        w = image.width if full_res else min(2048, image.width)
         small = image.resize((w, int(image.height * w / image.width)))
         buf = io.BytesIO()
         small.save(buf, format="JPEG", quality=88)
@@ -202,13 +204,22 @@ class AyreEyes(Skill):
         stats[view] = stats.get(view, 0) + 1
         stats_file.write_text(json.dumps(stats, indent=1))
 
+    async def _read_loadout_now(self) -> dict:
+        data = parse_json(await self._ask(self._grab(), "Return JSON only.", LOADOUT, "loadout", full_res=True))
+        # the model sometimes lists the weapons and still says "not visible": weapons on screen is what counts
+        return data if (data.get("visible") or data.get("weapons")) else {}
+
     async def _find_loadout(self) -> dict:
+        # ships often show the weapons screen on one of their MFDs already: look before pressing anything
+        data = await self._read_loadout_now()
+        if data:
+            return data
         for view in self._view_order():
             if not await self._press(view):
                 continue
             await asyncio.sleep(0.8)  # let the screen switch before looking
-            data = parse_json(await self._ask(self._grab(), "Return JSON only.", LOADOUT, "loadout"))
-            if data.get("visible"):
+            data = await self._read_loadout_now()
+            if data:
                 self._remember_view(view)
                 return data
         return {}
