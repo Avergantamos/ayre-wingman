@@ -116,7 +116,8 @@ Pilot-started, a few seconds long, one axis only, so she never steers:
 
 - Ollama on the pilot's Mac (M4 Max, 48 GB) serves `qwen3-vl:30b` (vision + tools, MoE, Q4, 19 GB) to Wingman on the PC over the home network: `local_llm` endpoint `http://Ians-MacBook-Pro.local:11434/v1` (fallback `http://10.0.0.96:11434/v1`). Chosen so screenshots (handle, session ids, r_displayinfo) never leave the house, and the 3090 Ti stays free for the game.
 - Runs as `~/Library/LaunchAgents/com.ayre.ollama.plist` (OLLAMA_HOST 0.0.0.0, keep alive 2h). No auth on the port: unload it on untrusted networks.
-- Measured over the network: commands 1 to 3 s, HUD read 3.6 s, cold load ~30 s (AyreEyes warms the model when Wingman starts). Thinking cannot be turned off from Wingman; speeds are fine with it on.
+- The name `qwen3-vl:30b` on the Mac is the INSTRUCT build (`qwen3-vl:30b-a3b-instruct`, no thinking). The thinking build is kept as `qwen3-vl:30b-thinking`. Thinking made every reply write 300 to 2,000 reasoning tokens: 2 s to 2 min per request in the first PC test. Never put a thinking model behind Ayre.
+- Wingman sends ~12,000 tokens per request (persona, 111 commands, skill tools). Ollama caches the prompt prefix, so warm requests answer in ~0.3 s (commands and HUD reads, measured with training running). The first request after a load, or after the system prompt changes, re-reads the prompt and takes several seconds; cold model load ~30 s (AyreEyes warms it at start).
 
 ## Latency (why this fork exists)
 
