@@ -10,7 +10,7 @@ Ayre is a personal Star Citizen ship AI built on Wingman AI (ShipBit). Repo: htt
 
 ## Rules
 
-- Never fire weapons, launch missiles or aim through Ayre. Risky actions (quantum engage, main power, shields or thrusters off) go only through the `risky_action` lock.
+- Never fire weapons, launch missiles or aim through Ayre. Quantum engage and power, shields or thrusters off are ordinary commands with no spoken confirmation (the pilot's choice).
 - Don't edit Star Citizen bindings by hand. Ayre's keys come from `sc_bindings/build_layer.py`, which the installer runs.
 - Don't push to `upstream` (ShipBit). Commit on `ayre` only when the pilot asks.
 

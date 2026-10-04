@@ -4,7 +4,6 @@
 # If the pilot already has a keyboard key on an action, she uses that key instead.
 #
 # name: the command name the model sees. say: instant phrases (skip the model, fastest).
-# risky: no instant phrases, and her context tells her to get a spoken yes first.
 # Toggles stay with the pilot on the sticks; Ayre gets explicit on/off and set actions.
 # assist_only: bound in the profile for her code (assists, screen navigation) but not
 # exposed as a voice command. key: press this existing key instead of binding a new one.
@@ -31,7 +30,7 @@
 
 "Flight - Quantum Travel":
   v_set_quantum_mode: {name: Quantum Mode}
-  v_toggle_qdrive_engagement: {name: Engage Quantum Drive, risky: true}
+  v_toggle_qdrive_engagement: {name: Engage Quantum Drive, say: ["Engage quantum", "Punch it"]}
   v_master_mode_set_nav: {name: NAV Mode}
   v_master_mode_set_scm: {name: SCM Mode, say: ["SCM mode", "Combat mode"]}
 
@@ -58,11 +57,11 @@
 
 "Flight - Power":
   v_power_set_on: {name: Main Power On}
-  v_power_set_off: {name: Main Power Off, risky: true}
+  v_power_set_off: {name: Main Power Off, say: ["Power off", "Main power off"]}
   v_power_set_shields_on: {name: Shields On}
-  v_power_set_shields_off: {name: Shields Off, risky: true}
+  v_power_set_shields_off: {name: Shields Off, say: ["Shields off"]}
   v_power_set_thrusters_on: {name: Thrusters On}
-  v_power_set_thrusters_off: {name: Thrusters Off, risky: true}
+  v_power_set_thrusters_off: {name: Thrusters Off, say: ["Thrusters off", "Cut thrusters"]}
   v_power_set_weapons_on: {name: Weapons Power On}
   v_power_set_weapons_off: {name: Weapons Power Off}
   v_engineering_assignment_engine_max: {name: Max Power to Engines}

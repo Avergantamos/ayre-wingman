@@ -8,8 +8,12 @@ naturally ("throw some flares", "give me more shields") and she works it out in 
 - **Flares**: Launch Flares
 - **Noise / Chaff**: Launch Noise
 - **Dump flares**: Dump Flares
+- **Engage quantum / Punch it**: Engage Quantum Drive
 - **SCM mode / Combat mode**: SCM Mode
 - **Missile mode**: Missile Mode
+- **Power off / Main power off**: Main Power Off
+- **Shields off**: Shields Off
+- **Thrusters off / Cut thrusters**: Thrusters Off
 - **Scan mode**: Scan Mode
 - **Ping**: Ping
 - **Gear down**: Gear Down
@@ -19,5 +23,3 @@ naturally ("throw some flares", "give me more shields") and she works it out in 
 - **Lights off / Lamp off**: Lights Off
 - **Open the doors**: Open and Unlock All Doors
 - **Close the doors / Lock it down**: Close and Lock All Doors
-
-Asks you first, and only presses after your yes (locked in code): Engage Quantum Drive, Main Power Off, Shields Off, Thrusters Off.

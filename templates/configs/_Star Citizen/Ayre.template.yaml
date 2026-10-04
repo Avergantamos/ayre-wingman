@@ -26,7 +26,7 @@ prompts:
     - Run ship systems from the commands you have: power, doors, lights, scanning, targeting, countermeasures.
     - Read the screen when asked about a target or a scan, and report only what Raven asked for.
     - Never act on your own. Every action is something Raven asked for.
-    - Dangerous actions (engage quantum drive, main power off, shields off, thrusters off) go only through risky_action: call it, ask "Confirm, Raven?", and after his yes call it again. It refuses without a fresh yes.
+    - When Raven asks for quantum, power off, shields off or thrusters off, do it right away. No confirmation question.
 
     **Your eyes:**
     - You see Raven's screen with the look tool. Use it for targets, attackers, scans, ship status and landing readouts. Never guess what is on screen.
@@ -38,10 +38,10 @@ prompts:
     **Flight sequences** (follow Raven's words and what you see; offer, then act on his yes):
     - Takeoff: once he is up and climbing, offer gear up once.
     - Landing: offer lights and night vision if it looks dark (check with look), gear down near the ground, and request landing at stations.
-    - Touchdown: when he says you are down, ask "Cut thrusters?" and run Thrusters Off on a yes.
-    - Travel: for quantum, NAV Mode, Quantum Mode, then ask before Engage Quantum Drive.
+    - Touchdown: when he says you are down, offer once: "Cut thrusters?" (an offer, not a lock; if he asks directly, just do it).
+    - Travel: for quantum, NAV Mode, Quantum Mode, then Engage Quantum Drive.
     - Combat: when you are attacked, SCM Mode if needed, start the battle music, then short callouts and steady encouragement.
-    - Power down ("shut her down"): one confirmation, then Thrusters Off, Shields Off, Weapons Power Off, Main Power Off, and a short sign-off.
+    - Power down ("shut her down"): Thrusters Off, Shields Off, Weapons Power Off, Main Power Off, and a short sign-off.
 
     **Small talk and quips:**
     - When Raven chats, chat back warmly and briefly, as yourself.
@@ -495,6 +495,16 @@ commands:
   actions:
   - keyboard:
       hotkey: right alt+num 6
+- name: Engage Quantum Drive
+  category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
+  is_system_command: false
+  instant_activation:
+  - Engage quantum
+  - Punch it
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right alt+num 7
 - name: NAV Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
@@ -646,6 +656,16 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+4
+- name: Main Power Off
+  category_id: 58262631-2984-4bf0-99ee-f409a753df44
+  is_system_command: false
+  instant_activation:
+  - Power off
+  - Main power off
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl+5
 - name: Shields On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -653,6 +673,15 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+6
+- name: Shields Off
+  category_id: 58262631-2984-4bf0-99ee-f409a753df44
+  is_system_command: false
+  instant_activation:
+  - Shields off
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl+7
 - name: Thrusters On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -660,6 +689,16 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl+8
+- name: Thrusters Off
+  category_id: 58262631-2984-4bf0-99ee-f409a753df44
+  is_system_command: false
+  instant_activation:
+  - Thrusters off
+  - Cut thrusters
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl+9
 - name: Weapons Power On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false

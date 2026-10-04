@@ -1,8 +1,7 @@
-"""Ayre's ship: the confirmation lock, the Game.log watcher and music ducking.
+"""Ayre's ship: the Game.log watcher, music ducking and her startup self-check.
 
-risky_action: the only way to press Engage Quantum Drive, Main Power Off, Shields Off and
-  Thrusters Off. The lock is in code: the second call presses only when Raven's latest message,
-  spoken after the first call and within 20 s, is a plain yes.
+(The spoken-confirmation lock for quantum, power, shields and thrusters off was removed on
+2026-10-03 at the pilot's request; those are ordinary commands now.)
 Game.log watcher: a background task that checks the file size once a second and reads only the
   new bytes. Patterns live in events.yaml next to this file (editable, reloaded on change). A match
   can make her say one short line and is fed into her prompt. A daily sample of masked line
@@ -26,7 +25,7 @@ from typing import TYPE_CHECKING, Callable
 
 import yaml
 
-from api.interface import CommandConfig, SettingsConfig, SkillConfig, WingmanInitializationError
+from api.interface import SettingsConfig, SkillConfig, WingmanInitializationError
 from skills.skill_base import Skill, tool
 
 if TYPE_CHECKING:
@@ -84,71 +83,6 @@ PROBLEM_LINES = {
     "keys": "Raven, my key map is missing. Rerun the installer.",
 }
 ACTIONS = json.loads((HERE / "ayre_actions.json").read_text())
-
-# ---------------------------------------------------------------- confirmation lock
-
-RISKY = {
-    "v_toggle_qdrive_engagement": ("Engage Quantum Drive", [
-        "engage quantum drive", "engage quantum", "quantum drive", "quantum", "quantum jump",
-        "quantum travel", "engage qt", "qt", "jump"]),
-    "v_power_set_off": ("Main Power Off", [
-        "main power off", "power off", "power down", "main power", "shut down power"]),
-    "v_power_set_shields_off": ("Shields Off", ["shields off", "shields", "drop shields", "cut shields"]),
-    "v_power_set_thrusters_off": ("Thrusters Off", ["thrusters off", "thrusters", "cut thrusters", "kill thrusters"]),
-}
-CONFIRM_WINDOW_S = 20.0
-YES = re.compile(r"\b(yes|yeah|yep|confirm|confirmed|do it|affirmative|engage|cut them|kill it)\b")
-GO = {"go", "go ahead", "go go"}  # "go" only on its own, so "let's go" never confirms
-NO = re.compile(r"\b(no|not|cancel|wait|stop|don t|dont|abort|negative|hold)\b")
-
-
-def _norm(text: str) -> str:
-    return " ".join(re.sub(r"[^a-z0-9_]+", " ", (text or "").lower()).split())
-
-
-def is_affirmative(text: str) -> bool:
-    t = _norm(text)
-    return (bool(YES.search(t)) or t in GO) and not NO.search(t)
-
-
-def resolve_risky(name: str) -> str | None:
-    n = _norm(name)
-    for action_id, (label, aliases) in RISKY.items():
-        if n in (action_id, action_id[2:], _norm(label)) or n in aliases:
-            return action_id
-    return None
-
-
-class ConfirmLock:
-    """One pending request; a press needs a fresh affirmative user message after it."""
-
-    def __init__(self, window_s: float = CONFIRM_WINDOW_S, clock: Callable[[], float] = time.monotonic):
-        self.window_s = window_s
-        self.clock = clock
-        self.pending: tuple[str, int, float] | None = None  # action, user message seq, time
-        self.seq = 0  # counter, not timestamps: Windows clocks can tick coarser than two events
-        self.last_text = ""
-
-    def user_said(self, text: str) -> None:
-        self.seq += 1
-        self.last_text = text or ""
-
-    def request(self, action: str) -> str:
-        """Returns ask, press, stale, no_answer or refused."""
-        now = self.clock()
-        pending = self.pending
-        if pending is None or pending[0] != action:
-            self.pending = (action, self.seq, now)
-            return "ask"
-        self.pending = None  # one shot, whatever happens next
-        if now - pending[2] > self.window_s:
-            return "stale"
-        if self.seq <= pending[1]:
-            return "no_answer"
-        if not is_affirmative(self.last_text):
-            return "refused"
-        return "press"
-
 
 # ---------------------------------------------------------------- Game.log watcher
 
@@ -429,7 +363,6 @@ class Ducker:
 class AyreShip(Skill):
     def __init__(self, config: SkillConfig, settings: SettingsConfig, wingman: "OpenAiWingman") -> None:
         super().__init__(config=config, settings=settings, wingman=wingman)
-        self.lock = ConfirmLock()
         self.watcher: LogWatcher | None = None
         self.ducker: Ducker | None = None
         self._watch_task: asyncio.Task | None = None
@@ -507,40 +440,6 @@ class AyreShip(Skill):
             except Exception as e:  # never let one bad tick kill the watcher
                 self.printr.print(f"AyreShip log watcher: {e}", server_only=True)
 
-    async def on_add_user_message(self, message: str) -> None:
-        self.lock.user_said(message)
-
-    async def _press(self, action: str) -> bool:
-        if action not in ACTIONS:
-            return False
-        await self.wingman.execute_action(CommandConfig.model_validate({"name": action, "actions": ACTIONS[action]}))
-        return True
-
-    @tool(description="""The only way to Engage Quantum Drive, Main Power Off, Shields Off or
-        Thrusters Off. First call returns a confirmation question for Raven. Call again with the
-        same name only after Raven answers yes.""")
-    async def risky_action(self, name: str) -> str:
-        """
-        Args:
-            name: Engage Quantum Drive, Main Power Off, Shields Off or Thrusters Off.
-        """
-        action = resolve_risky(name)
-        if not action:
-            return "Unknown risky action. Options: " + ", ".join(label for label, _ in RISKY.values()) + "."
-        label = RISKY[action][0]
-        result = self.lock.request(action)
-        if result == "ask":
-            return (f"{label} not pressed yet. Ask Raven exactly 'Confirm, Raven?' and wait. "
-                    f"Call risky_action again only after he says yes.")
-        if result == "press":
-            if await self._press(action):
-                return f"{label}: pressed."
-            return f"{label} has no key bound. Tell Raven."
-        reason = {"stale": "his yes did not come within 20 seconds",
-                  "no_answer": "Raven has not answered yet",
-                  "refused": "Raven did not say yes"}[result]
-        return f"{label} not pressed: {reason}. Request cleared; tell Raven in a few words."
-
     async def _check_brain(self) -> tuple[bool, str]:
         try:
             reply = await asyncio.wait_for(self.llm_call([{"role": "user", "content": "Reply with: ok"}]), 45)
@@ -570,7 +469,7 @@ class AyreShip(Skill):
         checks = {
             "brain": await self._check_brain(),
             "screen": self._check_screen(),
-            "keys": (len(ACTIONS) > 50 and all(a in ACTIONS for a in RISKY),
+            "keys": (len(ACTIONS) > 50 and "v_power_set_off" in ACTIONS,
                      f"{len(ACTIONS)} actions" if len(ACTIONS) > 50 else PROBLEM_LINES["keys"]),
             "game_log": (Path(self._log_path()).exists(), self._log_path()),
             "music_ducking": (bool(self.ducker and self.ducker.backend.available), "pycaw"),

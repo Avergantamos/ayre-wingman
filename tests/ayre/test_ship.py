@@ -125,62 +125,6 @@ def make_skill(tmp):
     return s
 
 
-# ---- lock
-async def test_lock():
-    tmp = tempfile.mkdtemp()
-    s = make_skill(tmp)
-    w = s.wingman
-    q = "Engage Quantum Drive"
-
-    await s.on_add_user_message("engage quantum")
-    r = await s.risky_action(q)
-    check("lock: first call asks, no press", "Confirm, Raven?" in r and not w.presses)
-    await s.on_add_user_message("Yes.")
-    r = await s.risky_action("v_toggle_qdrive_engagement")
-    check("lock: yes after request presses once", w.presses == [("v_toggle_qdrive_engagement", m.ACTIONS["v_toggle_qdrive_engagement"])])
-    r = await s.risky_action(q)
-    check("lock: one shot (third call asks again)", "Confirm" in r and len(w.presses) == 1)
-
-    await s.on_add_user_message("no wait")
-    s.lock.pending = None
-    await s.risky_action("shields off")
-    await s.on_add_user_message("no, wait")
-    await s.risky_action("shields off")
-    check("lock: 'no wait' does not press", len(w.presses) == 1)
-
-    await s.risky_action("main power off")
-    await s.on_add_user_message("yes do it but wait")
-    await s.risky_action("main power off")
-    check("lock: yes + wait does not press", len(w.presses) == 1)
-
-    clock = [100.0]
-    s.lock.clock = lambda: clock[0]
-    await s.risky_action("thrusters off")
-    await s.on_add_user_message("yes")
-    clock[0] += 21
-    r = await s.risky_action("thrusters off")
-    check("lock: stale yes (>20 s) does not press", len(w.presses) == 1 and "20 seconds" in r)
-
-    await s.on_add_user_message("yes")  # yes BEFORE the request
-    await s.risky_action("thrusters off")
-    r = await s.risky_action("thrusters off")
-    check("lock: yes before the request does not count", len(w.presses) == 1 and "not answered" in r)
-
-    await s.risky_action("thrusters off")
-    await s.on_add_user_message("confirmed")
-    await s.risky_action("shields off")
-    check("lock: different action name does not press", len(w.presses) == 1)
-    await s.on_add_user_message("yes")
-    await s.risky_action("shields off")
-    check("lock: new request for the other action then yes presses it",
-          w.presses[-1][0] == "v_power_set_shields_off" and len(w.presses) == 2)
-
-    r = await s.risky_action("self destruct")
-    check("lock: unknown name refused", r.startswith("Unknown") and len(w.presses) == 2)
-    check("affirmatives", all(m.is_affirmative(t) for t in ["Yeah", "go", "Affirmative.", "cut them", "kill it", "engage"]))
-    check("negatives", not any(m.is_affirmative(t) for t in ["I know", "don't", "not yet", "stop", "cancel that"]))
-
-
 # ---- log watcher
 async def test_watcher():
     tmp = tempfile.mkdtemp()
@@ -302,7 +246,6 @@ async def test_ducking():
 
 
 async def main():
-    await test_lock()
     await test_watcher()
     await test_ducking()
     failed = [n for n, ok in results if not ok]

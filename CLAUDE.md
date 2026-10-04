@@ -18,7 +18,7 @@ A personal Star Citizen ship AI with Ayre's voice and character (Armored Core VI
 - State changes (power, modes, doors, flight) happen only when the pilot asks or says yes to her offer. On her own she may only switch screens and read them (boot loadout read, status checks).
 - Piloting assists (below) are pilot-started, short, single-axis, speed-limited, and end the moment the pilot touches a stick or says stop.
 - The model picks from a fixed list of named commands. Only command definitions send keys or clicks, never free text from the model.
-- Irreversible or dangerous actions (self destruct, eject, quantum jump, power down) need a spoken "yes" first.
+- No spoken confirmation: quantum engage, main power off, shields off and thrusters off are ordinary commands, by the pilot's choice (2026-10-03; the confirm loop was too slow in play). Self destruct and eject are not bound for Ayre at all.
 
 ## Plan
 
@@ -64,7 +64,7 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 ## Flight assist and ship systems (skills, built, untested in game)
 
 - `skills/ayre_flight`: `calibrate_hud` (one vision call finds the readouts, kept only if the local reader reads them back; regions per resolution), `flight_assist(mode)`: landing_callouts, approach_callouts, descend, close_to_range, mark_range, stop. Region grabs at up to 5 Hz on CPU only while a mode runs, Windows OCR with a numpy digit matcher fallback. Assists: single axis, keys from an allowlist, abort on stale or jumpy readings, stick or button input, timeout, stop; keys always released. Logic in `flight_core.py`.
-- `skills/ayre_ship`: `risky_action` lock (pending request, fresh yes after it, 20 s), Game.log watcher (1 s size check, new bytes only, editable `events.yaml`, daily masked line shapes), music ducking under Ayre's voice only (pycaw, restores on finish, unload, error, 120 s).
+- `skills/ayre_ship`: Game.log watcher (1 s size check, new bytes only, editable `events.yaml`, daily masked line shapes), music ducking under Ayre's voice only (pycaw, restores on finish, unload, error, 120 s).
 - Speech gate (`ayre_voice.py`, source in ayre_eyes, synced by the builder): every proactive line goes through one shared gate on the wingman object. SAFETY always speaks and interrupts; CALLOUT waits for her to be quiet, keeps only the newest, drops it after 1.5 s; CHATTER only after 3 s quiet, once per 10 s, never queued. Wingman itself cuts off the playing line when a new one starts, so nothing may call play_to_user directly.
 - Self-check (AyreShip): 8 s after start she checks brain, screen (black capture means exclusive fullscreen), keys, Game.log and ducking, then says "Online" or names the problem; `status_check` tool repeats it. AyreEyes never sends a black frame to the model.
 - Failure tests: `tests/ayre/test_profile.py` (pilot's binds survive, no key overlap), `install/keytest.py` on the PC (keys leave Windows correctly, numpad Enter is numpad, nothing stuck).
@@ -80,7 +80,7 @@ She acts like a good copilot: one short line per phase, wording varied from a po
 - Takeoff: after liftoff and climbing, she offers gear up.
 - SCM / NAV: confirms the mode change; on NAV she readies quantum.
 - Landing: offers lights and night vision when the view is dark, gear down near the ground, descent assist if asked. On touchdown: "Down. Cut thrusters?" so the ship does not slide away.
-- Power down ("shut her down"): one confirmation, then thrusters, shields, weapons, main power off, and a short sign-off.
+- Power down ("shut her down"): thrusters, shields, weapons, main power off, and a short sign-off.
 
 ## Piloting assists (planned)
 

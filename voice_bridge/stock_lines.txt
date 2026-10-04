@@ -12,10 +12,6 @@ Understood.
 Of course, Raven.
 On it.
 Right away.
-# asking before something risky
-Confirm, Raven?
-Are you sure? Say yes and I'll do it.
-That can't be undone. Confirm?
 # thinking
 One moment.
 Let me look.

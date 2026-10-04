@@ -182,8 +182,8 @@ def main(bdir):
         kept.append(c)
     tpl["commands"] = kept
     for category, action, spec, key, _ in commands:
-        if spec.get("assist_only") or spec.get("risky"):
-            continue  # risky ones are pressed only through AyreShip's risky_action lock
+        if spec.get("assist_only"):
+            continue
         context = spec.get("context", "")
         if spec.get("risky"):
             context = (context + ". " if context else "") + "Dangerous: ask Raven to confirm and wait for a yes first."
@@ -210,7 +210,6 @@ def main(bdir):
     for category, action, spec, _, _ in commands:
         if spec.get("say") and not spec.get("risky"):
             sheet.append(f"- **{' / '.join(spec['say'])}**: {spec['name']}")
-    sheet += ["", "Asks you first, and only presses after your yes (locked in code): " + ", ".join(spec["name"] for _, _, spec, _, _ in commands if spec.get("risky")) + "."]
     (ROOT / "AYRE_PHRASES.md").write_text("\n".join(sheet) + "\n")
 
     print(f"{len(commands)} commands ({sum(c[4] == 'yours' for c in commands)} on your keys), "
