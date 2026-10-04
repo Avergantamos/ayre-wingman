@@ -1,0 +1,49 @@
+# How Ayre says Star Citizen names. Only the spoken audio changes; the chat keeps the real name.
+# Left: the word as written (case doesn't matter, whole words only). Right: how to say it,
+# spelled the way it sounds. Add a line whenever she says something wrong.
+
+# manufacturers
+MISC: Misk
+RSI: R S I
+Aegis: Ee-jis
+Aopoa: Ay-oh-poh-ah
+Gatac: Gah-tack
+Esperia: Es-peer-ee-ah
+Banu: Bah-noo
+Xi'an: Shee-ahn
+Vanduul: Van-dool
+Mirai: Mee-rye
+CNOU: Consolidated Outland
+Kruger: Kroo-ger
+Tumbril: Tum-brill
+Greycat: Gray-cat
+Crusader: Crusader
+Anvil: Anvil
+Drake: Drake
+Origin: Origin
+Argo: Ar-go
+
+# ships and parts
+Syulen: See-yoo-len
+Starlancer: Star-lancer
+Cutlass: Cut-liss
+Hornet: Hornet
+Vanguard: Van-guard
+Sabre: Saber
+Carrack: Care-ack
+Caterpillar: Cat-er-pillar
+Reclaimer: Re-claimer
+Prospector: Prospector
+Arrester: Arrester
+ARRSTR: Arrester
+OmniSky: Omni-sky
+Laranite: Lair-an-ite
+Quantanium: Kwon-tane-ee-um
+SCU: S C U
+SCM: S C M
+QT: Q T
+QD: Q D
+QED: Q E D
+EM: E M
+IR: I R
+CS: C S

@@ -277,10 +277,21 @@ async def test_songs():
     check("play_song: not one of her songs -> says so", "isn't one of her songs" in await s.play_song("Bohemian Rhapsody"))
 
 
+def test_pronounce():
+    import yaml
+    table = yaml.safe_load((SKILL / "pronounce.yaml").read_text(encoding="utf-8"))
+    said = m.pronounce("GATAC SYULEN, owner GEM_TURTLE. MISC Starlancer, 4 Arrester, 96 SCU.", table)
+    check("pronounce: makers and ships respelled", "Gah-tack See-yoo-len" in said and "Misk Star-lancer" in said)
+    check("pronounce: handle underscores read as words", "GEM Turtle" in said)  # 3-letter caps kept: NPC, UEE
+    check("pronounce: acronyms spelled out", "S C U" in said)
+    check("pronounce: words inside other words untouched", m.pronounce("Emergency misc items", table) == "Emergency Misk items")
+
+
 async def main():
     await test_watcher()
     await test_ducking()
     await test_songs()
+    test_pronounce()
     failed = [n for n, ok in results if not ok]
     print(f"\n{len(results) - len(failed)}/{len(results)} passed")
     sys.exit(1 if failed else 0)

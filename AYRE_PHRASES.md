@@ -8,10 +8,11 @@ naturally ("throw some flares", "give me more shields") and she works it out in 
 - **Flares**: Launch Flares
 - **Noise / Chaff**: Launch Noise
 - **Dump flares**: Dump Flares
-- **Quantum mode / Switch to quantum mode**: Quantum Mode
+- **Quantum mode / Switch to quantum mode / QT / QT mode / Cutie / Activate my QT / Activate QT / Activate my cutie / Activate cutie / Spool quantum / Spool QT / Spool the drive / Quantum drive / Activate quantum / Activate my quantum drive / Activate my QD**: Quantum Mode
 - **Engage quantum / Punch it**: Engage Quantum Drive
 - **NAV mode / Switch to NAV mode / Switch to nav / Give me nav / Give me back nav / Navigation mode**: NAV Mode
 - **SCM mode / Combat mode / Switch to SCM mode / Bring me to SCM mode / Give me SCM / SCM**: SCM Mode
+- **Quantum dampener / Activate my quantum dampener / Activate quantum dampener / Jammer / Quantum jammer / Activate jammer / Activate my jammer / Dampener on**: Quantum Jammer
 - **Missile mode**: Missile Mode
 - **Power on / Main power on / Power me up / Power up**: Main Power On
 - **Power off / Main power off / Power me down / Power me off / Power down / Shut her down / Shut it down**: Main Power Off

@@ -395,6 +395,15 @@ SONG_ALIASES = {"all mind": "allmind", "all mine": "allmind", "almond": "allmind
                 "coral": "cries of coral", "rubicon": "fires of rubicon", "calm": "fires of rubicon"}
 
 
+def pronounce(text: str, table: dict) -> str:
+    """Respell Star Citizen names for her voice (pronounce.yaml). Handles like GEM_TURTLE are read
+    as words, and other ALL-CAPS words (GATAC SYULEN) as words rather than spelled letter by letter."""
+    text = re.sub(r"(?<=\w)_(?=\w)", " ", text)
+    for word, spoken in sorted(table.items(), key=lambda kv: -len(str(kv[0]))):
+        text = re.sub(rf"(?i)(?<![\w'-]){re.escape(str(word))}(?![\w'-])", str(spoken), text)
+    return re.sub(r"\b[A-Z]{4,}\b", lambda m: m.group(0).capitalize(), text)
+
+
 def match_song(name: str) -> str | None:
     """Raven's words (or a speech-to-text mishearing) -> a SONGS key."""
     import difflib
@@ -540,6 +549,14 @@ class AyreShip(Skill):
         or says something isn't working.""", wait_response=True)
     async def status_check(self) -> str:
         return await self._self_check()
+
+    async def on_play_to_user(self, text: str, sound_config) -> str:
+        """Right before she speaks: say ship and maker names properly (the chat keeps the real text)."""
+        try:
+            table = yaml.safe_load((HERE / "pronounce.yaml").read_text(encoding="utf-8")) or {}
+        except (OSError, yaml.YAMLError):
+            return text
+        return pronounce(text, table)
 
     async def _spotify(self):
         """A Spotify client on the login Wingman's Spotify skill already saved (no browser)."""

@@ -53,6 +53,10 @@ Raven's screen right now. Star Citizen HUD notes: the selected target's panel sh
 pilot or owner name, distance, shield and hull state; the scan screen shows signatures (EM, IR,
 CS), cargo, crew, power state and crime status; the ship status screen shows your own shields,
 hull, power and fuel; in landing mode the HUD shows radar altitude and vertical speed.
+Own signatures (emissions): the power MFD (tabs PWR WPN THR SHLD COOL) has a bar under the tabs with
+three readouts: heat-waves icon = IR, lightning icon = EM, double-diamond arrows icon = CS, each with
+an upper and a lower number (for example 618.7 over 53.1). Report the numbers exactly as shown with
+their signature names; never call the ship stealthy or quiet unless Raven asks you to judge it.
 Missiles: the HUD shows the selected missile as [<seeker><size>] NAME, e.g. "[CS3] ARRSTR" is an
 Arrester, size 3, CS = cross-section seeker (IR = infrared, EM = electromagnetic). A number like
 "1/1" next to it is missiles armed/locked, NOT how many are carried; the total is only known if a
@@ -63,7 +67,9 @@ count or a type. Never offer to fire weapons or missiles."""
 
 LOADOUT = """Read this Star Citizen ship screen and return JSON only, no prose. The cockpit has several MFD
 screens; the weapons list may be on any of them (often titled WEAPON CONFIG or VEHICLE CONFIGURATION,
-listing weapon names with group columns, e.g. a "GUNS (ALL)" header). Read whichever one shows it:
+listing weapon names with group columns). "GUNS (ALL)" and similar are group headers, not weapons:
+weapons are the rows under them with real item names (e.g. OmniSky-9, Panther). Read whichever screen
+shows them:
 {"ship": "<ship name if shown, else null>",
  "groups": [{"number": <group number as shown>, "weapons": ["<weapon name>", ...]}],
  "weapons": [{"name": "...", "size": <int or null>, "type": "laser|ballistic|distortion|neutron|tachyon|other"}],
@@ -83,6 +89,8 @@ SCAN = """Read the Star Citizen scan results for the scanned target (scan MFD an
  "shields": "on|off|null",
  "cargo": ["<item and amount as shown>", ...] or null,
  "crime": "<crime status as shown, or null>"}
+powered and shields: only true/false or on/off when the scan clearly shows it (a shield bar or value
+for the target's shields, a power state field); otherwise null. A wrong "off" is worse than null.
 cargo matters most: look for a cargo or contents section, commodity names and SCU amounts anywhere
 in the scan results; use [] when the scan shows cargo as empty and null when no cargo info is shown.
 owner_type: player when a player handle is shown; npc when the owner is a game faction, company or

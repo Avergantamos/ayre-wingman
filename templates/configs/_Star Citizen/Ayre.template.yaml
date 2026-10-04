@@ -39,6 +39,8 @@ prompts:
     - You see Raven's screen with the look tool. Use it for targets, attackers, scans, ship status and landing readouts. Never guess what is on screen.
     - When Raven says "flight ready" (or wakes the ship): run Flight Ready, then read_loadout; if it says the groups do not match, run arrange_weapon_groups; then give one short ready line naming the groups and missiles. Vary the wording every time.
     - "Scan", "scan him", "scan that ship", "scan that", "scan it", "I want you to scan that ship", "check for cargo", "what's he carrying", "who owns that" (speech-to-text may drop letters: "sca that" is "scan that"): call scan_target. Cargo first whenever there is any ("Cargo aboard, Raven: ..."), then ship and owner (player or NPC), in one short line. Raven never has to ask for cargo. Power, shields and crime status only when Raven asks; answer those from the last scan without scanning again.
+    - Emissions, signatures, "how loud am I", stealth: run Show Power Screen if the power screen isn't up, then call look (focus status) and report IR, EM and CS as read. Never say emissions are low or stealth is active without reading them.
+    - "QT", "cutie", "activate my QT/QD", "spool quantum" mean Quantum Mode (spool the quantum drive). Jumping is only Engage Quantum Drive, on a clear request.
     - For weapon or missile requests in plain words ("lasers", "ballistics go", "shut him down", "EM missiles", "biggest missile"), pick from the loadout you read at boot and run the matching command. Select only, never fire.
 
     **Flight assist** (AyreFlight): landing and approach callouts, the descent assist and close-to-range for salvage, from the instruments on screen. Run calibrate_hud the first time or when readings fail. Raven starts every assist; any stick movement or "stop" ends it.
@@ -769,6 +771,132 @@ commands:
   - Switch to quantum mode, Raven.
   - Switch to quantum mode please.
   - Switch to quantum mode, please.
+  - QT
+  - QT.
+  - QT!
+  - Ayre, QT.
+  - Ayre QT.
+  - QT, Ayre.
+  - QT, Raven.
+  - QT please.
+  - QT, please.
+  - QT mode
+  - QT mode.
+  - QT mode!
+  - Ayre, QT mode.
+  - Ayre QT mode.
+  - QT mode, Ayre.
+  - QT mode, Raven.
+  - QT mode please.
+  - QT mode, please.
+  - Cutie
+  - Cutie.
+  - Cutie!
+  - Ayre, Cutie.
+  - Ayre Cutie.
+  - Cutie, Ayre.
+  - Cutie, Raven.
+  - Cutie please.
+  - Cutie, please.
+  - Activate my QT
+  - Activate my QT.
+  - Activate my QT!
+  - Ayre, Activate my QT.
+  - Ayre Activate my QT.
+  - Activate my QT, Ayre.
+  - Activate my QT, Raven.
+  - Activate my QT please.
+  - Activate my QT, please.
+  - Activate QT
+  - Activate QT.
+  - Activate QT!
+  - Ayre, Activate QT.
+  - Ayre Activate QT.
+  - Activate QT, Ayre.
+  - Activate QT, Raven.
+  - Activate QT please.
+  - Activate QT, please.
+  - Activate my cutie
+  - Activate my cutie.
+  - Activate my cutie!
+  - Ayre, Activate my cutie.
+  - Ayre Activate my cutie.
+  - Activate my cutie, Ayre.
+  - Activate my cutie, Raven.
+  - Activate my cutie please.
+  - Activate my cutie, please.
+  - Activate cutie
+  - Activate cutie.
+  - Activate cutie!
+  - Ayre, Activate cutie.
+  - Ayre Activate cutie.
+  - Activate cutie, Ayre.
+  - Activate cutie, Raven.
+  - Activate cutie please.
+  - Activate cutie, please.
+  - Spool quantum
+  - Spool quantum.
+  - Spool quantum!
+  - Ayre, Spool quantum.
+  - Ayre Spool quantum.
+  - Spool quantum, Ayre.
+  - Spool quantum, Raven.
+  - Spool quantum please.
+  - Spool quantum, please.
+  - Spool QT
+  - Spool QT.
+  - Spool QT!
+  - Ayre, Spool QT.
+  - Ayre Spool QT.
+  - Spool QT, Ayre.
+  - Spool QT, Raven.
+  - Spool QT please.
+  - Spool QT, please.
+  - Spool the drive
+  - Spool the drive.
+  - Spool the drive!
+  - Ayre, Spool the drive.
+  - Ayre Spool the drive.
+  - Spool the drive, Ayre.
+  - Spool the drive, Raven.
+  - Spool the drive please.
+  - Spool the drive, please.
+  - Quantum drive
+  - Quantum drive.
+  - Quantum drive!
+  - Ayre, Quantum drive.
+  - Ayre Quantum drive.
+  - Quantum drive, Ayre.
+  - Quantum drive, Raven.
+  - Quantum drive please.
+  - Quantum drive, please.
+  - Activate quantum
+  - Activate quantum.
+  - Activate quantum!
+  - Ayre, Activate quantum.
+  - Ayre Activate quantum.
+  - Activate quantum, Ayre.
+  - Activate quantum, Raven.
+  - Activate quantum please.
+  - Activate quantum, please.
+  - Activate my quantum drive
+  - Activate my quantum drive.
+  - Activate my quantum drive!
+  - Ayre, Activate my quantum drive.
+  - Ayre Activate my quantum drive.
+  - Activate my quantum drive, Ayre.
+  - Activate my quantum drive, Raven.
+  - Activate my quantum drive please.
+  - Activate my quantum drive, please.
+  - Activate my QD
+  - Activate my QD.
+  - Activate my QD!
+  - Ayre, Activate my QD.
+  - Ayre Activate my QD.
+  - Activate my QD, Ayre.
+  - Activate my QD, Raven.
+  - Activate my QD please.
+  - Activate my QD, please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1185,6 +1313,79 @@ commands:
   additional_context: Quantum interdiction jammer
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
+  instant_activation:
+  - Quantum dampener
+  - Quantum dampener.
+  - Quantum dampener!
+  - Ayre, Quantum dampener.
+  - Ayre Quantum dampener.
+  - Quantum dampener, Ayre.
+  - Quantum dampener, Raven.
+  - Quantum dampener please.
+  - Quantum dampener, please.
+  - Activate my quantum dampener
+  - Activate my quantum dampener.
+  - Activate my quantum dampener!
+  - Ayre, Activate my quantum dampener.
+  - Ayre Activate my quantum dampener.
+  - Activate my quantum dampener, Ayre.
+  - Activate my quantum dampener, Raven.
+  - Activate my quantum dampener please.
+  - Activate my quantum dampener, please.
+  - Activate quantum dampener
+  - Activate quantum dampener.
+  - Activate quantum dampener!
+  - Ayre, Activate quantum dampener.
+  - Ayre Activate quantum dampener.
+  - Activate quantum dampener, Ayre.
+  - Activate quantum dampener, Raven.
+  - Activate quantum dampener please.
+  - Activate quantum dampener, please.
+  - Jammer
+  - Jammer.
+  - Jammer!
+  - Ayre, Jammer.
+  - Ayre Jammer.
+  - Jammer, Ayre.
+  - Jammer, Raven.
+  - Jammer please.
+  - Jammer, please.
+  - Quantum jammer
+  - Quantum jammer.
+  - Quantum jammer!
+  - Ayre, Quantum jammer.
+  - Ayre Quantum jammer.
+  - Quantum jammer, Ayre.
+  - Quantum jammer, Raven.
+  - Quantum jammer please.
+  - Quantum jammer, please.
+  - Activate jammer
+  - Activate jammer.
+  - Activate jammer!
+  - Ayre, Activate jammer.
+  - Ayre Activate jammer.
+  - Activate jammer, Ayre.
+  - Activate jammer, Raven.
+  - Activate jammer please.
+  - Activate jammer, please.
+  - Activate my jammer
+  - Activate my jammer.
+  - Activate my jammer!
+  - Ayre, Activate my jammer.
+  - Ayre Activate my jammer.
+  - Activate my jammer, Ayre.
+  - Activate my jammer, Raven.
+  - Activate my jammer please.
+  - Activate my jammer, please.
+  - Dampener on
+  - Dampener on.
+  - Dampener on!
+  - Ayre, Dampener on.
+  - Ayre Dampener on.
+  - Dampener on, Ayre.
+  - Dampener on, Raven.
+  - Dampener on please.
+  - Dampener on, please.
   force_instant_activation: false
   actions:
   - keyboard:

@@ -29,7 +29,7 @@
   v_weapon_countermeasure_decoy_burst_decrease: {name: Smaller Flare Bursts}
 
 "Flight - Quantum Travel":
-  v_set_quantum_mode: {name: Quantum Mode, say: ["Quantum mode", "Switch to quantum mode"]}
+  v_set_quantum_mode: {name: Quantum Mode, say: ["Quantum mode", "Switch to quantum mode", "QT", "QT mode", "Cutie", "Activate my QT", "Activate QT", "Activate my cutie", "Activate cutie", "Spool quantum", "Spool QT", "Spool the drive", "Quantum drive", "Activate quantum", "Activate my quantum drive", "Activate my QD"]}
   v_toggle_qdrive_engagement: {name: Engage Quantum Drive, say: ["Engage quantum", "Punch it"]}
   v_master_mode_set_nav: {name: NAV Mode, say: ["NAV mode", "Switch to NAV mode", "Switch to nav", "Give me nav", "Give me back nav", "Navigation mode"]}
   v_master_mode_set_scm: {name: SCM Mode, say: ["SCM mode", "Combat mode", "Switch to SCM mode", "Bring me to SCM mode", "Give me SCM", "SCM"]}
@@ -45,7 +45,7 @@
   v_weapon_staggered_fire_on: {name: Staggered Fire On}
   v_weapon_staggered_fire_off: {name: Staggered Fire Off}
   v_weapon_convergence_distance_set_default: {name: Reset Convergence}
-  v_weapon_preset_qid_jammer: {name: Quantum Jammer, context: Quantum interdiction jammer}
+  v_weapon_preset_qid_jammer: {name: Quantum Jammer, context: Quantum interdiction jammer, say: ["Quantum dampener", "Activate my quantum dampener", "Activate quantum dampener", "Jammer", "Quantum jammer", "Activate jammer", "Activate my jammer", "Dampener on"]}
   v_weapon_preset_qid_pulse: {name: Quantum Pulse, context: Quantum interdiction pulse, pulls ships out of quantum}
 
 "Vehicles - Missiles":
