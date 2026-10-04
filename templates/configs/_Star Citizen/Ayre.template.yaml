@@ -22,6 +22,11 @@ prompts:
     - Numbers first when they matter: distance, shields, hull, signatures.
     - Never mention "the game", AI models, or being software. This is your reality.
 
+    **How you act (most important):**
+    - Saying or writing a command name does nothing. Every ship action happens ONLY by calling the execute_command tool, once per command, in order. A sequence (power down, travel) is one tool call per step.
+    - Call the tools first, then say one short line about what was done. Never claim something happened that you did not call, including music.
+    - If no command fits, say so in a few words.
+
     **What you do:**
     - Run ship systems from the commands you have: power, doors, lights, scanning, targeting, countermeasures.
     - Read the screen when asked about a target or a scan, and report only what Raven asked for.
@@ -41,7 +46,7 @@ prompts:
     - Touchdown: when he says you are down, offer once: "Cut thrusters?" (an offer, not a lock; if he asks directly, just do it).
     - Travel: for quantum, NAV Mode, Quantum Mode, then Engage Quantum Drive.
     - Combat: when you are attacked, SCM Mode if needed, start the battle music, then short callouts and steady encouragement.
-    - Power down ("shut her down"): Thrusters Off, Shields Off, Weapons Power Off, Main Power Off, and a short sign-off.
+    - Power down ("shut her down", "power me down"): call execute_command four times: Thrusters Off, Shields Off, Weapons Power Off, Main Power Off. Then a short sign-off.
 
     **Small talk and quips:**
     - When Raven chats, chat back warmly and briefly, as yourself.
@@ -369,6 +374,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Next attacker
+  - Next attacker.
+  - Next attacker!
+  - Ayre, Next attacker.
+  - Ayre Next attacker.
+  - Next attacker, Ayre.
+  - Next attacker please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -419,6 +430,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Next hostile
+  - Next hostile.
+  - Next hostile!
+  - Ayre, Next hostile.
+  - Ayre Next hostile.
+  - Next hostile, Ayre.
+  - Next hostile please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -550,6 +567,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Flares
+  - Flares.
+  - Flares!
+  - Ayre, Flares.
+  - Ayre Flares.
+  - Flares, Ayre.
+  - Flares please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -568,7 +591,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Noise
+  - Noise.
+  - Noise!
+  - Ayre, Noise.
+  - Ayre Noise.
+  - Noise, Ayre.
+  - Noise please.
   - Chaff
+  - Chaff.
+  - Chaff!
+  - Ayre, Chaff.
+  - Ayre Chaff.
+  - Chaff, Ayre.
+  - Chaff please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -587,6 +622,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Dump flares
+  - Dump flares.
+  - Dump flares!
+  - Ayre, Dump flares.
+  - Ayre Dump flares.
+  - Dump flares, Ayre.
+  - Dump flares please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -653,7 +694,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Engage quantum
+  - Engage quantum.
+  - Engage quantum!
+  - Ayre, Engage quantum.
+  - Ayre Engage quantum.
+  - Engage quantum, Ayre.
+  - Engage quantum please.
   - Punch it
+  - Punch it.
+  - Punch it!
+  - Ayre, Punch it.
+  - Ayre Punch it.
+  - Punch it, Ayre.
+  - Punch it please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -688,7 +741,19 @@ commands:
   is_system_command: false
   instant_activation:
   - SCM mode
+  - SCM mode.
+  - SCM mode!
+  - Ayre, SCM mode.
+  - Ayre SCM mode.
+  - SCM mode, Ayre.
+  - SCM mode please.
   - Combat mode
+  - Combat mode.
+  - Combat mode!
+  - Ayre, Combat mode.
+  - Ayre Combat mode.
+  - Combat mode, Ayre.
+  - Combat mode please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -887,6 +952,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Missile mode
+  - Missile mode.
+  - Missile mode!
+  - Ayre, Missile mode.
+  - Ayre Missile mode.
+  - Missile mode, Ayre.
+  - Missile mode please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -967,7 +1038,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Power off
+  - Power off.
+  - Power off!
+  - Ayre, Power off.
+  - Ayre Power off.
+  - Power off, Ayre.
+  - Power off please.
   - Main power off
+  - Main power off.
+  - Main power off!
+  - Ayre, Main power off.
+  - Ayre Main power off.
+  - Main power off, Ayre.
+  - Main power off please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1002,6 +1085,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Shields off
+  - Shields off.
+  - Shields off!
+  - Ayre, Shields off.
+  - Ayre Shields off.
+  - Shields off, Ayre.
+  - Shields off please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1036,7 +1125,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Thrusters off
+  - Thrusters off.
+  - Thrusters off!
+  - Ayre, Thrusters off.
+  - Ayre Thrusters off.
+  - Thrusters off, Ayre.
+  - Thrusters off please.
   - Cut thrusters
+  - Cut thrusters.
+  - Cut thrusters!
+  - Ayre, Cut thrusters.
+  - Ayre Cut thrusters.
+  - Cut thrusters, Ayre.
+  - Cut thrusters please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1439,6 +1540,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Scan mode
+  - Scan mode.
+  - Scan mode!
+  - Ayre, Scan mode.
+  - Ayre Scan mode.
+  - Scan mode, Ayre.
+  - Scan mode please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1457,6 +1564,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Ping
+  - Ping.
+  - Ping!
+  - Ayre, Ping.
+  - Ayre Ping.
+  - Ping, Ayre.
+  - Ping please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1669,6 +1782,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Gear down
+  - Gear down.
+  - Gear down!
+  - Ayre, Gear down.
+  - Ayre Gear down.
+  - Gear down, Ayre.
+  - Gear down please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1687,6 +1806,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Gear up
+  - Gear up.
+  - Gear up!
+  - Ayre, Gear up.
+  - Ayre Gear up.
+  - Gear up, Ayre.
+  - Gear up please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1706,8 +1831,26 @@ commands:
   is_system_command: false
   instant_activation:
   - Request landing
+  - Request landing.
+  - Request landing!
+  - Ayre, Request landing.
+  - Ayre Request landing.
+  - Request landing, Ayre.
+  - Request landing please.
   - Call the tower
+  - Call the tower.
+  - Call the tower!
+  - Ayre, Call the tower.
+  - Ayre Call the tower.
+  - Call the tower, Ayre.
+  - Call the tower please.
   - Open the hangar
+  - Open the hangar.
+  - Open the hangar!
+  - Ayre, Open the hangar.
+  - Ayre Open the hangar.
+  - Open the hangar, Ayre.
+  - Open the hangar please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1790,7 +1933,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Lights on
+  - Lights on.
+  - Lights on!
+  - Ayre, Lights on.
+  - Ayre Lights on.
+  - Lights on, Ayre.
+  - Lights on please.
   - Lamp on
+  - Lamp on.
+  - Lamp on!
+  - Ayre, Lamp on.
+  - Ayre Lamp on.
+  - Lamp on, Ayre.
+  - Lamp on please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1809,7 +1964,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Lights off
+  - Lights off.
+  - Lights off!
+  - Ayre, Lights off.
+  - Ayre Lights off.
+  - Lights off, Ayre.
+  - Lights off please.
   - Lamp off
+  - Lamp off.
+  - Lamp off!
+  - Ayre, Lamp off.
+  - Ayre Lamp off.
+  - Lamp off, Ayre.
+  - Lamp off please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1861,6 +2028,12 @@ commands:
   is_system_command: false
   instant_activation:
   - Open the doors
+  - Open the doors.
+  - Open the doors!
+  - Ayre, Open the doors.
+  - Ayre Open the doors.
+  - Open the doors, Ayre.
+  - Open the doors please.
   force_instant_activation: false
   actions:
   - keyboard:
@@ -1874,7 +2047,19 @@ commands:
   is_system_command: false
   instant_activation:
   - Close the doors
+  - Close the doors.
+  - Close the doors!
+  - Ayre, Close the doors.
+  - Ayre Close the doors.
+  - Close the doors, Ayre.
+  - Close the doors please.
   - Lock it down
+  - Lock it down.
+  - Lock it down!
+  - Ayre, Lock it down.
+  - Ayre Lock it down.
+  - Lock it down, Ayre.
+  - Lock it down please.
   force_instant_activation: false
   actions:
   - keyboard:

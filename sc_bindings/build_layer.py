@@ -81,6 +81,18 @@ def kb_binds(action_el, mouse=False):
             and not rb.get("activationMode") and not rb.get("multiTap")]
 
 
+def spoken_variants(phrases: list[str]) -> list[str]:
+    """Wingman fires an instant phrase only on an exact (lowercased) match, but speech-to-text
+    adds punctuation and her name: "Lights on." / "Ayre, lights on." So list those forms too."""
+    out = []
+    for p in phrases:
+        p = p.strip().rstrip(".!?")
+        for v in (p, f"{p}.", f"{p}!", f"Ayre, {p}.", f"Ayre {p}.", f"{p}, Ayre.", f"{p} please."):
+            if v.lower() not in {o.lower() for o in out}:
+                out.append(v)
+    return out
+
+
 def main(bdir):
     live = ET.parse(bdir / "actionmaps.xml").getroot()
     layouts = [p for p in bdir.glob("layout_*_exported.xml") if "_AYRE_" not in p.name]
@@ -198,7 +210,7 @@ def main(bdir):
             cmd["additional_context"] = context
         cmd.update({"category_id": cat_ids[category], "is_system_command": False})
         if spec.get("say") and not spec.get("risky"):
-            cmd["instant_activation"] = spec["say"]
+            cmd["instant_activation"] = spoken_variants(spec["say"])
         cmd.update({"force_instant_activation": False, "actions": wingman_actions(key, spec.get("hold_modifier"))})
         tpl["commands"].append(cmd)
 
