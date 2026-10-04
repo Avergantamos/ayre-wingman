@@ -57,6 +57,9 @@ New-Item -ItemType Directory -Force $configs | Out-Null
 $target = Join-Path $configs "Ayre.yaml"
 if (Test-Path $target) { Copy-Item $target "$target.bak" -Force; Write-Host "  previous Ayre.yaml kept as Ayre.yaml.bak" }
 Copy-Item (Join-Path $repo "templates\configs\_Star Citizen\Ayre.template.yaml") $target -Force
+if (Test-Path "$target.bak") {
+    & py -3.11 (Join-Path $repo "install\keep_pilot_settings.py") "$target.bak" $target  # push-to-talk etc.
+}
 Copy-Item (Join-Path $repo "templates\configs\_Star Citizen\Ayre.png") $configs -Force
 
 Step "Done"
