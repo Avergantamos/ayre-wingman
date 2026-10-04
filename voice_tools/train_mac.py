@@ -26,6 +26,8 @@ PY = sys.executable
 
 os.chdir(SOVITS)
 OPT.mkdir(parents=True, exist_ok=True)
+for weights in (f"SoVITS_weights_{VERSION}", f"GPT_weights_{VERSION}"):  # the web page makes these at start
+    (SOVITS / weights).mkdir(exist_ok=True)
 base = {
     "version": VERSION, "is_half": "False", "exp_name": EXP, "opt_dir": str(OPT),
     "inp_text": str(CLIPS / "train.list"), "inp_wav_dir": str(CLIPS),
