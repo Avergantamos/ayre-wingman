@@ -53,8 +53,13 @@ Raven's screen right now. Star Citizen HUD notes: the selected target's panel sh
 pilot or owner name, distance, shield and hull state; the scan screen shows signatures (EM, IR,
 CS), cargo, crew, power state and crime status; the ship status screen shows your own shields,
 hull, power and fuel; in landing mode the HUD shows radar altitude and vertical speed.
+Missiles: the HUD shows the selected missile as [<seeker><size>] NAME, e.g. "[CS3] ARRSTR" is an
+Arrester, size 3, CS = cross-section seeker (IR = infrared, EM = electromagnetic). A number like
+"1/1" next to it is missiles armed/locked, NOT how many are carried; the total is only known if a
+screen lists the rack. Read seeker and size exactly from the brackets.
 Answer only what was asked, numbers first, one or two short sentences, calm and direct, in
-character, calling the pilot Raven. If something is not visible, say so plainly; never guess."""
+character, calling the pilot Raven. If something is not visible, say so plainly; never guess a
+count or a type. Never offer to fire weapons or missiles."""
 
 LOADOUT = """Read this Star Citizen ship screen and return JSON only, no prose. The cockpit has several MFD
 screens; the weapons list may be on any of them (often titled WEAPON CONFIG or VEHICLE CONFIGURATION,
@@ -62,9 +67,12 @@ listing weapon names with group columns, e.g. a "GUNS (ALL)" header). Read which
 {"ship": "<ship name if shown, else null>",
  "groups": [{"number": <group number as shown>, "weapons": ["<weapon name>", ...]}],
  "weapons": [{"name": "...", "size": <int or null>, "type": "laser|ballistic|distortion|neutron|tachyon|other"}],
- "missiles": [{"name": "...", "size": <int or null>, "seeker": "EM|IR|CS|null", "count": <int>}],
+ "missiles": [{"name": "...", "size": <int or null>, "seeker": "EM|IR|CS|null", "count": <int or null>}],
  "visible": true|false}
-Set "visible" to false if no weapons or loadout list is on screen. Include only what you can read."""
+Set "visible" to false if no weapons or loadout list is on screen. Include only what you can read.
+Missiles: the HUD shows the selected one as [<seeker><size>] NAME ("[CS3] ARRSTR" = Arrester, size
+3, CS seeker); take seeker and size from the brackets. Its "1/1" is armed/locked, not a count:
+use count null unless a screen lists how many are carried."""
 
 SCAN = """Read the Star Citizen scan results for the scanned target (scan MFD and HUD) and return JSON only:
 {"visible": true|false,
@@ -238,7 +246,7 @@ class AyreEyes(Skill):
             question: What Raven wants to know, in his words.
             focus: One of target, scan, status, landing, general. Labels the saved frame.
         """
-        return await self._ask(self._grab(), HUD, question, focus)
+        return await self._ask(self._grab(), HUD, question, focus, full_res=True)  # HUD and MFD text is small
 
     @tool(
         description="""Find the ship's weapons screen, read weapons, weapon groups and missiles,
@@ -315,8 +323,8 @@ class AyreEyes(Skill):
         groups = "; ".join(
             f"group {g.get('number')}: {', '.join(g.get('weapons', [])) or 'empty'}" for g in data.get("groups", []))
         weapons = ", ".join(f"{w.get('name')} (S{w.get('size')}, {w.get('type')})" for w in data.get("weapons", []))
-        missiles = ", ".join(f"{m.get('count')}x {m.get('name')} (S{m.get('size')}, {m.get('seeker')})"
-                             for m in data.get("missiles", []))
+        missiles = ", ".join(f"{str(m['count']) + 'x ' if isinstance(m.get('count'), int) else ''}{m.get('name')}"
+                             f" (S{m.get('size')}, {m.get('seeker')})" for m in data.get("missiles", []))
         return f"{data.get('ship') or 'ship'}. Weapons: {weapons or 'none'}. Groups: {groups or 'none'}. Missiles: {missiles or 'none'}."
 
     async def get_prompt(self) -> str | None:
