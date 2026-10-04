@@ -1,8 +1,9 @@
 # How Ayre says Star Citizen names. Only the spoken audio changes; the chat keeps the real name.
 # Left: the word as written (case doesn't matter, whole words only). Right: how to say it,
-# spelled the way it sounds. Add a line whenever she says something wrong.
+# spelled the way it sounds. ALL-CAPS words of 4+ letters are read as words automatically, so
+# only add names she still gets wrong. Add a line whenever she says something wrong.
 
-# manufacturers
+# --- manufacturers
 MISC: Misk
 RSI: R S I
 Aegis: Ee-jis
@@ -17,33 +18,95 @@ CNOU: Consolidated Outland
 Kruger: Kroo-ger
 Tumbril: Tum-brill
 Greycat: Gray-cat
-Crusader: Crusader
-Anvil: Anvil
-Drake: Drake
-Origin: Origin
 Argo: Ar-go
+Musashi: Moo-sah-shee
+Klaus: Klows
+Behring: Bear-ing
+Gallenson: Gal-en-son
+Hurston: Hurst-on
+Joker: Joker
 
-# ships and parts
+# --- ships
 Syulen: See-yoo-len
+Railen: Ray-len
 Starlancer: Star-lancer
 Cutlass: Cut-liss
-Hornet: Hornet
-Vanguard: Van-guard
 Sabre: Saber
+Gladius: Glad-ee-us
+Idris: Id-riss
+Javelin: Jav-lin
+Retaliator: Re-tal-ee-ay-tor
+Reclaimer: Re-claimer
+Redeemer: Re-deemer
+Vanguard: Van-guard
 Carrack: Care-ack
 Caterpillar: Cat-er-pillar
-Reclaimer: Re-claimer
+Pisces: Pie-seez
+Aquila: Ack-will-ah
+Andromeda: An-drom-eh-dah
+Taurus: Tor-us
+Aurora: Uh-ror-ah
+Perseus: Per-see-us
+Polaris: Po-lair-iss
+Reliant: Re-lie-ant
+Khartu-al: Kar-too-al
+Ares: Air-eez
+Hercules: Her-kew-leez
+Valkyrie: Val-keer-ee
+Terrapin: Ter-uh-pin
+Eclipse: Ee-clips
+Scythe: Sythe
+Glaive: Glayv
+Merchantman: Merchant-man
+Nautilus: Naw-til-us
+Odyssey: Odd-iss-ee
+Corsair: Cor-sair
+Buccaneer: Buck-an-eer
+Herald: Hair-ald
+Kraken: Krah-ken
+Vulture: Vul-cher
 Prospector: Prospector
+Mole: Mole
+Hornet: Hornet
+Avenger: Avenger
+Starfarer: Star-fair-er
+Constellation: Con-stel-ay-shun
+Zeus: Zoos
+Ursa: Er-sah
+Nox: Nocks
+Razor: Ray-zer
+Cyclone: Sigh-clone
+Ballista: Bah-liss-tah
+Paladin: Pal-uh-din
+Asgard: Az-gard
+Guardian: Guardian
+Hammerhead: Hammer-head
+Arrastra: Ah-rass-trah
+
+# --- items, weapons, cargo
 Arrester: Arrester
 ARRSTR: Arrester
 OmniSky: Omni-sky
 Laranite: Lair-an-ite
 Quantanium: Kwon-tane-ee-um
+Agricium: Ag-riss-ee-um
+Taranite: Tair-an-ite
+Bexalite: Bex-al-ite
+Borase: Bor-ace
+Hephaestanite: Heff-ess-tan-ite
+Stileron: Sty-ler-on
+Rubicon: Roo-bih-con
+
+# --- letters she should spell
 SCU: S C U
 SCM: S C M
+NAV: Nav
 QT: Q T
 QD: Q D
 QED: Q E D
 EM: E M
 IR: I R
 CS: C S
+ATC: A T C
+NPC: N P C
+UEE: U E E
