@@ -328,6 +328,27 @@ commands:
   - keyboard:
       hotkey: i
       hold: 3.0
+- name: Show Comms
+  category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: &id001
+      - 29
+      hotkey_extended: true
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: x
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: *id001
+      hotkey_extended: true
+      release: true
 - name: Next Attacker
   additional_context: For "who is shooting me" press this
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
@@ -344,7 +365,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id001
+      hotkey_codes: &id002
       - 29
       hotkey_extended: true
       press: true
@@ -357,33 +378,10 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id001
-      hotkey_extended: true
-      release: true
-- name: Previous Attacker
-  category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl
-      hotkey_codes: &id002
-      - 29
-      hotkey_extended: true
-      press: true
-  - wait: 0.08
-  - keyboard:
-      hotkey: keypad 1
-      hotkey_codes:
-      - 79
-      hold: 0.1
-  - wait: 0.05
-  - keyboard:
-      hotkey: right ctrl
       hotkey_codes: *id002
       hotkey_extended: true
       release: true
-- name: Reset Attacker Cycle
+- name: Previous Attacker
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
@@ -396,6 +394,29 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
+      hotkey: keypad 1
+      hotkey_codes:
+      - 79
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: *id003
+      hotkey_extended: true
+      release: true
+- name: Reset Attacker Cycle
+  category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: &id004
+      - 29
+      hotkey_extended: true
+      press: true
+  - wait: 0.08
+  - keyboard:
       hotkey: keypad 2
       hotkey_codes:
       - 80
@@ -403,7 +424,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id003
+      hotkey_codes: *id004
       hotkey_extended: true
       release: true
 - name: Next Hostile
@@ -421,7 +442,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id004
+      hotkey_codes: &id005
       - 29
       hotkey_extended: true
       press: true
@@ -434,33 +455,10 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id004
-      hotkey_extended: true
-      release: true
-- name: Previous Hostile
-  category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl
-      hotkey_codes: &id005
-      - 29
-      hotkey_extended: true
-      press: true
-  - wait: 0.08
-  - keyboard:
-      hotkey: keypad 4
-      hotkey_codes:
-      - 75
-      hold: 0.1
-  - wait: 0.05
-  - keyboard:
-      hotkey: right ctrl
       hotkey_codes: *id005
       hotkey_extended: true
       release: true
-- name: Reset Hostile Cycle
+- name: Previous Hostile
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
@@ -473,9 +471,9 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: keypad 5
+      hotkey: keypad 4
       hotkey_codes:
-      - 76
+      - 75
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -483,7 +481,7 @@ commands:
       hotkey_codes: *id006
       hotkey_extended: true
       release: true
-- name: Next Friendly
+- name: Reset Hostile Cycle
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
@@ -496,9 +494,9 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: keypad 6
+      hotkey: keypad 5
       hotkey_codes:
-      - 77
+      - 76
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -506,8 +504,7 @@ commands:
       hotkey_codes: *id007
       hotkey_extended: true
       release: true
-- name: Next Subtarget
-  additional_context: Cycles the selected ship's components (engines
+- name: Next Friendly
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
@@ -520,9 +517,9 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: keypad 7
+      hotkey: keypad 6
       hotkey_codes:
-      - 71
+      - 77
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -530,7 +527,8 @@ commands:
       hotkey_codes: *id008
       hotkey_extended: true
       release: true
-- name: Reset Subtarget
+- name: Next Subtarget
+  additional_context: Cycles the selected ship's components (engines
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
@@ -543,9 +541,9 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: keypad 8
+      hotkey: keypad 7
       hotkey_codes:
-      - 72
+      - 71
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -553,7 +551,7 @@ commands:
       hotkey_codes: *id009
       hotkey_extended: true
       release: true
-- name: Pin Target
+- name: Reset Subtarget
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
@@ -566,6 +564,29 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
+      hotkey: keypad 8
+      hotkey_codes:
+      - 72
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: *id010
+      hotkey_extended: true
+      release: true
+- name: Pin Target
+  category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: &id011
+      - 29
+      hotkey_extended: true
+      press: true
+  - wait: 0.08
+  - keyboard:
       hotkey: keypad 9
       hotkey_codes:
       - 73
@@ -573,7 +594,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id010
+      hotkey_codes: *id011
       hotkey_extended: true
       release: true
 - name: Clear All Pins
@@ -824,7 +845,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id011
+      hotkey_codes: &id012
       - 29
       hotkey_extended: true
       press: true
@@ -835,33 +856,11 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id011
+      hotkey_codes: *id012
       hotkey_extended: true
       release: true
 - name: All Weapons
   additional_context: First group always holds every weapon. Selects without firing
-  category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl
-      hotkey_codes: &id012
-      - 29
-      hotkey_extended: true
-      press: true
-  - wait: 0.08
-  - keyboard:
-      hotkey: f2
-      hold: 0.1
-  - wait: 0.05
-  - keyboard:
-      hotkey: right ctrl
-      hotkey_codes: *id012
-      hotkey_extended: true
-      release: true
-- name: Weapon Group 2
-  additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -874,7 +873,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f3
+      hotkey: f2
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -882,7 +881,7 @@ commands:
       hotkey_codes: *id013
       hotkey_extended: true
       release: true
-- name: Weapon Group 3
+- name: Weapon Group 2
   additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
@@ -896,7 +895,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f4
+      hotkey: f3
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -904,7 +903,7 @@ commands:
       hotkey_codes: *id014
       hotkey_extended: true
       release: true
-- name: Weapon Group 4
+- name: Weapon Group 3
   additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
@@ -918,7 +917,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f5
+      hotkey: f4
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -926,7 +925,8 @@ commands:
       hotkey_codes: *id015
       hotkey_extended: true
       release: true
-- name: Lock Gimbals
+- name: Weapon Group 4
+  additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -939,7 +939,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f6
+      hotkey: f5
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -947,7 +947,7 @@ commands:
       hotkey_codes: *id016
       hotkey_extended: true
       release: true
-- name: Unlock Gimbals
+- name: Lock Gimbals
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -960,7 +960,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f7
+      hotkey: f6
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -968,7 +968,7 @@ commands:
       hotkey_codes: *id017
       hotkey_extended: true
       release: true
-- name: Staggered Fire On
+- name: Unlock Gimbals
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -981,7 +981,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f8
+      hotkey: f7
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -989,7 +989,7 @@ commands:
       hotkey_codes: *id018
       hotkey_extended: true
       release: true
-- name: Staggered Fire Off
+- name: Staggered Fire On
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -1002,7 +1002,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f9
+      hotkey: f8
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1010,7 +1010,7 @@ commands:
       hotkey_codes: *id019
       hotkey_extended: true
       release: true
-- name: Reset Convergence
+- name: Staggered Fire Off
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
@@ -1023,12 +1023,33 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f10
+      hotkey: f9
       hold: 0.1
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id020
+      hotkey_extended: true
+      release: true
+- name: Reset Convergence
+  category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: &id021
+      - 29
+      hotkey_extended: true
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f10
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: *id021
       hotkey_extended: true
       release: true
 - name: Quantum Jammer
@@ -1066,7 +1087,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id021
+      hotkey_codes: &id022
       - 29
       hotkey_extended: true
       press: true
@@ -1077,31 +1098,10 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id021
-      hotkey_extended: true
-      release: true
-- name: Next Missile Type
-  category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl
-      hotkey_codes: &id022
-      - 29
-      hotkey_extended: true
-      press: true
-  - wait: 0.08
-  - keyboard:
-      hotkey: f12
-      hold: 0.1
-  - wait: 0.05
-  - keyboard:
-      hotkey: right ctrl
       hotkey_codes: *id022
       hotkey_extended: true
       release: true
-- name: Previous Missile Type
+- name: Next Missile Type
   category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
   is_system_command: false
   force_instant_activation: false
@@ -1114,12 +1114,33 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: '1'
+      hotkey: f12
       hold: 0.1
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id023
+      hotkey_extended: true
+      release: true
+- name: Previous Missile Type
+  category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: &id024
+      - 29
+      hotkey_extended: true
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '1'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: *id024
       hotkey_extended: true
       release: true
 - name: More Missiles Per Volley
@@ -1143,7 +1164,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id024
+      hotkey_codes: &id025
       - 29
       hotkey_extended: true
       press: true
@@ -1154,7 +1175,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id024
+      hotkey_codes: *id025
       hotkey_extended: true
       release: true
 - name: Main Power Off
@@ -1179,7 +1200,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id025
+      hotkey_codes: &id026
       - 29
       hotkey_extended: true
       press: true
@@ -1190,7 +1211,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id025
+      hotkey_codes: *id026
       hotkey_extended: true
       release: true
 - name: Shields On
@@ -1200,7 +1221,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id026
+      hotkey_codes: &id027
       - 29
       hotkey_extended: true
       press: true
@@ -1211,7 +1232,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id026
+      hotkey_codes: *id027
       hotkey_extended: true
       release: true
 - name: Shields Off
@@ -1229,7 +1250,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id027
+      hotkey_codes: &id028
       - 29
       hotkey_extended: true
       press: true
@@ -1240,7 +1261,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id027
+      hotkey_codes: *id028
       hotkey_extended: true
       release: true
 - name: Thrusters On
@@ -1250,7 +1271,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id028
+      hotkey_codes: &id029
       - 29
       hotkey_extended: true
       press: true
@@ -1261,7 +1282,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id028
+      hotkey_codes: *id029
       hotkey_extended: true
       release: true
 - name: Thrusters Off
@@ -1286,7 +1307,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id029
+      hotkey_codes: &id030
       - 29
       hotkey_extended: true
       press: true
@@ -1297,31 +1318,10 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id029
-      hotkey_extended: true
-      release: true
-- name: Weapons Power On
-  category_id: 58262631-2984-4bf0-99ee-f409a753df44
-  is_system_command: false
-  force_instant_activation: false
-  actions:
-  - keyboard:
-      hotkey: right ctrl
-      hotkey_codes: &id030
-      - 29
-      hotkey_extended: true
-      press: true
-  - wait: 0.08
-  - keyboard:
-      hotkey: '0'
-      hold: 0.1
-  - wait: 0.05
-  - keyboard:
-      hotkey: right ctrl
       hotkey_codes: *id030
       hotkey_extended: true
       release: true
-- name: Weapons Power Off
+- name: Weapons Power On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1334,7 +1334,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: a
+      hotkey: '0'
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1342,7 +1342,7 @@ commands:
       hotkey_codes: *id031
       hotkey_extended: true
       release: true
-- name: Max Power to Engines
+- name: Weapons Power Off
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1355,15 +1355,15 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: b
-      hold: 1.0
+      hotkey: a
+      hold: 0.1
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id032
       hotkey_extended: true
       release: true
-- name: Min Power to Engines
+- name: Max Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1376,7 +1376,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: d
+      hotkey: b
       hold: 1.0
   - wait: 0.05
   - keyboard:
@@ -1384,7 +1384,7 @@ commands:
       hotkey_codes: *id033
       hotkey_extended: true
       release: true
-- name: More Power to Engines
+- name: Min Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1397,15 +1397,15 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: e
-      hold: 0.1
+      hotkey: d
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id034
       hotkey_extended: true
       release: true
-- name: Less Power to Engines
+- name: More Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1418,7 +1418,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: f
+      hotkey: e
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1426,7 +1426,7 @@ commands:
       hotkey_codes: *id035
       hotkey_extended: true
       release: true
-- name: Max Power to Shields
+- name: Less Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1439,15 +1439,15 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: g
-      hold: 1.0
+      hotkey: f
+      hold: 0.1
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id036
       hotkey_extended: true
       release: true
-- name: Min Power to Shields
+- name: Max Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1460,7 +1460,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: h
+      hotkey: g
       hold: 1.0
   - wait: 0.05
   - keyboard:
@@ -1468,7 +1468,7 @@ commands:
       hotkey_codes: *id037
       hotkey_extended: true
       release: true
-- name: More Power to Shields
+- name: Min Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1481,15 +1481,15 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: i
-      hold: 0.1
+      hotkey: h
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id038
       hotkey_extended: true
       release: true
-- name: Less Power to Shields
+- name: More Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1502,7 +1502,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: j
+      hotkey: i
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1510,7 +1510,7 @@ commands:
       hotkey_codes: *id039
       hotkey_extended: true
       release: true
-- name: Max Power to Weapons
+- name: Less Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1523,15 +1523,15 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: k
-      hold: 1.0
+      hotkey: j
+      hold: 0.1
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id040
       hotkey_extended: true
       release: true
-- name: Min Power to Weapons
+- name: Max Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1544,7 +1544,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: l
+      hotkey: k
       hold: 1.0
   - wait: 0.05
   - keyboard:
@@ -1552,7 +1552,7 @@ commands:
       hotkey_codes: *id041
       hotkey_extended: true
       release: true
-- name: More Power to Weapons
+- name: Min Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1565,15 +1565,15 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: m
-      hold: 0.1
+      hotkey: l
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id042
       hotkey_extended: true
       release: true
-- name: Less Power to Weapons
+- name: More Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1586,7 +1586,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: n
+      hotkey: m
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1594,7 +1594,7 @@ commands:
       hotkey_codes: *id043
       hotkey_extended: true
       release: true
-- name: Balance Power
+- name: Less Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1607,7 +1607,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: o
+      hotkey: n
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1615,7 +1615,7 @@ commands:
       hotkey_codes: *id044
       hotkey_extended: true
       release: true
-- name: Coolers Up
+- name: Balance Power
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1628,7 +1628,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: p
+      hotkey: o
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1636,7 +1636,7 @@ commands:
       hotkey_codes: *id045
       hotkey_extended: true
       release: true
-- name: Coolers Down
+- name: Coolers Up
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
@@ -1649,7 +1649,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: q
+      hotkey: p
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1657,8 +1657,8 @@ commands:
       hotkey_codes: *id046
       hotkey_extended: true
       release: true
-- name: Show Scan Screen
-  category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
+- name: Coolers Down
+  category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
@@ -1670,7 +1670,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: r
+      hotkey: q
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1678,7 +1678,7 @@ commands:
       hotkey_codes: *id047
       hotkey_extended: true
       release: true
-- name: Show Target Status
+- name: Show Scan Screen
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
@@ -1691,7 +1691,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: s
+      hotkey: r
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1699,7 +1699,7 @@ commands:
       hotkey_codes: *id048
       hotkey_extended: true
       release: true
-- name: Show Ship Status
+- name: Show Target Status
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
@@ -1712,7 +1712,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: t
+      hotkey: s
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1720,7 +1720,7 @@ commands:
       hotkey_codes: *id049
       hotkey_extended: true
       release: true
-- name: Show Power Screen
+- name: Show Ship Status
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
@@ -1733,7 +1733,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: u
+      hotkey: t
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1741,7 +1741,7 @@ commands:
       hotkey_codes: *id050
       hotkey_extended: true
       release: true
-- name: Show Diagnostics
+- name: Show Power Screen
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
@@ -1754,7 +1754,7 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: w
+      hotkey: u
       hold: 0.1
   - wait: 0.05
   - keyboard:
@@ -1762,7 +1762,7 @@ commands:
       hotkey_codes: *id051
       hotkey_extended: true
       release: true
-- name: Show Comms
+- name: Show Diagnostics
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
@@ -1775,12 +1775,34 @@ commands:
       press: true
   - wait: 0.08
   - keyboard:
-      hotkey: x
+      hotkey: w
       hold: 0.1
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
       hotkey_codes: *id052
+      hotkey_extended: true
+      release: true
+- name: Show Comms Screen
+  additional_context: 'Only switches an MFD to the comms page. Not for ATC, landing or hangars: use Request Landing'
+  category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
+  is_system_command: false
+  force_instant_activation: false
+  actions:
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: &id053
+      - 29
+      hotkey_extended: true
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: x
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      hotkey_codes: *id053
       hotkey_extended: true
       release: true
 - name: Show Configuration
@@ -1814,7 +1836,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id053
+      hotkey_codes: &id054
       - 29
       hotkey_extended: true
       press: true
@@ -1825,7 +1847,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id053
+      hotkey_codes: *id054
       hotkey_extended: true
       release: true
 - name: Ping
@@ -1843,7 +1865,7 @@ commands:
   actions:
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: &id054
+      hotkey_codes: &id055
       - 29
       hotkey_extended: true
       press: true
@@ -1854,7 +1876,7 @@ commands:
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
-      hotkey_codes: *id054
+      hotkey_codes: *id055
       hotkey_extended: true
       release: true
 - name: Scan Target
@@ -2100,7 +2122,7 @@ commands:
       hotkey: alt gr
       release: true
 - name: Request Landing
-  additional_context: Also opens the hangar doors
+  additional_context: Hails ATC (the tower) for a landing pad or hangar; use for hail ATC, contact ATC, call the tower, get me a hangar, request landing. Also opens the hangar doors
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   instant_activation:
@@ -2125,6 +2147,41 @@ commands:
   - Ayre Open the hangar.
   - Open the hangar, Ayre.
   - Open the hangar please.
+  - Hail ATC
+  - Hail ATC.
+  - Hail ATC!
+  - Ayre, Hail ATC.
+  - Ayre Hail ATC.
+  - Hail ATC, Ayre.
+  - Hail ATC please.
+  - Hail the ATC
+  - Hail the ATC.
+  - Hail the ATC!
+  - Ayre, Hail the ATC.
+  - Ayre Hail the ATC.
+  - Hail the ATC, Ayre.
+  - Hail the ATC please.
+  - Call ATC
+  - Call ATC.
+  - Call ATC!
+  - Ayre, Call ATC.
+  - Ayre Call ATC.
+  - Call ATC, Ayre.
+  - Call ATC please.
+  - Get me a hangar
+  - Get me a hangar.
+  - Get me a hangar!
+  - Ayre, Get me a hangar.
+  - Ayre Get me a hangar.
+  - Get me a hangar, Ayre.
+  - Get me a hangar please.
+  - Request a hangar
+  - Request a hangar.
+  - Request a hangar!
+  - Ayre, Request a hangar.
+  - Ayre Request a hangar.
+  - Request a hangar, Ayre.
+  - Request a hangar please.
   force_instant_activation: false
   actions:
   - keyboard:

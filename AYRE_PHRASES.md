@@ -18,7 +18,7 @@ naturally ("throw some flares", "give me more shields") and she works it out in 
 - **Ping**: Ping
 - **Gear down**: Gear Down
 - **Gear up**: Gear Up
-- **Request landing / Call the tower / Open the hangar**: Request Landing
+- **Request landing / Call the tower / Open the hangar / Hail ATC / Hail the ATC / Call ATC / Get me a hangar / Request a hangar**: Request Landing
 - **Lights on / Lamp on**: Lights On
 - **Lights off / Lamp off**: Lights Off
 - **Open the doors**: Open and Unlock All Doors
