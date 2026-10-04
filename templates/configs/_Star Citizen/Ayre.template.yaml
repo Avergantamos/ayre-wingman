@@ -1402,7 +1402,7 @@ commands:
   - wait: 0.08
   - keyboard:
       hotkey: b
-      hold: 0.1
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
@@ -1423,7 +1423,7 @@ commands:
   - wait: 0.08
   - keyboard:
       hotkey: d
-      hold: 0.1
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
@@ -1486,7 +1486,7 @@ commands:
   - wait: 0.08
   - keyboard:
       hotkey: g
-      hold: 0.1
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
@@ -1507,7 +1507,7 @@ commands:
   - wait: 0.08
   - keyboard:
       hotkey: h
-      hold: 0.1
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
@@ -1570,7 +1570,7 @@ commands:
   - wait: 0.08
   - keyboard:
       hotkey: k
-      hold: 0.1
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl
@@ -1591,7 +1591,7 @@ commands:
   - wait: 0.08
   - keyboard:
       hotkey: l
-      hold: 0.1
+      hold: 1.0
   - wait: 0.05
   - keyboard:
       hotkey: right ctrl

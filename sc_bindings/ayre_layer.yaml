@@ -64,16 +64,16 @@
   v_power_set_thrusters_off: {name: Thrusters Off, say: ["Thrusters off", "Cut thrusters"]}
   v_power_set_weapons_on: {name: Weapons Power On}
   v_power_set_weapons_off: {name: Weapons Power Off}
-  v_engineering_assignment_engine_max: {name: Max Power to Engines}
-  v_engineering_assignment_engine_min: {name: Min Power to Engines}
+  v_engineering_assignment_engine_max: {name: Max Power to Engines, hold: 1.0}
+  v_engineering_assignment_engine_min: {name: Min Power to Engines, hold: 1.0}
   v_engineering_assignment_engine_increase: {name: More Power to Engines}
   v_engineering_assignment_engine_decrease: {name: Less Power to Engines}
-  v_engineering_assignment_shields_max: {name: Max Power to Shields}
-  v_engineering_assignment_shields_min: {name: Min Power to Shields}
+  v_engineering_assignment_shields_max: {name: Max Power to Shields, hold: 1.0}
+  v_engineering_assignment_shields_min: {name: Min Power to Shields, hold: 1.0}
   v_engineering_assignment_shields_increase: {name: More Power to Shields}
   v_engineering_assignment_shields_decrease: {name: Less Power to Shields}
-  v_engineering_assignment_weapons_max: {name: Max Power to Weapons}
-  v_engineering_assignment_weapons_min: {name: Min Power to Weapons}
+  v_engineering_assignment_weapons_max: {name: Max Power to Weapons, hold: 1.0}
+  v_engineering_assignment_weapons_min: {name: Min Power to Weapons, hold: 1.0}
   v_engineering_assignment_weapons_increase: {name: More Power to Weapons}
   v_engineering_assignment_weapons_decrease: {name: Less Power to Weapons}
   v_engineering_assignment_reset: {name: Balance Power}

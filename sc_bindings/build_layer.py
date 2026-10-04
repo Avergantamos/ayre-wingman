@@ -67,19 +67,19 @@ def wingman_key(sc):
     return {"hotkey": "+".join(parts)}
 
 
-def wingman_actions(key, hold_modifier=False):
+def wingman_actions(key, hold_modifier=False, hold=0.1):
     """Wingman actions for a key. Combos are pressed modifier first, short pause, key, release:
     Star Citizen misses combos sent all at once. hold_modifier uses the longer pause upstream
-    found Flight Ready needs."""
+    found Flight Ready needs. hold: how long the key itself is held (Star Citizen's max/min power fire on a hold)."""
     if key.startswith("mouse"):  # mouse4 / mouse5 are the side buttons x / x2
         return [{"mouse": {"button": {"mouse4": "x", "mouse5": "x2"}.get(key, key)}}]
     if "+" not in key or key.split("+")[-1] in ("", ):
-        return [{"keyboard": wingman_key(key)}]
+        return [{"keyboard": {**wingman_key(key), "hold": hold}}] if hold != 0.1 else [{"keyboard": wingman_key(key)}]
     *mods, base = key.split("+")
     mods = [wingman_key(m) for m in mods]
     pause = 0.55 if hold_modifier else 0.08
     steps = [{"keyboard": {**m, "press": True}} for m in mods]
-    steps += [{"wait": pause}, {"keyboard": {**wingman_key(base), "hold": 0.1}}, {"wait": 0.05}]
+    steps += [{"wait": pause}, {"keyboard": {**wingman_key(base), "hold": hold}}, {"wait": 0.05}]
     steps += [{"keyboard": {**m, "release": True}} for m in reversed(mods)]
     return steps
 
@@ -191,7 +191,7 @@ def main(bdir):
     cat_ids = {c["name"]: c["id"] for c in tpl["command_categories"]}
     ours = {spec["name"] for _, _, spec, _, _ in commands}
     actions_json = json.dumps(
-        {action: wingman_actions(key, spec.get("hold_modifier")) for _, action, spec, key, _ in commands},
+        {action: wingman_actions(key, spec.get("hold_modifier"), spec.get("hold", 0.1)) for _, action, spec, key, _ in commands},
         indent=1, sort_keys=True)
     (bdir / "ayre_actions.json").write_text(actions_json)
     for skill in ("ayre_eyes", "ayre_flight", "ayre_ship"):  # her skills press from this
@@ -223,7 +223,7 @@ def main(bdir):
         cmd.update({"category_id": cat_ids[category], "is_system_command": False})
         if spec.get("say") and not spec.get("risky"):
             cmd["instant_activation"] = spoken_variants(spec["say"])
-        cmd.update({"force_instant_activation": False, "actions": wingman_actions(key, spec.get("hold_modifier"))})
+        cmd.update({"force_instant_activation": False, "actions": wingman_actions(key, spec.get("hold_modifier"), spec.get("hold", 0.1))})
         tpl["commands"].append(cmd)
 
     class Dumper(yaml.SafeDumper):

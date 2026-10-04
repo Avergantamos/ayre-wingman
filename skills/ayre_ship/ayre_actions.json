@@ -239,7 +239,7 @@
   },
   {
    "keyboard": {
-    "hold": 0.1,
+    "hold": 1.0,
     "hotkey": "b"
    }
   },
@@ -273,7 +273,7 @@
   },
   {
    "keyboard": {
-    "hold": 0.1,
+    "hold": 1.0,
     "hotkey": "d"
    }
   },
@@ -409,7 +409,7 @@
   },
   {
    "keyboard": {
-    "hold": 0.1,
+    "hold": 1.0,
     "hotkey": "g"
    }
   },
@@ -443,7 +443,7 @@
   },
   {
    "keyboard": {
-    "hold": 0.1,
+    "hold": 1.0,
     "hotkey": "h"
    }
   },
@@ -545,7 +545,7 @@
   },
   {
    "keyboard": {
-    "hold": 0.1,
+    "hold": 1.0,
     "hotkey": "k"
    }
   },
@@ -579,7 +579,7 @@
   },
   {
    "keyboard": {
-    "hold": 0.1,
+    "hold": 1.0,
     "hotkey": "l"
    }
   },
