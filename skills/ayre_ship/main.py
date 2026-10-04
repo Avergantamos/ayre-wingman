@@ -67,8 +67,8 @@ def screen_is_black(pixels: list[tuple[int, int, int]]) -> bool:
 
 def health_summary(checks: dict[str, tuple[bool, str]]) -> tuple[str | None, str]:
     """(line to speak on a problem or None, full report). Critical checks first."""
-    order = ["brain", "screen", "keys", "game_log", "music_ducking"]
-    critical = ["brain", "screen", "keys"]
+    order = ["brain", "screen", "keys", "profile", "game_log", "music_ducking"]
+    critical = ["brain", "screen", "keys", "profile"]
     report = "; ".join(f"{k}: {'ok' if ok else 'PROBLEM'} ({why})" for k, (ok, why) in
                        sorted(checks.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99))
     for k in critical:
@@ -81,7 +81,29 @@ PROBLEM_LINES = {
     "brain": "Raven, I can't reach my brain on the Mac. Is it awake and on the same network?",
     "screen": "Raven, I can't see the screen. Set Star Citizen to borderless window.",
     "keys": "Raven, my key map is missing. Rerun the installer.",
+    "profile": "Raven, the game isn't using my key profile. Load the AYRE control profile.",
 }
+
+
+def profile_loaded(actionmaps: Path, actions: dict) -> tuple[bool, str]:
+    """Is Ayre's AYRE profile the one Star Citizen has loaded? Her explicit power set on/off
+    actions have no keyboard key in the pilot's own profile, so they are bound in the game's
+    live actionmaps.xml only while her profile is loaded."""
+    canaries = sorted(a for a in actions if a.startswith("v_power_set_"))
+    if not canaries:
+        return True, "no power actions to check"
+    try:
+        import xml.etree.ElementTree as ET
+        root = ET.parse(actionmaps).getroot()
+    except (OSError, ET.ParseError) as e:
+        return False, f"can't read the game's bindings ({type(e).__name__})"
+    bound = {act.get("name") for act in root.iter("action")
+             if any(rb.get("input", "").startswith("kb1_") and rb.get("input")[4:].strip()
+                    for rb in act.iter("rebind"))}
+    missing = [a for a in canaries if a not in bound]
+    if missing:
+        return False, PROBLEM_LINES["profile"] + f" ({len(missing)} of {len(canaries)} power keys not bound)"
+    return True, f"AYRE profile loaded ({len(canaries)} power keys bound)"
 ACTIONS = json.loads((HERE / "ayre_actions.json").read_text())
 
 # ---------------------------------------------------------------- Game.log watcher
@@ -471,6 +493,8 @@ class AyreShip(Skill):
             "screen": self._check_screen(),
             "keys": (len(ACTIONS) > 50 and "v_power_set_off" in ACTIONS,
                      f"{len(ACTIONS)} actions" if len(ACTIONS) > 50 else PROBLEM_LINES["keys"]),
+            "profile": profile_loaded(Path(self._log_path()).parent / "user/client/0/Profiles/default/actionmaps.xml",
+                                      ACTIONS),
             "game_log": (Path(self._log_path()).exists(), self._log_path()),
             "music_ducking": (bool(self.ducker and self.ducker.backend.available), "pycaw"),
         }

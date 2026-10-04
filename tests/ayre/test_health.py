@@ -28,8 +28,10 @@ check("brain problem reported first", ship.health_summary(bad)[0] == ship.PROBLE
 check("report lists every check", all(k in ship.health_summary(bad)[1] for k in ok))
 
 # startup self-check speaks exactly one line: Online when fine, the problem when not
-async def run(brain_ok, screen_ok):
+async def run(brain_ok, screen_ok, profile_ok=True):
     said = []
+    ship_profile = ship.profile_loaded
+    ship.profile_loaded = lambda *_: (profile_ok, "ok" if profile_ok else ship.PROBLEM_LINES["profile"])
     s = ship.AyreShip.__new__(ship.AyreShip)
     s.gate = types.SimpleNamespace(say=lambda text, prio: said.append((text, prio)))
     s.ducker = None
@@ -45,6 +47,7 @@ async def run(brain_ok, screen_ok):
         await s._self_check(startup=True)
     finally:
         ship.asyncio.sleep = orig
+        ship.profile_loaded = ship_profile
     return said
 
 said = asyncio.run(run(True, True))
@@ -53,6 +56,22 @@ said = asyncio.run(run(True, False))
 check("black screen -> borderless warning as safety", said == [(ship.PROBLEM_LINES["screen"], ship.VOICE.SAFETY)])
 said = asyncio.run(run(False, True))
 check("Mac unreachable -> brain warning", said == [(ship.PROBLEM_LINES["brain"], ship.VOICE.SAFETY)])
+said = asyncio.run(run(True, True, profile_ok=False))
+check("AYRE profile not loaded -> profile warning", said == [(ship.PROBLEM_LINES["profile"], ship.VOICE.SAFETY)])
+
+# profile check reads the game's live bindings: her power set keys are bound only with her profile
+import tempfile
+acts = {"v_power_set_off": [], "v_power_set_on": [], "v_lights_on": []}
+def amap(binds):
+    rows = "".join(f'<action name="{a}"><rebind input="kb1_{k}"/></action>' for a, k in binds.items())
+    f = Path(tempfile.mkdtemp()) / "actionmaps.xml"
+    f.write_text(f'<ActionProfiles><actionmap name="spaceship_power">{rows}</actionmap></ActionProfiles>')
+    return f
+check("her profile loaded -> ok", ship.profile_loaded(amap({"v_power_set_off": "rctrl+5", "v_power_set_on": "rctrl+4"}), acts)[0])
+check("pilot's own profile (power set unbound) -> problem",
+      not ship.profile_loaded(amap({"v_power_toggle": "u"}), acts)[0])
+check("blank keyboard slot counts as unbound", not ship.profile_loaded(amap({"v_power_set_off": " ", "v_power_set_on": "rctrl+4"}), acts)[0])
+check("missing bindings file -> problem, no crash", not ship.profile_loaded(Path("/nonexistent/actionmaps.xml"), acts)[0])
 
 # eyes never sends a black frame to the model
 e = eyes.AyreEyes(None, None, types.SimpleNamespace())
