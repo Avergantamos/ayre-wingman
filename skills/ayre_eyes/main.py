@@ -126,7 +126,14 @@ def wanted_groups(data: dict) -> list[tuple[str, list[str]]]:
     return layout
 
 
+def _calm(text):
+    """HUD text arrives in capitals ("ESPERIA BLADE", "UNKNOWN"); her voice spells capitals out."""
+    return re.sub(r"\b[A-Z][A-Z'-]{3,}\b", lambda m: m.group(0).capitalize(), str(text)) if text else text
+
+
 def scan_summary(data: dict) -> str:
+    data = {k: (_calm(v) if isinstance(v, str) else [_calm(x) for x in v] if isinstance(v, list) else v)
+            for k, v in data.items()}
     owner = data.get("owner") or "no owner shown"
     kind = {"player": "player", "npc": "NPC"}.get(data.get("owner_type"), "unknown owner type")
     cargo = ", ".join(data.get("cargo") or []) or ("empty" if data.get("cargo") == [] else "not visible")
