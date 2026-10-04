@@ -1,0 +1,34 @@
+#!/bin/bash
+# Ayre's Mac side: her brain (Ollama) and her voice (GPT-SoVITS). Turn off to get the Mac's power back.
+#   ayre-mac status | on | off | brain on|off | voice on|off | train stop
+BRAIN=~/Library/LaunchAgents/com.ayre.ollama.plist
+VOICE=~/Library/LaunchAgents/com.ayre.voice.plist
+MODEL=qwen3-vl:30b
+
+loaded() { launchctl list | grep -q "$1"; }
+brain() {
+  case $1 in
+    on)  loaded com.ayre.ollama || launchctl load -w "$BRAIN"; echo "brain on (loads into memory on first request)";;
+    off) ollama stop "$MODEL" 2>/dev/null; loaded com.ayre.ollama && launchctl unload -w "$BRAIN"; echo "brain off, memory freed";;
+  esac
+}
+voice() {
+  [ -f "$VOICE" ] || { echo "voice not set up yet"; return; }
+  case $1 in
+    on)  loaded com.ayre.voice || launchctl load -w "$VOICE"; echo "voice on";;
+    off) loaded com.ayre.voice && launchctl unload -w "$VOICE"; echo "voice off";;
+  esac
+}
+case "$1 $2" in
+  "status "|" ")
+    loaded com.ayre.ollama && echo "brain: service on" || echo "brain: off"
+    curl -s -m 2 http://127.0.0.1:11434/api/ps | grep -q "$MODEL" && echo "brain: model loaded in memory" || echo "brain: model not in memory"
+    loaded com.ayre.voice && echo "voice: on" || echo "voice: off"
+    pgrep -f "train_mac|s1_train|s2_train|prepare_datasets" >/dev/null && echo "training: RUNNING" || echo "training: not running";;
+  "on ")  brain on; voice on;;
+  "off ") brain off; voice off; pkill -f "train_mac|s1_train|s2_train|prepare_datasets" && echo "training stopped";;
+  "brain on"|"brain off") brain "$2";;
+  "voice on"|"voice off") voice "$2";;
+  "train stop") pkill -f "train_mac|s1_train|s2_train|prepare_datasets" && echo "training stopped" || echo "no training running";;
+  *) echo "usage: ayre-mac status | on | off | brain on|off | voice on|off | train stop";;
+esac
