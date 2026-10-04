@@ -6,6 +6,8 @@ read_loadout: at boot, find the MFD view that lists weapons (trying the views sh
 arrange_weapon_groups: set the groups to the pilot's layout (first group all weapons, then all
   ballistics, then all lasers where the ship has them) by steering the MFD step by step,
   looking after every key press.
+scan_target: scan mode, scan MFD, run the scan, then read ship, owner (player/NPC/unknown),
+  cargo, power, shields and crime status; the last scan is kept in her prompt for follow-ups.
 
 She gets better as he plays in two ways: she remembers which view held the weapons and tries
 it first next time, and every frame she reads is saved with its question and answer under
@@ -62,6 +64,19 @@ LOADOUT = """Read this Star Citizen ship screen and return JSON only, no prose:
  "visible": true|false}
 Set "visible" to false if no weapons or loadout list is on screen. Include only what you can read."""
 
+SCAN = """Read the Star Citizen scan results for the scanned target (scan MFD and HUD) and return JSON only:
+{"visible": true|false,
+ "ship": "<ship type/model, or null>",
+ "owner": "<owner or pilot name as shown, or null>",
+ "owner_type": "player|npc|unknown",
+ "powered": true|false|null,
+ "shields": "on|off|null",
+ "cargo": ["<item and amount as shown>", ...] or null,
+ "crime": "<crime status as shown, or null>"}
+owner_type: player when a player handle is shown; npc when the owner is a game faction, company or
+security force, or the HUD marks it as an NPC; unknown when no owner is readable. Set "visible" to
+false if no scan results are on screen yet. Include only what you can read; never guess."""
+
 STEP = """You are operating a Star Citizen ship MFD (multi-function display) with keys only.
 Goal for the weapon groups: {goal}
 Available keys: up, down, left, right (move the highlight), next, previous (cycle the value of the
@@ -91,6 +106,16 @@ def wanted_groups(data: dict) -> list[tuple[str, list[str]]]:
     return layout
 
 
+def scan_summary(data: dict) -> str:
+    owner = data.get("owner") or "no owner shown"
+    kind = {"player": "player", "npc": "NPC"}.get(data.get("owner_type"), "unknown owner type")
+    cargo = ", ".join(data.get("cargo") or []) or "no cargo shown"
+    power = {True: "powered on", False: "powered off"}.get(data.get("powered"), "power unknown")
+    shields = {"on": "shields on", "off": "shields off"}.get(data.get("shields"), "shields unknown")
+    crime = f", crime status {data['crime']}" if data.get("crime") else ""
+    return f"{data.get('ship') or 'unknown ship'}, owner {owner} ({kind}), cargo: {cargo}; {power}, {shields}{crime}."
+
+
 def groups_match(data: dict) -> bool:
     have = [set(g.get("weapons", [])) for g in data.get("groups", [])]
     return all(i < len(have) and have[i] == set(want) for i, (_, want) in enumerate(wanted_groups(data)))
@@ -100,6 +125,7 @@ class AyreEyes(Skill):
     def __init__(self, config: SkillConfig, settings: SettingsConfig, wingman: "OpenAiWingman") -> None:
         super().__init__(config=config, settings=settings, wingman=wingman)
         self.loadout: dict | None = None
+        self.last_scan: dict | None = None
 
     async def prepare(self) -> None:
         await super().prepare()
@@ -243,6 +269,29 @@ class AyreEyes(Skill):
         return ("Weapon groups arranged and confirmed: " if groups_match(self.loadout)
                 else "Arranging finished but the groups do not fully match yet: ") + self._summary(self.loadout)
 
+    @tool(
+        description="""Scan the selected target and read the results: switches to scan mode and the
+        scan screen, runs the scan, then reads ship type, owner (player, NPC or unknown), cargo,
+        power, shields and crime status. Use when Raven says 'scan', 'scan him', 'what's he
+        carrying', 'who owns that'. Tell Raven ship, owner and cargo; power and shields only if he
+        asked. Takes a few seconds.""",
+        wait_response=True,
+    )
+    async def scan_target(self) -> str:
+        for action in ("v_set_scan_mode", "v_mfd_select_view_scanning_short", "v_scanning_trigger_scan"):
+            await self._press(action)
+            await asyncio.sleep(0.5)
+        data = {}
+        for wait in (2.5, 2.5):  # results fill in over a few seconds
+            await asyncio.sleep(wait)
+            data = parse_json(await self._ask(self._grab(), "Return JSON only.", SCAN, "scan"))
+            if data.get("visible"):
+                break
+        if not data.get("visible"):
+            return "No scan results on screen. Is a target selected and in range? Tell Raven in a few words."
+        self.last_scan = data
+        return "Scan read: " + scan_summary(data) + " Tell Raven ship, owner and cargo; power and shields only if asked."
+
     def _summary(self, data: dict) -> str:
         groups = "; ".join(
             f"group {g.get('number')}: {', '.join(g.get('weapons', [])) or 'empty'}" for g in data.get("groups", []))
@@ -253,8 +302,10 @@ class AyreEyes(Skill):
 
     async def get_prompt(self) -> str | None:
         base = await super().get_prompt() or ""
+        if self.last_scan:  # follow-ups ("is he powered?") answer from the last scan, no rescan
+            base += "\n\nLast scan: " + scan_summary(self.last_scan)
         if not self.loadout:
-            return base or None
+            return base.strip() or None
         return (base + "\n\nCurrent ship loadout (read at boot): " + self._summary(self.loadout) +
                 "\nPick weapon groups and missiles from this: shields up, energy weapons; shields down, "
                 "ballistics; to disable, distortion. Match missile seeker to the target's strongest "

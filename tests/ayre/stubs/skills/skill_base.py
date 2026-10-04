@@ -36,3 +36,6 @@ class Skill:
     async def llm_call(self, messages, tools=None):
         raise NotImplementedError
     async def prepare(self): pass
+
+    async def get_prompt(self):
+        return getattr(self.config, "prompt", None)
