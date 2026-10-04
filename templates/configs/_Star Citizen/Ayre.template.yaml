@@ -44,7 +44,8 @@ prompts:
 
     **Flight sequences** (follow Raven's words and what you see; offer, then act on his yes):
     - Takeoff: once he is up and climbing, offer gear up once.
-    - Landing: offer lights and night vision if it looks dark (check with look), gear down near the ground, and request landing at stations.
+    - Hangar: any way Raven asks for a hangar or pad ("get me a hangar", "find us somewhere to land", "I need a pad", "hail ATC") means call ATC: run Request Landing. ATC assigns the hangar; then tell him it's requested and to watch for the hangar number.
+    - Landing: offer lights and night vision if it looks dark (check with look), gear down near the ground, and Request Landing at stations.
     - Touchdown: when he says you are down, offer once: "Cut thrusters?" (an offer, not a lock; if he asks directly, just do it).
     - Travel: for quantum, NAV Mode, Quantum Mode, then Engage Quantum Drive.
     - Combat: when you are attacked, SCM Mode if needed, start the battle music, then short callouts and steady encouragement.
@@ -2182,6 +2183,62 @@ commands:
   - Ayre Request a hangar.
   - Request a hangar, Ayre.
   - Request a hangar please.
+  - Get us a hangar
+  - Get us a hangar.
+  - Get us a hangar!
+  - Ayre, Get us a hangar.
+  - Ayre Get us a hangar.
+  - Get us a hangar, Ayre.
+  - Get us a hangar please.
+  - Get a hangar
+  - Get a hangar.
+  - Get a hangar!
+  - Ayre, Get a hangar.
+  - Ayre Get a hangar.
+  - Get a hangar, Ayre.
+  - Get a hangar please.
+  - I need a hangar
+  - I need a hangar.
+  - I need a hangar!
+  - Ayre, I need a hangar.
+  - Ayre I need a hangar.
+  - I need a hangar, Ayre.
+  - I need a hangar please.
+  - Find me a hangar
+  - Find me a hangar.
+  - Find me a hangar!
+  - Ayre, Find me a hangar.
+  - Ayre Find me a hangar.
+  - Find me a hangar, Ayre.
+  - Find me a hangar please.
+  - Request hangar
+  - Request hangar.
+  - Request hangar!
+  - Ayre, Request hangar.
+  - Ayre Request hangar.
+  - Request hangar, Ayre.
+  - Request hangar please.
+  - Hangar please
+  - Hangar please.
+  - Hangar please!
+  - Ayre, Hangar please.
+  - Ayre Hangar please.
+  - Hangar please, Ayre.
+  - Hangar please please.
+  - Get me a landing pad
+  - Get me a landing pad.
+  - Get me a landing pad!
+  - Ayre, Get me a landing pad.
+  - Ayre Get me a landing pad.
+  - Get me a landing pad, Ayre.
+  - Get me a landing pad please.
+  - Get me a pad
+  - Get me a pad.
+  - Get me a pad!
+  - Ayre, Get me a pad.
+  - Ayre Get me a pad.
+  - Get me a pad, Ayre.
+  - Get me a pad please.
   force_instant_activation: false
   actions:
   - keyboard:

@@ -117,7 +117,7 @@
   v_vtol_off: {name: VTOL Off}
   v_deploy_landing_system: {name: Gear Down, say: ["Gear down"]}
   v_retract_landing_system: {name: Gear Up, say: ["Gear up"]}
-  v_atc_request: {name: Request Landing, say: ["Request landing", "Call the tower", "Open the hangar", "Hail ATC", "Hail the ATC", "Call ATC", "Get me a hangar", "Request a hangar"], key: lalt+n, context: "Hails ATC (the tower) for a landing pad or hangar; use for hail ATC, contact ATC, call the tower, get me a hangar, request landing. Also opens the hangar doors"}
+  v_atc_request: {name: Request Landing, say: ["Request landing", "Call the tower", "Open the hangar", "Hail ATC", "Hail the ATC", "Call ATC", "Get me a hangar", "Request a hangar", "Get us a hangar", "Get a hangar", "I need a hangar", "Find me a hangar", "Request hangar", "Hangar please", "Get me a landing pad", "Get me a pad"], key: lalt+n, context: "Hails ATC (the tower) for a landing pad or hangar; use for hail ATC, contact ATC, call the tower, get me a hangar, request landing. Also opens the hangar doors"}
   v_toggle_docking_request: {name: Request Docking}
   v_set_flight_mode: {name: Flight Mode}
   v_set_mining_mode: {name: Mining Mode}
