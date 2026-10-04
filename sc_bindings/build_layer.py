@@ -43,10 +43,22 @@ REPLACED = {"Cycle Attacker", "Cycle Hostile", "Launch Countermeasure Decoy", "L
             "Launch Sequence", "Landing Sequence"}
 
 
+# Star Citizen reads scan codes. Wingman's keyboard package sends "right ctrl" as the Pause key
+# (scan 29, no extended flag) and "right alt" as left alt, and numpad keys by virtual key with a
+# garbage scan code - measured on the PC with a low-level hook. So these go out by raw scan code:
+# right ctrl = 29 + extended, right alt = "alt gr" (541 -> 56 + extended, as upstream's Flight
+# Ready does), numpad digits = their own scan codes. The hotkey label must not contain "num":
+# Wingman ignores hotkey_codes for anything it sees as a numpad key.
+NUMPAD_SCAN = {"0": 82, "1": 79, "2": 80, "3": 81, "4": 75, "5": 76, "6": 77, "7": 71, "8": 72, "9": 73}
+
+
 def wingman_key(sc):
     """Star Citizen key token -> Wingman keyboard action."""
     special = {"np_enter": {"hotkey": "enter", "hotkey_codes": [28], "hotkey_extended": True},
-               "equals": {"hotkey": "=", "hotkey_codes": [13]}}
+               "equals": {"hotkey": "=", "hotkey_codes": [13]},
+               "rctrl": {"hotkey": "right ctrl", "hotkey_codes": [29], "hotkey_extended": True},
+               "ralt": {"hotkey": "alt gr"}}
+    special.update({f"np_{d}": {"hotkey": f"keypad {d}", "hotkey_codes": [s]} for d, s in NUMPAD_SCAN.items()})
     if sc in special:
         return special[sc]
     names = {"rctrl": "right ctrl", "ralt": "right alt", "lctrl": "left ctrl", "lalt": "left alt",
@@ -64,11 +76,11 @@ def wingman_actions(key, hold_modifier=False):
     if "+" not in key or key.split("+")[-1] in ("", ):
         return [{"keyboard": wingman_key(key)}]
     *mods, base = key.split("+")
-    mods = [wingman_key(m)["hotkey"] for m in mods]
+    mods = [wingman_key(m) for m in mods]
     pause = 0.55 if hold_modifier else 0.08
-    steps = [{"keyboard": {"hotkey": m, "press": True}} for m in mods]
+    steps = [{"keyboard": {**m, "press": True}} for m in mods]
     steps += [{"wait": pause}, {"keyboard": {**wingman_key(base), "hold": 0.1}}, {"wait": 0.05}]
-    steps += [{"keyboard": {"hotkey": m, "release": True}} for m in reversed(mods)]
+    steps += [{"keyboard": {**m, "release": True}} for m in reversed(mods)]
     return steps
 
 
