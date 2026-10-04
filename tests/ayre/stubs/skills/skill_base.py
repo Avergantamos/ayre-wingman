@@ -35,3 +35,4 @@ class Skill:
 
     async def llm_call(self, messages, tools=None):
         raise NotImplementedError
+    async def prepare(self): pass

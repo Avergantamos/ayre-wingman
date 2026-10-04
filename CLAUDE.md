@@ -109,6 +109,12 @@ Pilot-started, a few seconds long, one axis only, so she never steers:
 - Reported: CIG removed actor death and vehicle destruction events from the public log (kill trackers broke, SC Kill Monitor archived Nov 2025). Hit, damage and scan data were never in it. Check a real log from the PC before building on any event.
 - So: who's shooting, ship ID, owner, cargo, power state and signatures come from the screen (vision). The log is for whatever events remain (location, quantum, session) and for triggering Ayre and music.
 
+## Brain: local model on the Mac (no cloud)
+
+- Ollama on the pilot's Mac (M4 Max, 48 GB) serves `qwen3-vl:30b` (vision + tools, MoE, Q4, 19 GB) to Wingman on the PC over the home network: `local_llm` endpoint `http://Ians-MacBook-Pro.local:11434/v1` (fallback `http://10.0.0.96:11434/v1`). Chosen so screenshots (handle, session ids, r_displayinfo) never leave the house, and the 3090 Ti stays free for the game.
+- Runs as `~/Library/LaunchAgents/com.ayre.ollama.plist` (OLLAMA_HOST 0.0.0.0, keep alive 2h). No auth on the port: unload it on untrusted networks.
+- Measured over the network: commands 1 to 3 s, HUD read 3.6 s, cold load ~30 s (AyreEyes warms the model when Wingman starts). Thinking cannot be turned off from Wingman; speeds are fine with it on.
+
 ## Latency (why this fork exists)
 
 Upstream Wingman AI defaults to cloud services for speech-to-text, the model and the voice. Ours keeps the model in the cloud only when thinking or vision is needed:

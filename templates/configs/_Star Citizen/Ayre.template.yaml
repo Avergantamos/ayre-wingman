@@ -59,6 +59,7 @@ prompts:
 features:
   tts_provider: edge_tts
   stt_provider: fasterwhisper
+  conversation_provider: local_llm
 openai_compatible_tts:
   api_key: not-needed
   voice: ayre
@@ -69,6 +70,11 @@ openai_compatible_tts:
   voices_endpoint: /voices
   use_tts_prompt: false
   tts_prompt: ''
+local_llm:
+  endpoint: http://Ians-MacBook-Pro.local:11434/v1
+  conversation_model: qwen3-vl:30b
+edge_tts:
+  voice: en-US-JennyNeural
 record_key: end
 is_voice_activation_default: true
 inworld:

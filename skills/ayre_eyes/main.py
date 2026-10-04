@@ -101,6 +101,17 @@ class AyreEyes(Skill):
         super().__init__(config=config, settings=settings, wingman=wingman)
         self.loadout: dict | None = None
 
+    async def prepare(self) -> None:
+        await super().prepare()
+        # load the model on the Mac now, so Raven's first request doesn't wait ~30 s for it
+        asyncio.create_task(self._warm_up())
+
+    async def _warm_up(self) -> None:
+        try:
+            await self.llm_call([{"role": "user", "content": "Reply with: ready"}])
+        except Exception:
+            pass  # warming is best effort; a real request will load it anyway
+
     async def validate(self) -> list[WingmanInitializationError]:
         errors = await super().validate()
         self.retrieve_custom_property_value("display", errors)
