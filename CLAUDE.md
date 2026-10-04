@@ -130,6 +130,8 @@ Upstream Wingman AI defaults to cloud services for speech-to-text, the model and
 
 ## Voice
 
+- Built and running on the Mac (2026-10-03): GPT-SoVITS v2Pro trained on CPU with `voice_tools/train_mac.py` (SoVITS 8 epochs 108 min, GPT 15 epochs 33 min, 1,130 lines), weights `ayre_e8_s1512.pth` + `ayre-e15.ckpt`. Served by the `com.ayre.voice` LaunchAgent (`mac/voice_server.sh`: engine on 127.0.0.1:9880, bridge with cache on 0.0.0.0:9881), set up by `mac/voice_setup.sh`. Ayre's config uses tts_provider `openai_compatible` at `http://Ians-MacBook-Pro.local:9881/v1` (fallback `http://10.0.0.96:9881/v1`). New sentence 1.8 to 3 s, cached lines instant.
+
 - Gaming PC GPU: EVGA RTX 3090 Ti (24 GB), enough to train and run the clone locally.
 - Target is a true Ayre voice, not a sound-alike. Local clone (GPT-SoVITS or similar) trained on clean dialogue clips cut from YouTube (source: an 85 minute all-English-lines video, `voice/raw/`) with `yt-dlp` + `ffmpeg`, music and SFX removed with `demucs`.
 - Clips, trained voice models and any game audio stay out of git (`voice/` is gitignored) and never get shared.

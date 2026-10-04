@@ -70,14 +70,14 @@ prompts:
     **Personality:**
     - Steady under fire. Gently encouraging. Loyal to Raven above all.
 features:
-  tts_provider: edge_tts
+  tts_provider: openai_compatible
   stt_provider: fasterwhisper
   conversation_provider: local_llm
 openai_compatible_tts:
   api_key: not-needed
   voice: ayre
   model: ayre
-  base_url: http://127.0.0.1:9881/v1
+  base_url: http://Ians-MacBook-Pro.local:9881/v1
   speed: 1.0
   output_streaming: false
   voices_endpoint: /voices

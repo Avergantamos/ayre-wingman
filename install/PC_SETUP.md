@@ -37,7 +37,7 @@ Ayre is a personal Star Citizen ship AI built on Wingman AI (ShipBit). Repo: htt
 8. **Pilot steps in Wingman AI.** Restart it and select Ayre. Confirm:
    - Conversation provider: Local LLM, endpoint as above, model `qwen3-vl:30b`
    - Speech-to-text: fasterwhisper
-   - Voice: Edge TTS (her trained voice comes later)
+   - Voice: OpenAI compatible, base URL `http://Ians-MacBook-Pro.local:9881/v1` (her trained voice, served by the Mac; fallback `http://10.0.0.96:9881/v1`). Check it answers: `curl http://Ians-MacBook-Pro.local:9881/v1/voices`.
 
    Note any red errors.
 9. **Pilot steps in Star Citizen:**
