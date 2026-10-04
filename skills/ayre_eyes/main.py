@@ -73,6 +73,8 @@ SCAN = """Read the Star Citizen scan results for the scanned target (scan MFD an
  "shields": "on|off|null",
  "cargo": ["<item and amount as shown>", ...] or null,
  "crime": "<crime status as shown, or null>"}
+cargo matters most: look for a cargo or contents section, commodity names and SCU amounts anywhere
+in the scan results; use [] when the scan shows cargo as empty and null when no cargo info is shown.
 owner_type: player when a player handle is shown; npc when the owner is a game faction, company or
 security force, or the HUD marks it as an NPC; unknown when no owner is readable. Set "visible" to
 false if no scan results are on screen yet. Include only what you can read; never guess."""
@@ -109,7 +111,7 @@ def wanted_groups(data: dict) -> list[tuple[str, list[str]]]:
 def scan_summary(data: dict) -> str:
     owner = data.get("owner") or "no owner shown"
     kind = {"player": "player", "npc": "NPC"}.get(data.get("owner_type"), "unknown owner type")
-    cargo = ", ".join(data.get("cargo") or []) or "no cargo shown"
+    cargo = ", ".join(data.get("cargo") or []) or ("empty" if data.get("cargo") == [] else "not visible")
     power = {True: "powered on", False: "powered off"}.get(data.get("powered"), "power unknown")
     shields = {"on": "shields on", "off": "shields off"}.get(data.get("shields"), "shields unknown")
     crime = f", crime status {data['crime']}" if data.get("crime") else ""
@@ -290,7 +292,13 @@ class AyreEyes(Skill):
         if not data.get("visible"):
             return "No scan results on screen. Is a target selected and in range? Tell Raven in a few words."
         self.last_scan = data
-        return "Scan read: " + scan_summary(data) + " Tell Raven ship, owner and cargo; power and shields only if asked."
+        if data.get("cargo"):
+            lead = "CARGO FOUND. Lead with it: 'Cargo aboard, Raven: <cargo>', then ship and owner."
+        elif data.get("cargo") == []:
+            lead = "Hold is empty: say 'No cargo', then ship and owner."
+        else:
+            lead = "Cargo not visible in the scan: say so briefly, then ship and owner."
+        return f"Scan read: {scan_summary(data)} {lead} Power and shields only if asked."
 
     def _summary(self, data: dict) -> str:
         groups = "; ".join(

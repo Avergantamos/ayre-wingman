@@ -50,6 +50,9 @@ out = asyncio.run(e.scan_target())
 print("scan ->", out)
 assert pressed == ["v_set_scan_mode", "select_view_scanning_short", "v_scanning_trigger_scan"], pressed
 assert "Caterpillar" in out and "SomePilot (player)" in out and "Laranite 96 SCU" in out and "shields off" in out
+assert "CARGO FOUND" in out  # cargo leads without Raven asking
+replies = iter([json.dumps(dict(scan, cargo=[]))])
+assert "No cargo" in asyncio.run(e.scan_target())
 assert "Last scan: Caterpillar" in asyncio.run(e.get_prompt())  # follow-ups answer without rescanning
 replies = iter(['{"visible": false}', '{"visible": false}'])
 assert "No scan results" in asyncio.run(e.scan_target())

@@ -54,6 +54,11 @@ REPLACED = {"Cycle Attacker", "Cycle Hostile", "Launch Countermeasure Decoy", "L
 # right ctrl = 29 + extended, right alt = "alt gr" (541 -> 56 + extended, as upstream's Flight
 # Ready does), numpad digits = their own scan codes. The hotkey label must not contain "num":
 # Wingman ignores hotkey_codes for anything it sees as a numpad key.
+# every keybinding category in a profile the game exported itself (Star Citizen 4.x, 2026-10-03)
+GAME_CATEGORIES = ["@ui_CCSeatGeneral", "@ui_CCSpaceFlight", "", "@ui_CCTurrets", "@ui_CGLightControllerDesc",
+                   "@ui_CCFPS", "@ui_CCEVA", "@ui_CCEVAZGT", "@ui_CCVehicle", "@ui_CGEASpectator",
+                   "@ui_CGUIGeneral", "@ui_CGOpticalTracking", "@ui_CGInteraction", "@ui_CCCamera"]
+
 NUMPAD_SCAN = {"0": 82, "1": 79, "2": 80, "3": 81, "4": 75, "5": 76, "6": 77, "7": 71, "8": 72, "9": 73}
 
 
@@ -174,7 +179,18 @@ def main(bdir):
     root = export.getroot()
     name = root.get("profileName") + "_AYRE"
     root.set("profileName", name)
-    root.find("CustomisationUIHeader").set("label", name)
+    header = root.find("CustomisationUIHeader")
+    header.set("label", name)
+    # the game imports only actionmaps whose category is listed in the header; the pilot's export
+    # lacks some (vehicle_mfd sits in the unlabelled one), so the game silently dropped all her
+    # MFD keys. List every category the game itself writes (from its own export, 4.x).
+    cats = header.find("categories")
+    if cats is None:
+        cats = ET.SubElement(header, "categories")
+    have = [c.get("label") for c in cats.iter("category")]
+    for label in GAME_CATEGORIES:
+        if label not in have:
+            ET.SubElement(cats, "category", label=label)
     edits = [(a, k) for a, k in pilot.items()] + [(a, k) for _, a, _, k, src in commands if src == "ayre"]
     for action, key in edits:
         for amap_name in sorted(maps_of[action]):
