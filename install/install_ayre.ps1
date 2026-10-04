@@ -36,6 +36,9 @@ $ayreProfile = Get-ChildItem $bindings -Filter "layout_*_AYRE_exported.xml" |
     Sort-Object LastWriteTime | Select-Object -Last 1  # the one just built, not an older one
 Copy-Item $ayreProfile.FullName (Join-Path $user "controls\mappings") -Force
 Write-Host "Profile ready in game: $($ayreProfile.BaseName -replace '^layout_|_exported$','')"
+# the game drops MFD keyboard keys on profile import; write them into its live bindings instead
+& py -3.11 (Join-Path $repo "install\add_mfd_keys.py") $StarCitizen
+if ($LASTEXITCODE -ne 0) { Write-Host "  MFD keys not written (close Star Citizen and rerun the installer)." -ForegroundColor Yellow }
 
 Step "Installing Ayre's skills"
 $custom = Join-Path $wingman "custom_skills"

@@ -2,3 +2,5 @@
 # Ayre uses these keys too where she needs the same action.
 v_strafe_down: lctrl                    # back to the default
 v_ifcs_vector_decoupling_toggle: c      # back to the default
+v_mfd_interact_cycle_forwards_short: lalt+e    # game default (MFD cycle page forwards); Ayre presses it too
+v_mfd_interact_cycle_backwards_short: lalt+q   # game default (MFD cycle page backwards)

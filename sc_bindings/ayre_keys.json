@@ -30,8 +30,6 @@
  "v_lights_on": "ralt+t",
  "v_master_mode_set_nav": "ralt+np_8",
  "v_master_mode_set_scm": "ralt+np_9",
- "v_mfd_interact_cycle_backwards_short": "ralt+4",
- "v_mfd_interact_cycle_forwards_short": "ralt+3",
  "v_mfd_movement_down_short": "ralt+z",
  "v_mfd_movement_left_short": "ralt+1",
  "v_mfd_movement_right_short": "ralt+2",

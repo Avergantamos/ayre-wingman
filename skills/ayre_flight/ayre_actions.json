@@ -1004,7 +1004,7 @@
  "v_mfd_interact_cycle_backwards_short": [
   {
    "keyboard": {
-    "hotkey": "alt gr",
+    "hotkey": "left alt",
     "press": true
    }
   },
@@ -1014,7 +1014,7 @@
   {
    "keyboard": {
     "hold": 0.1,
-    "hotkey": "4"
+    "hotkey": "q"
    }
   },
   {
@@ -1022,7 +1022,7 @@
   },
   {
    "keyboard": {
-    "hotkey": "alt gr",
+    "hotkey": "left alt",
     "release": true
    }
   }
@@ -1030,7 +1030,7 @@
  "v_mfd_interact_cycle_forwards_short": [
   {
    "keyboard": {
-    "hotkey": "alt gr",
+    "hotkey": "left alt",
     "press": true
    }
   },
@@ -1040,7 +1040,7 @@
   {
    "keyboard": {
     "hold": 0.1,
-    "hotkey": "3"
+    "hotkey": "e"
    }
   },
   {
@@ -1048,7 +1048,7 @@
   },
   {
    "keyboard": {
-    "hotkey": "alt gr",
+    "hotkey": "left alt",
     "release": true
    }
   }

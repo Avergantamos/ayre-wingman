@@ -118,7 +118,10 @@ def spoken_variants(phrases: list[str]) -> list[str]:
 def main(bdir):
     live = ET.parse(bdir / "actionmaps.xml").getroot()
     layouts = [p for p in bdir.glob("layout_*_exported.xml") if "_AYRE_" not in p.name]
-    export_path = max(layouts, key=lambda p: p.stat().st_mtime)
+    # fallback when the game's active profile isn't one of these: the base Ayre was built on before
+    # (its _AYRE profile exists), else the newest export
+    built = [p for p in layouts if (bdir / p.name.replace("_exported", "_AYRE_exported")).exists()]
+    export_path = max(built or layouts, key=lambda p: p.stat().st_mtime)
     if (bdir / "attributes.xml").exists():  # the profile the game actually uses (Preset0)
         attrs = ET.parse(bdir / "attributes.xml").getroot()
         preset = next((a.get("value") for a in attrs.iter("Attr") if a.get("name") == "Preset0"), "")
