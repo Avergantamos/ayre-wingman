@@ -372,21 +372,48 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 0
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 0
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Previous Attacker
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 1
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 1
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Reset Attacker Cycle
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 2
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 2
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Next Hostile
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
@@ -395,28 +422,64 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 3
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 3
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Previous Hostile
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 4
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 4
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Reset Hostile Cycle
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 5
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 5
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Next Friendly
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 6
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 6
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Next Subtarget
   additional_context: Cycles the selected ship's components (engines
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
@@ -424,28 +487,64 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 7
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 7
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Reset Subtarget
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 8
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 8
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Pin Target
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+num 9
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 9
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Clear All Pins
   category_id: 05b98dde-b8b3-4bcc-85e5-50f60dfaa819
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 0
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 0
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Launch Flares
   category_id: 582b505e-1096-42c1-9a4f-ca3ba0a822ed
   is_system_command: false
@@ -454,7 +553,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 1
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 1
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Launch Noise
   category_id: 582b505e-1096-42c1-9a4f-ca3ba0a822ed
   is_system_command: false
@@ -464,7 +572,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 2
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 2
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Dump Flares
   category_id: 582b505e-1096-42c1-9a4f-ca3ba0a822ed
   is_system_command: false
@@ -473,28 +590,64 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 3
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 3
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Bigger Flare Bursts
   category_id: 582b505e-1096-42c1-9a4f-ca3ba0a822ed
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 4
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 4
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Smaller Flare Bursts
   category_id: 582b505e-1096-42c1-9a4f-ca3ba0a822ed
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 5
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 5
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Quantum Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 6
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 6
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Engage Quantum Drive
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
@@ -504,14 +657,32 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 7
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 7
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: NAV Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 8
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 8
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: SCM Mode
   category_id: d5d831d2-3990-41c8-afc3-c205c83f39b0
   is_system_command: false
@@ -521,14 +692,32 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+num 9
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: num 9
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Guns Mode
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f1
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f1
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: All Weapons
   additional_context: First group always holds every weapon. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
@@ -536,7 +725,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f2
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f2
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Weapon Group 2
   additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
@@ -544,7 +742,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f3
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f3
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Weapon Group 3
   additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
@@ -552,7 +759,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f4
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f4
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Weapon Group 4
   additional_context: Ayre arranges groups 2 to 4 by weapon type at boot. Selects without firing
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
@@ -560,42 +776,96 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f5
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f5
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Lock Gimbals
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f6
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f6
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Unlock Gimbals
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f7
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f7
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Staggered Fire On
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f8
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f8
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Staggered Fire Off
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f9
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f9
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Reset Convergence
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f10
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f10
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Quantum Jammer
   additional_context: Quantum interdiction jammer
   category_id: a0479a7c-e43f-427c-b626-a1a6ca1a7aef
@@ -620,21 +890,48 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f11
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f11
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Next Missile Type
   category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f12
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f12
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Previous Missile Type
   category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+1
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '1'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: More Missiles Per Volley
   category_id: eafa5454-bb05-4e9a-821d-1495af21aeec
   is_system_command: false
@@ -655,7 +952,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+4
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '4'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Main Power Off
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -665,14 +971,32 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+5
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '5'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Shields On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+6
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '6'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Shields Off
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -681,14 +1005,32 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+7
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '7'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Thrusters On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+8
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '8'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Thrusters Off
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
@@ -698,175 +1040,400 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+9
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '9'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Weapons Power On
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+0
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '0'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Weapons Power Off
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+a
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: a
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Max Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+b
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: b
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Min Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+d
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: d
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: More Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+e
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: e
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Less Power to Engines
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+f
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Max Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+g
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: g
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Min Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+h
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: h
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: More Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+i
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: i
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Less Power to Shields
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+j
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: j
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Max Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+k
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: k
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Min Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+l
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: l
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: More Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+m
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: m
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Less Power to Weapons
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+n
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: n
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Balance Power
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+o
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: o
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Coolers Up
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+p
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: p
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Coolers Down
   category_id: 58262631-2984-4bf0-99ee-f409a753df44
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+q
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: q
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Scan Screen
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+r
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: r
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Target Status
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+s
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: s
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Ship Status
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+t
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: t
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Power Screen
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+u
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: u
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Diagnostics
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+w
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: w
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Comms
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+x
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: x
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Show Configuration
   category_id: 5b30e3f5-1600-42fd-92f8-70a4eca4d8f5
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+x
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: x
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Scan Mode
   category_id: 971fcc06-4bb7-4cd7-b400-fefff52895de
   is_system_command: false
@@ -875,7 +1442,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+y
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: y
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Ping
   category_id: 971fcc06-4bb7-4cd7-b400-fefff52895de
   is_system_command: false
@@ -884,7 +1460,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right ctrl+z
+      hotkey: right ctrl
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: z
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right ctrl
+      release: true
 - name: Scan Target
   additional_context: Only works in scan mode
   category_id: 971fcc06-4bb7-4cd7-b400-fefff52895de
@@ -892,21 +1477,48 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+a
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: a
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Narrow Scan Focus
   category_id: 971fcc06-4bb7-4cd7-b400-fefff52895de
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+b
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: b
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Widen Scan Focus
   category_id: 971fcc06-4bb7-4cd7-b400-fefff52895de
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+c
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: c
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Flight Ready
   additional_context: 'Boot sequence: run this, then read_loadout, then one short varied ready line naming the weapons and missiles'
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
@@ -920,7 +1532,7 @@ commands:
   - keyboard:
       hotkey: r
       hold: 0.1
-  - wait: 0.15
+  - wait: 0.05
   - keyboard:
       hotkey: right alt
       release: true
@@ -930,56 +1542,128 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+e
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: e
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Decoupled Off
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+f
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: f
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: G-Safe On
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+g
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: g
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: G-Safe Off
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+h
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: h
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Proximity Assist On
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+i
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: i
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Proximity Assist Off
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+j
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: j
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: VTOL On
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+k
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: k
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: VTOL Off
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+l
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: l
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Gear Down
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
@@ -988,7 +1672,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+m
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: m
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Gear Up
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
@@ -997,7 +1690,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+n
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: n
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Request Landing
   additional_context: Also opens the hangar doors
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
@@ -1009,35 +1711,80 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: left alt+n
+      hotkey: left alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: n
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: left alt
+      release: true
 - name: Request Docking
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+p
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: p
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Flight Mode
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+q
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: q
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Mining Mode
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+0
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: '0'
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Salvage Mode
   category_id: 59907f6d-16e2-4bc5-8cb0-676ff78f94b0
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+s
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: s
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Lights On
   category_id: 7b4d2e70-c42d-4b43-8266-b82b39e6c9b9
   is_system_command: false
@@ -1047,7 +1794,16 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+t
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: t
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Lights Off
   category_id: 7b4d2e70-c42d-4b43-8266-b82b39e6c9b9
   is_system_command: false
@@ -1057,21 +1813,48 @@ commands:
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+u
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: u
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Night Vision On
   category_id: 7b4d2e70-c42d-4b43-8266-b82b39e6c9b9
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+v
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: v
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Night Vision Off
   category_id: 7b4d2e70-c42d-4b43-8266-b82b39e6c9b9
   is_system_command: false
   force_instant_activation: false
   actions:
   - keyboard:
-      hotkey: right alt+w
+      hotkey: right alt
+      press: true
+  - wait: 0.08
+  - keyboard:
+      hotkey: w
+      hold: 0.1
+  - wait: 0.05
+  - keyboard:
+      hotkey: right alt
+      release: true
 - name: Open and Unlock All Doors
   additional_context: One key opens and unlocks every door and port
   category_id: 01120b29-2487-422e-82ff-6327eacbd7fe

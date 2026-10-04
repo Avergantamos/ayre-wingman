@@ -56,17 +56,20 @@ def wingman_key(sc):
 
 
 def wingman_actions(key, hold_modifier=False):
-    """Wingman actions for a key. hold_modifier: press the modifier, then the key, then
-    release, with the timing upstream found Star Citizen needs for Flight Ready."""
+    """Wingman actions for a key. Combos are pressed modifier first, short pause, key, release:
+    Star Citizen misses combos sent all at once. hold_modifier uses the longer pause upstream
+    found Flight Ready needs."""
     if key.startswith("mouse"):  # mouse4 / mouse5 are the side buttons x / x2
         return [{"mouse": {"button": {"mouse4": "x", "mouse5": "x2"}.get(key, key)}}]
-    if not hold_modifier or "+" not in key:
+    if "+" not in key or key.split("+")[-1] in ("", ):
         return [{"keyboard": wingman_key(key)}]
-    mod, base = key.split("+", 1)
-    mod = wingman_key(mod)["hotkey"]
-    return [{"keyboard": {"hotkey": mod, "press": True}}, {"wait": 0.55},
-            {"keyboard": {"hotkey": wingman_key(base)["hotkey"], "hold": 0.1}}, {"wait": 0.15},
-            {"keyboard": {"hotkey": mod, "release": True}}]
+    *mods, base = key.split("+")
+    mods = [wingman_key(m)["hotkey"] for m in mods]
+    pause = 0.55 if hold_modifier else 0.08
+    steps = [{"keyboard": {"hotkey": m, "press": True}} for m in mods]
+    steps += [{"wait": pause}, {"keyboard": {**wingman_key(base), "hold": 0.1}}, {"wait": 0.05}]
+    steps += [{"keyboard": {"hotkey": m, "release": True}} for m in reversed(mods)]
+    return steps
 
 
 def kb_binds(action_el, mouse=False):

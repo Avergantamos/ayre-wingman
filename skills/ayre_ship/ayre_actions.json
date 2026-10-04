@@ -2,7 +2,26 @@
  "v_atc_request": [
   {
    "keyboard": {
-    "hotkey": "left alt+n"
+    "hotkey": "left alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "n"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "left alt",
+    "release": true
    }
   }
  ],
@@ -19,119 +38,442 @@
  "v_cooler_throttle_down": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+q"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "q"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_cooler_throttle_up": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+p"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "p"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_dec_scan_focus_level": [
   {
    "keyboard": {
-    "hotkey": "right alt+c"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "c"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_deploy_landing_system": [
   {
    "keyboard": {
-    "hotkey": "right alt+m"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "m"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_engine_decrease": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_engine_increase": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+e"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "e"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_engine_max": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+b"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "b"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_engine_min": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+d"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "d"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_reset": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+o"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "o"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_shields_decrease": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+j"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "j"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_shields_increase": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+i"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "i"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_shields_max": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+g"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "g"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_shields_min": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+h"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "h"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_weapons_decrease": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+n"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "n"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_weapons_increase": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+m"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "m"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_weapons_max": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+k"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "k"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_engineering_assignment_weapons_min": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+l"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "l"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
@@ -152,7 +494,7 @@
    }
   },
   {
-   "wait": 0.15
+   "wait": 0.05
   },
   {
    "keyboard": {
@@ -164,196 +506,728 @@
  "v_ifcs_gsafe_off": [
   {
    "keyboard": {
-    "hotkey": "right alt+h"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "h"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_ifcs_gsafe_on": [
   {
    "keyboard": {
-    "hotkey": "right alt+g"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "g"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_ifcs_proximity_assist_off": [
   {
    "keyboard": {
-    "hotkey": "right alt+j"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "j"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_ifcs_proximity_assist_on": [
   {
    "keyboard": {
-    "hotkey": "right alt+i"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "i"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_ifcs_vector_decoupling_off": [
   {
    "keyboard": {
-    "hotkey": "right alt+f"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_ifcs_vector_decoupling_on": [
   {
    "keyboard": {
-    "hotkey": "right alt+e"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "e"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_inc_scan_focus_level": [
   {
    "keyboard": {
-    "hotkey": "right alt+b"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "b"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_invoke_ping": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+z"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "z"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_light_amplification_off": [
   {
    "keyboard": {
-    "hotkey": "right alt+w"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "w"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_light_amplification_on": [
   {
    "keyboard": {
-    "hotkey": "right alt+v"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "v"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_lights_off": [
   {
    "keyboard": {
-    "hotkey": "right alt+u"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "u"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_lights_on": [
   {
    "keyboard": {
-    "hotkey": "right alt+t"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "t"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_master_mode_set_nav": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 8"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 8"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_master_mode_set_scm": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 9"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 9"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_interact_cycle_backwards_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+4"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "4"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_interact_cycle_forwards_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+3"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "3"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_movement_down_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+z"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "z"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_movement_left_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+1"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "1"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_movement_right_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+2"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "2"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_movement_up_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+y"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "y"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_comms_short": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+x"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "x"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_configuration_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+x"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "x"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_diagnostics_short": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+w"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "w"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_resource_network_short": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+u"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "u"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_scanning_short": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+r"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "r"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_self_status_short": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+t"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "t"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_mfd_select_view_target_status_short": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+s"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "s"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_mfd_soft_select_mfd_primary_short": [
   {
    "keyboard": {
-    "hotkey": "right alt+5"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "5"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
@@ -371,133 +1245,494 @@
  "v_pitch_down": [
   {
    "keyboard": {
-    "hotkey": "right alt+7"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "7"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_pitch_up": [
   {
    "keyboard": {
-    "hotkey": "right alt+6"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "6"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_power_set_off": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+5"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "5"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_on": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+4"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "4"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_shields_off": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+7"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "7"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_shields_on": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+6"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "6"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_thrusters_off": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+9"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "9"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_thrusters_on": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+8"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "8"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_weapons_off": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+a"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "a"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_power_set_weapons_on": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+0"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "0"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_retract_landing_system": [
   {
    "keyboard": {
-    "hotkey": "right alt+n"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "n"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_scanning_trigger_scan": [
   {
    "keyboard": {
-    "hotkey": "right alt+a"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "a"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_set_flight_mode": [
   {
    "keyboard": {
-    "hotkey": "right alt+q"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "q"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_set_guns_mode": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f1"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f1"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_set_mining_mode": [
   {
    "keyboard": {
-    "hotkey": "right alt+0"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "0"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_set_missile_mode": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f11"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f11"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_set_quantum_mode": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 6"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 6"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_set_salvage_mode": [
   {
    "keyboard": {
-    "hotkey": "right alt+s"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "s"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_set_scan_mode": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+y"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "y"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
@@ -546,161 +1781,598 @@
  "v_target_cycle_attacker_back": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 1"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 1"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_attacker_fwd": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 0"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 0"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_attacker_reset": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 2"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 2"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_friendly_fwd": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 6"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 6"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_hostile_back": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 4"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 4"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_hostile_fwd": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 3"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 3"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_hostile_reset": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 5"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 5"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_subitem_fwd": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 7"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 7"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_cycle_subitem_reset": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 8"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 8"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_pin_selected": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+num 9"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 9"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_target_remove_all_pins": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 0"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 0"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_toggle_docking_request": [
   {
    "keyboard": {
-    "hotkey": "right alt+p"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "p"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_toggle_qdrive_engagement": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 7"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 7"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_vtol_off": [
   {
    "keyboard": {
-    "hotkey": "right alt+l"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "l"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_vtol_on": [
   {
    "keyboard": {
-    "hotkey": "right alt+k"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "k"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_weapon_convergence_distance_set_default": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f10"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f10"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_countermeasure_decoy_burst_decrease": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 5"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 5"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_weapon_countermeasure_decoy_burst_increase": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 4"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 4"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_weapon_countermeasure_decoy_launch": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 1"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 1"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_weapon_countermeasure_decoy_launch_panic": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 3"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 3"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_weapon_countermeasure_noise_launch": [
   {
    "keyboard": {
-    "hotkey": "right alt+num 2"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "num 2"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_weapon_cycle_missile_back": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+1"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "1"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_cycle_missile_fwd": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f12"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f12"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
@@ -714,14 +2386,52 @@
  "v_weapon_gimbals_state_set_locked": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f6"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f6"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_gimbals_state_set_unlocked": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f7"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f7"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
@@ -735,28 +2445,104 @@
  "v_weapon_preset_guns0": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f2"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f2"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_preset_guns1": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f3"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f3"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_preset_guns2": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f4"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f4"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_preset_guns3": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f5"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f5"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
@@ -777,28 +2563,104 @@
  "v_weapon_staggered_fire_off": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f9"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f9"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_weapon_staggered_fire_on": [
   {
    "keyboard": {
-    "hotkey": "right ctrl+f8"
+    "hotkey": "right ctrl",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "f8"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right ctrl",
+    "release": true
    }
   }
  ],
  "v_yaw_left": [
   {
    "keyboard": {
-    "hotkey": "right alt+8"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "8"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ],
  "v_yaw_right": [
   {
    "keyboard": {
-    "hotkey": "right alt+9"
+    "hotkey": "right alt",
+    "press": true
+   }
+  },
+  {
+   "wait": 0.08
+  },
+  {
+   "keyboard": {
+    "hold": 0.1,
+    "hotkey": "9"
+   }
+  },
+  {
+   "wait": 0.05
+  },
+  {
+   "keyboard": {
+    "hotkey": "right alt",
+    "release": true
    }
   }
  ]
