@@ -76,4 +76,30 @@ assert fired == [] and pressed == ["v_weapon_preset_guns3", "v_weapon_preset_gun
 # fired but no glow: says QD may be off or bugged
 fired.clear(); replies = iter(['{"qed_selected": true, "label": "QED"}', '{"spine_glow": false, "why": "only wingtips"}'])
 assert "QD may not be ON" in asyncio.run(e.activate_qd())
+# power presets: direct keys for weapons/thrusters/shields, MFD steering for radar etc.
+attack = {"visible": True, "free": 0, "emissions": {"ir": "1.7K", "em": "7.7K", "cs": "3.9K"},
+          "bars": [{"system": "weapons", "pips": 4}, {"system": "thrusters", "pips": 4}, {"system": "shields", "pips": 2},
+                   {"system": "radar", "pips": 4}, {"system": "quantum", "pips": 0}, {"system": "life_support", "pips": 0},
+                   {"system": "qed", "pips": 2}, {"system": "cooler_1", "pips": 0}, {"system": "cooler_2", "pips": 1}]}
+stealth_read = dict(attack, free=12, emissions={"ir": "463.2", "em": "1.9K", "cs": "3.9K"}, bars=[
+    {"system": "weapons", "pips": 0}, {"system": "thrusters", "pips": 1}, {"system": "shields", "pips": 0},
+    {"system": "radar", "pips": 1}, {"system": "quantum", "pips": 0}, {"system": "life_support", "pips": 0},
+    {"system": "qed", "pips": 0}, {"system": "cooler_1", "pips": 0}, {"system": "cooler_2", "pips": 1}])
+pressed.clear()
+replies = iter([json.dumps(attack),                                   # first read: attack setup
+                '{"done": false, "key": "down", "why": "radar 4 -> 1"}', '{"done": false, "key": "down", "why": ""}',
+                '{"done": false, "key": "down", "why": ""}', '{"done": true, "key": null, "why": "radar 1"}',
+                '{"done": false, "key": "select", "why": "qed off"}', '{"done": true, "key": null, "why": "qed 0"}',
+                json.dumps(stealth_read)])                            # final read
+out = asyncio.run(e.apply_power_preset("stealth"))
+print("stealth ->", out)
+assert pressed[0] == "select_view_resource_network_short"
+assert "v_power_set_weapons_off" in pressed and "v_power_set_shields_off" in pressed
+assert pressed.count("v_engineering_assignment_engine_decrease") == 3  # thrusters 4 -> 1 by key
+assert pressed.count("movement_down_short") == 3 and "soft_select_mfd_primary_short" in pressed
+assert out.startswith("Stealth: Power set.") and "IR 463.2" in out
+replies = iter([json.dumps(stealth_read)])
+assert "Saved 'stealth'" in asyncio.run(e.save_power_preset("stealth"))
+assert e._presets()["stealth"]["source"] == "read in game"
+assert "No power preset" in asyncio.run(e.apply_power_preset("dogfight"))
 print("eyes: all checks passed")

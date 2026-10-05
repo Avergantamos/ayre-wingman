@@ -107,6 +107,42 @@ red glow along the ship's central spine (the middle ridge on top of the hull). R
 wingtips are navigation lights and do NOT count. Return JSON only:
 {"spine_glow": true|false|null, "why": "<short>"}  (null if the ship isn't visible)"""
 
+# ---------------------------------------------------------------- power presets
+# Star Citizen has keybinds only for weapons, thrusters and shields power (on/off, increase/decrease);
+# radar, quantum, life support, QED and coolers are set on the power MFD, steered key by key.
+SYSTEMS = ["weapons", "thrusters", "shields", "radar", "quantum", "life_support", "qed", "cooler_1", "cooler_2"]
+DIRECT = {"weapons": "weapons", "thrusters": "engine", "shields": "shields"}  # engineering assignment names
+DIRECT_ONOFF = {"weapons": "weapons", "thrusters": "thrusters", "shields": "shields"}  # v_power_set_<x>_on/off
+# starting presets for the Sabre Raven EX, read from the pilot's screenshots (2026-10-03); "save this as
+# <name>" in game replaces them with an exact read
+DEFAULT_PRESETS = {
+    "stealth": {"levels": {"weapons": 0, "thrusters": 1, "shields": 0, "radar": 1, "quantum": 0, "life_support": 0,
+                           "qed": 0, "cooler_1": 0, "cooler_2": 1},
+                "emissions": {"ir": "463", "em": "1.9K", "cs": "3.9K"}, "source": "pilot's screenshots"},
+    "attack": {"levels": {"weapons": 4, "thrusters": 4, "shields": 2, "radar": 4, "quantum": 0, "life_support": 0,
+                          "qed": 2, "cooler_1": 0, "cooler_2": 1},
+               "emissions": {"ir": "1.7K", "em": "7.7K", "cs": "3.9K"}, "source": "pilot's screenshots"},
+}
+
+POWER_READ = """Read the Star Citizen POWER MANAGEMENT MFD (tabs PWR WPN THR SHLD COOL) and return JSON only:
+{"visible": true|false, "free": <free power, the first number of OUTPUT like 12 in 12/16, or null>,
+ "emissions": {"ir": "<number by the heat-waves icon>", "em": "<number by the lightning icon>", "cs": "<number by the double-diamond icon>"},
+ "bars": [{"system": "<name>", "pips": <lit blocks>, "selected": true|false}]}
+Each vertical bar is one system, named by the icon under it: three bullets = weapons, double chevron
+arrows = thrusters, round shield = shields, signal arcs (wifi) = radar, atom = quantum, heart =
+life_support, crossed diamond/net = qed, fan = cooler (first fan on screen cooler_1, second cooler_2).
+pips = number of lit (bright) blocks; a grey bar with a lightning warning triangle is OFF: pips 0.
+"selected": true for the bar the MFD highlight/cursor is on. Only bars you can see; the screen
+scrolls sideways, so some may be missing."""
+
+POWER_STEP = """You are operating the Star Citizen POWER MANAGEMENT MFD with keys only. Goal: set {system}
+to {target} lit blocks (0 = off). Keys: left, right (move the highlight between bars), up, down (raise or
+lower the highlighted bar), select (toggle the highlighted bar's power). Icons: three bullets weapons,
+chevrons thrusters, shield, signal arcs radar, atom quantum, heart life support, crossed diamond qed,
+fans coolers (first cooler_1). Return JSON only:
+{{"done": true|false, "key": "<one key or null>", "why": "<short>"}}
+done = true only when the {system} bar already shows {target} lit blocks."""
+
 QED_GROUP = "v_weapon_preset_guns3"  # weapon group 4, the QED on the Sabre Raven EX
 CAMERA = {"keyboard": {"hotkey": "f4"}}  # Star Citizen default: cockpit <-> third person
 FIRE = {"mouse": {"button": "left"}}     # Star Citizen default fire (mouse 1); his profile doesn't rebind it
@@ -348,6 +384,125 @@ class AyreEyes(Skill):
         else:
             lead = "Cargo not visible in the scan: say so briefly, then ship and owner."
         return f"Scan read: {scan_summary(data)} {lead} Power and shields only if asked."
+
+    # ---------------- power presets
+    def _presets(self) -> dict:
+        f = self._dir() / "power_presets.json"
+        saved = json.loads(f.read_text()) if f.exists() else {}
+        return {**DEFAULT_PRESETS, **saved}
+
+    async def _read_power(self) -> dict:
+        """Read the power MFD; scroll sideways once if some systems weren't on screen."""
+        levels, emissions, free = {}, {}, None
+        for page in range(2):
+            data = parse_json(await self._ask(self._grab(), "Return JSON only.", POWER_READ, "power", full_res=True))
+            if not data.get("visible"):
+                break
+            emissions = emissions or data.get("emissions") or {}
+            free = data.get("free") if free is None else free
+            for bar in data.get("bars") or []:
+                if bar.get("system") in SYSTEMS and isinstance(bar.get("pips"), int):
+                    levels.setdefault(bar["system"], bar["pips"])
+            if page == 0 and len(levels) < len(SYSTEMS):
+                for _ in range(4):
+                    await self._press(MFD_KEYS["right"])
+                    await asyncio.sleep(0.15)
+                await asyncio.sleep(0.4)
+            else:
+                break
+        return {"levels": levels, "emissions": emissions, "free": free}
+
+    async def _steer_power(self, system: str, target: int) -> bool:
+        for _ in range(12):
+            move = parse_json(await self._ask(self._grab(), "Return JSON only.",
+                                              POWER_STEP.format(system=system, target=target), "power", full_res=True))
+            if move.get("done"):
+                return True
+            if move.get("key") not in MFD_KEYS:
+                return False
+            await self._press(MFD_KEYS[move["key"]])
+            await asyncio.sleep(0.4)
+        return False
+
+    async def _apply_levels(self, want: dict) -> str:
+        await self._press("v_mfd_select_view_resource_network_short")  # the power page on the selected MFD
+        await asyncio.sleep(0.8)
+        now = (await self._read_power())["levels"]
+        for system, target in want.items():  # keybind systems: exact and instant
+            if system not in DIRECT or now.get(system) == target:
+                continue
+            if target == 0:
+                await self._press(f"v_power_set_{DIRECT_ONOFF[system]}_off")
+                continue
+            if now.get(system, 0) == 0:
+                await self._press(f"v_power_set_{DIRECT_ONOFF[system]}_on")
+                await asyncio.sleep(0.5)
+                now[system] = (await self._read_power())["levels"].get(system, 1)
+            step = "increase" if target > now.get(system, target) else "decrease"
+            for _ in range(abs(target - now.get(system, target))):
+                await self._press(f"v_engineering_assignment_{DIRECT[system]}_{step}")
+                await asyncio.sleep(0.25)
+        failed = []
+        for system, target in want.items():  # MFD-only systems: steered and checked step by step
+            if system not in DIRECT and now.get(system) != target and not await self._steer_power(system, target):
+                failed.append(system)
+        final = await self._read_power()
+        off = {s: (final["levels"].get(s), t) for s, t in want.items() if final["levels"].get(s) not in (None, t)}
+        e = final["emissions"]
+        report = f"Emissions now IR {e.get('ir', '?')}, EM {e.get('em', '?')}, CS {e.get('cs', '?')}."
+        if off or failed:
+            miss = ", ".join(f"{s} at {have} (want {t})" for s, (have, t) in off.items())
+            return f"Mostly set. Not matching: {miss or ', '.join(failed)}. {report}"
+        return f"Power set. {report}"
+
+    @tool(description="""Save Raven's current power setup as a named preset (e.g. 'save this as stealth',
+        'remember this as attack'). Reads every power bar and the emissions from the power MFD.""",
+          wait_response=True)
+    async def save_power_preset(self, name: str) -> str:
+        await self._press("v_mfd_select_view_resource_network_short")
+        await asyncio.sleep(0.8)
+        read = await self._read_power()
+        if not read["levels"]:
+            return "Couldn't read the power screen. Tell Raven."
+        f = self._dir() / "power_presets.json"  # only presets saved in game; defaults stay in code
+        saved = json.loads(f.read_text()) if f.exists() else {}
+        saved[name.lower().replace(" mode", "").strip()] = {"levels": read["levels"], "emissions": read["emissions"],
+                                                            "source": "read in game"}
+        f.write_text(json.dumps(saved, indent=1))
+        bars = ", ".join(f"{s.replace('_', ' ')} {p or 'off'}" for s, p in read["levels"].items())
+        return f"Saved '{name}': {bars}. Emissions IR {read['emissions'].get('ir')}, EM {read['emissions'].get('em')}, CS {read['emissions'].get('cs')}."
+
+    @tool(description="""Switch to a saved power preset: 'go stealth', 'stealth mode', 'attack mode', 'go loud'.
+        Sets weapons, thrusters and shields by key and steers radar, quantum, life support, QED and
+        coolers on the power MFD, then reports what matched and the emissions. Takes up to a minute.""",
+          wait_response=True)
+    async def apply_power_preset(self, name: str) -> str:
+        presets = self._presets()
+        key = name.lower().replace(" mode", "").strip()
+        if key not in presets:
+            return f"No power preset called '{name}'. Saved: {', '.join(presets)}."
+        p = presets[key]
+        return f"{key.capitalize()}: " + await self._apply_levels(p["levels"]) + \
+            f" (Saved preset emissions: IR {p['emissions'].get('ir')}, EM {p['emissions'].get('em')}, CS {p['emissions'].get('cs')}.)"
+
+    @tool(description="""Change one power bar: 'radar up', 'radar down', 'radar off', 'coolers up', 'life
+        support off', 'quantum power on', 'QED to 3'. system: weapons, thrusters, shields, radar, quantum,
+        life_support, qed, cooler_1, cooler_2. change: up, down, off, or a number of blocks.""",
+          wait_response=True)
+    async def set_power(self, system: str, change: str) -> str:
+        system = system.lower().strip().replace(" ", "_")
+        system = {"cooler": "cooler_1", "coolers": "cooler_1", "lifesupport": "life_support", "life": "life_support",
+                  "quantum_drive": "quantum", "qd": "qed", "dampener": "qed", "engines": "thrusters",
+                  "guns": "weapons", "shield": "shields"}.get(system, system)
+        if system not in SYSTEMS:
+            return f"Unknown power system '{system}'. Options: {', '.join(SYSTEMS)}."
+        await self._press("v_mfd_select_view_resource_network_short")
+        await asyncio.sleep(0.8)
+        have = (await self._read_power())["levels"].get(system)
+        c = str(change).lower().strip()
+        target = 0 if c in ("off", "0") else int(c) if c.isdigit() else \
+            (have or 0) + (1 if c in ("up", "+1", "more", "on") else -1 if c in ("down", "-1", "less") else 0)
+        return f"{system.replace('_', ' ').capitalize()}: " + await self._apply_levels({system: max(0, target)})
 
     async def _run(self, name: str, *steps: dict) -> None:
         await self.wingman.execute_action(CommandConfig.model_validate({"name": name, "actions": list(steps)}))
