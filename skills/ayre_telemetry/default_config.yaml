@@ -1,0 +1,32 @@
+module: skills.ayre_telemetry.main
+name: AyreTelemetry
+display_name: Ayre's Telemetry
+author: ayre-wingman
+tags:
+  - Utility
+auto_activate: true
+discoverable_by_default: false
+platforms:
+  - windows
+  - darwin
+description:
+  en: Live Star Citizen state from the game's own local telemetry (5.0+). Ship and pilot status in her head, callouts, and confirmed game actions. Turn it on in the game first (user.cfg server.game.telemetry.enabled=1).
+discovery_keywords:
+  - telemetry
+  - fuel
+  - shields
+  - hull
+  - oxygen
+custom_properties:
+  - id: host
+    name: Telemetry host
+    hint: The game serves it on this PC only. Leave as 127.0.0.1.
+    property_type: string
+    required: true
+    value: 127.0.0.1
+  - id: port
+    name: Telemetry port
+    hint: 2942 unless CIG changes it.
+    property_type: number
+    required: true
+    value: 2942

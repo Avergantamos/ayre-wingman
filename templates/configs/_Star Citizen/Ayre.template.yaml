@@ -5,6 +5,7 @@ description: |
 discoverable_skills:
 - AyreEyes
 - AyreShip
+- AyreTelemetry
 - AyreFlight
 - Timer
 - VisionAI

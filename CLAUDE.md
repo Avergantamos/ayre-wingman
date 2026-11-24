@@ -49,10 +49,19 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 
 - Vocabulary: a compact list of named actions generated from the real bindings export (action name + one-line meaning). The model sees names, never keys. The executor maps names to keys.
 - Plan: an ordered list of action names with optional waits. The executor rejects any step not in the vocabulary; risky steps need a spoken yes.
-- State: Star Citizen exposes no state, and many binds are toggles. Prefer explicit on/off binds where they exist; otherwise read the state from the screen with vision before toggling, never toggle blind. After any toggle, Ayre states the resulting state out loud ("Shields on", "Lights off"), confirmed from the screen when possible, and says so when she could not confirm it.
+- State: since 5.0 (Nov 2026) Star Citizen exposes live state through its local telemetry service (see Ayre's telemetry below); use it first. Where it has no field, the old rule holds: many binds are toggles. Prefer explicit on/off binds where they exist; otherwise read the state from the screen with vision before toggling, never toggle blind. After any toggle, Ayre states the resulting state out loud ("Shields on", "Lights off"), confirmed from the screen when possible, and says so when she could not confirm it.
 - Verify: after running, read the relevant screen region or the game log and report what actually changed, not what was intended.
 - Learn: a plan that worked can be saved by voice as a named routine ("remember this as salvage prep"). Saved routines run instantly with no model call next time.
 - Scope: setup and mode changes (industrial, recon, combat, flight). Not real time piloting or aiming; planning takes seconds.
+
+## Ayre's telemetry (skill, built Nov 23 2026)
+
+- `skills/ayre_telemetry`: Star Citizen's own local gRPC telemetry (127.0.0.1:2942, no login, PC only). CIG has not documented it; the schema in `telemetry.proto` (Ayre's subset, field numbers from the game's embedded descriptors as rebuilt by the community) can change with any patch. Turn it on: 5.0 PTU `server.game.telemetry.enabled=1` in the channel's `user.cfg`; 4.10.3 LIVE `setx GRPC_CLIENT_SERVER_ENABLED true` (read only, no actions).
+- Her prompt gets one live line: ship, NAV/SCM, landed, gear, fuel, quantum fuel, shields, hull, lights, doors, power, countermeasures, warnings; Raven's health, oxygen, hunger, thirst, seat, aUEC. No position or inventory exists in the stream.
+- Callouts through the speech gate (missile lock, hits, shields down in flight, hull, fuel, quantum fuel, oxygen, health, thirst, hunger, downed, the ship she just sat in), once per episode, quiet for the first 4 s after connecting.
+- One tool, `ship_action`: game actions through the API (5.0 lists 112). Toggles become explicit on/off from live state, never blind; self destruct, eject and emergency exit are refused; the result is confirmed from the stream. On LIVE it tells the model to use her key commands.
+- The first 40 frames of each session are saved under generated_files/AyreTelemetry/frames: check the units on the PC (fuel, shields, hull as fraction or percent; `pct()` assumes <= 1 is a fraction).
+- Tests: `python tests/ayre/test_telemetry.py` (logic plus a fake game server). Needs `grpcio` and `protobuf`.
 
 ## Ayre's eyes (skill, built)
 

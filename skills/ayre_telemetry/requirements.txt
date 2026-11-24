@@ -1,0 +1,3 @@
+# Star Citizen local telemetry (gRPC). Installed into dependencies/ on the PC.
+grpcio
+protobuf
