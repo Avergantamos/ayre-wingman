@@ -67,7 +67,7 @@ def screen_is_black(pixels: list[tuple[int, int, int]]) -> bool:
 
 def health_summary(checks: dict[str, tuple[bool, str]]) -> tuple[str | None, str]:
     """(line to speak on a problem or None, full report). Critical checks first."""
-    order = ["brain", "screen", "keys", "profile", "game_log", "music_ducking"]
+    order = ["brain", "screen", "keys", "profile", "telemetry", "game_log", "music_ducking"]
     critical = ["brain", "screen", "keys", "profile"]
     report = "; ".join(f"{k}: {'ok' if ok else 'PROBLEM'} ({why})" for k, (ok, why) in
                        sorted(checks.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99))
@@ -521,6 +521,11 @@ class AyreShip(Skill):
         except Exception as e:
             return False, f"screen capture failed ({type(e).__name__})"
 
+    @staticmethod
+    def _check_telemetry() -> tuple[bool, str]:
+        st = sys.modules.get("ayre_telemetry_state")  # loaded by her AyreTelemetry skill
+        return st.link() if st else (False, "telemetry skill not loaded")
+
     async def _self_check(self, startup: bool = False) -> str:
         if startup:
             await asyncio.sleep(8)  # let Wingman finish starting and the model load
@@ -531,6 +536,7 @@ class AyreShip(Skill):
                      f"{len(ACTIONS)} actions" if len(ACTIONS) > 50 else PROBLEM_LINES["keys"]),
             "profile": profile_loaded(Path(self._log_path()).parent / "user/client/0/Profiles/default/actionmaps.xml",
                                       ACTIONS),
+            "telemetry": self._check_telemetry(),
             "game_log": (Path(self._log_path()).exists(), self._log_path()),
             "music_ducking": (bool(self.ducker and self.ducker.backend.available), "pycaw"),
         }
@@ -545,7 +551,7 @@ class AyreShip(Skill):
         return report
 
     @tool(description="""Check Ayre's own systems: her brain on the Mac, whether she can see the
-        screen, her keys, the game log and music ducking. Use when Raven asks for a status check
+        screen, her keys, the live game data link, the game log and music ducking. Use when Raven asks for a status check
         or says something isn't working.""", wait_response=True)
     async def status_check(self) -> str:
         return await self._self_check()

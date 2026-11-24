@@ -17,6 +17,10 @@ What she does with it:
 - One tool, ship_action: runs a game action through the API (5.0), turns toggles into explicit
   on/off from the live state, refuses self destruct, eject and emergency exit, and confirms the
   result from the stream. On LIVE (no actions) it tells the model to use her key commands.
+- Her other skills read the live state through state.live(): flight callouts and the descend
+  assist use telemetry altitude and vertical speed instead of reading the HUD, power changes check
+  on/off from it, her self-check reports the link. The screen stays for what telemetry lacks:
+  target distance, scans, weapon groups, missiles, power bar levels and emissions.
 - The first frames of each session are saved raw under generated_files/AyreTelemetry/frames so
   the units (fraction or percent) can be checked on the PC.
 
@@ -103,8 +107,10 @@ class AyreTelemetry(Skill):
         self.gate = VOICE.SpeechGate.get(self.wingman, asyncio.get_running_loop())
         self._frames_dir = Path(self.get_generated_files_dir()) / "frames"
         self._task = asyncio.create_task(self._run())
+        STATE.publish(self)  # flight, eyes and ship read the live state from here
 
     async def unload(self) -> None:
+        STATE.publish(None)
         if self._task:
             self._task.cancel()
             self._task = None
@@ -183,7 +189,11 @@ class AyreTelemetry(Skill):
         line = self.ship.summary()
         if not line:
             return base or None
-        extra = "\n\nLive game telemetry (straight from Star Citizen, trust it over the screen): " + line + "."
+        weapons = STATE.weapons_line(self.ship)
+        extra = ("\n\nLive game telemetry (straight from Star Citizen, trust it over the screen): " + line + "."
+                 + (f" {weapons}." if weapons else "")
+                 + "\nBefore any toggle (lights, gear, doors, power, mode), check this state first: if it is "
+                   "already the way Raven wants, say so and press nothing. Prefer ship_action over toggle keys.")
         return (base + extra).strip()
 
     @tool(description="""Run a Star Citizen game action through the game's own API and confirm it

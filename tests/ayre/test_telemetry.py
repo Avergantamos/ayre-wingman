@@ -26,7 +26,7 @@ def frame(**kw):
         fl.state.gear = kw.get("gear", 3)
         fl.instruments.hydrogen_fuel = kw.get("fuel", 0.62)
         fl.instruments.quantum_fuel = kw.get("qt", 0.8)
-        for k in ("powerplants", "engines", "weapons", "shield_generators", "coolers", "life_support"):
+        for k in ("powerplants", "engines", "weapons", "shield_generators", "coolers", "life_support", "sensors"):
             setattr(v.power, k, True)
         if kw.get("misl"):
             v.annunciators.misl = 5
@@ -79,6 +79,28 @@ assert S.plan_action("v_lights_off", s4, avail) == (None, "Already lights off.")
 assert S.plan_action("v_master_mode_cycle", s4, avail)[0] == "v_master_mode_set_scm", "NAV cycles to SCM"
 blind = S.Ship()
 assert S.plan_action("v_lights", blind, avail)[0] is None, "never toggles blind"
+# flight readouts, weapons, and the live state her other skills read
+fr = frame(landed=False)
+i = fr.vehicle.state.flight.instruments
+i.speed, i.altitude, i.radar_altitude, i.vertical_speed_indicator, i.heading = 120, 5400, 42, -6.5, 270
+w = fr.weapons.weapons.add(); w.name, w.is_powered, w.ready_to_fire = "CF-337 Panther", True, True
+w = fr.weapons.weapons.add(); w.name = "Mass Driver"
+fr.weapons.preset_name = "All guns"
+s5 = S.Ship(); s5.merge(fr)
+assert S.reading(s5, "altitude") == 42 and S.reading(s5, "vertical_speed") == -6.5 and S.reading(s5, "speed") == 120
+assert S.reading(s5, "target_distance") is None, "not in telemetry: stays on the screen"
+i.radar_altitude = 0; s5.merge(fr); assert S.reading(s5, "altitude") == 5400, "out of radar range: sea level"
+s5.merge(frame(landed=True)); assert S.reading(s5, "altitude") == 0.0
+assert "120 m/s" not in s5.summary() and s5.weapons[0]["name"] == "CF-337 Panther", "weapons persist across frames"
+wl = S.weapons_line(s5)
+assert "Mass Driver (unpowered)" in wl and "1 of 2 ready" in wl and "preset All guns" in wl, wl
+assert S.power_on(s5, "thrusters") is True and S.power_on(s5, "qed") is None
+fake = type("Sk", (), {"connected": True, "ship": s5, "available": {"v_lights_on"}})()
+assert S.live() is None and S.link()[0] is False
+S.publish(fake); assert S.live() is s5 and S.link() == (True, "live game data, 1 game actions")
+s5.updated -= 2; assert S.live() is None, "stale data is not live"
+fake.connected = False; assert S.link()[0] is False
+S.publish(None)
 print("state logic: ok")
 
 

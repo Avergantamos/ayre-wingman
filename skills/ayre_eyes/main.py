@@ -20,6 +20,7 @@ import base64
 import io
 import json
 import re
+import sys
 import time
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -112,6 +113,16 @@ wingtips are navigation lights and do NOT count. Return JSON only:
 # radar, quantum, life support, QED and coolers are set on the power MFD, steered key by key.
 SYSTEMS = ["weapons", "thrusters", "shields", "radar", "quantum", "life_support", "qed", "cooler_1", "cooler_2"]
 DIRECT = {"weapons": "weapons", "thrusters": "engine", "shields": "shields"}  # engineering assignment names
+def telemetry():
+    """Ayre's telemetry state module (loaded by her AyreTelemetry skill), or None."""
+    return sys.modules.get("ayre_telemetry_state")
+
+
+def live_ship():
+    st = telemetry()
+    return st.live() if st else None
+
+
 DIRECT_ONOFF = {"weapons": "weapons", "thrusters": "thrusters", "shields": "shields"}  # v_power_set_<x>_on/off
 # starting presets for the Sabre Raven EX, read from the pilot's screenshots (2026-10-03); "save this as
 # <name>" in game replaces them with an exact read
@@ -323,6 +334,10 @@ class AyreEyes(Skill):
     async def read_loadout(self) -> str:
         data = await self._find_loadout()
         if not data:
+            st, ship = telemetry(), live_ship()
+            if ship is not None and ship.weapons:  # the game's own list; groups and missiles need the screen
+                return (f"Couldn't find the weapons screen, but the game reports: {st.weapons_line(ship)}. "
+                        "Groups and missiles unread.")
             return "Could not find the weapons list on any ship screen. Say so to Raven in one line."
         self.loadout = data
         ship = re.sub(r"[^\w-]+", "_", data.get("ship") or "unknown_ship")
@@ -489,6 +504,25 @@ class AyreEyes(Skill):
         support off', 'quantum power on', 'QED to 3'. system: weapons, thrusters, shields, radar, quantum,
         life_support, qed, cooler_1, cooler_2. change: up, down, off, or a number of blocks.""",
           wait_response=True)
+    async def _power_switch(self, system: str, on: bool) -> str | None:
+        """On/off straight from the game's telemetry: skip it if it's already so, else press the
+        explicit key and confirm from the stream. None when telemetry can't settle it."""
+        st, ship = telemetry(), live_ship()
+        state = st.power_on(ship, system) if st else None
+        if state is None:
+            return None
+        name = system.replace("_", " ").capitalize()
+        if state == on:
+            return f"{name} already {'on' if on else 'off'}."
+        if system not in DIRECT_ONOFF:
+            return None  # no key for it: the power screen
+        await self._press(f"v_power_set_{DIRECT_ONOFF[system]}_{'on' if on else 'off'}")
+        for _ in range(15):
+            await asyncio.sleep(0.1)
+            if st.power_on(live_ship(), system) == on:
+                return f"{name} {'on' if on else 'off'}, confirmed."
+        return f"Pressed {name.lower()} {'on' if on else 'off'}, but the game doesn't show it yet."
+
     async def set_power(self, system: str, change: str) -> str:
         system = system.lower().strip().replace(" ", "_")
         system = {"cooler": "cooler_1", "coolers": "cooler_1", "lifesupport": "life_support", "life": "life_support",
@@ -496,6 +530,11 @@ class AyreEyes(Skill):
                   "guns": "weapons", "shield": "shields"}.get(system, system)
         if system not in SYSTEMS:
             return f"Unknown power system '{system}'. Options: {', '.join(SYSTEMS)}."
+        c0 = str(change).lower().strip()
+        if c0 in ("off", "0", "on"):
+            quick = await self._power_switch(system, c0 == "on")
+            if quick:
+                return quick
         await self._press("v_mfd_select_view_resource_network_short")
         await asyncio.sleep(0.8)
         have = (await self._read_power())["levels"].get(system)

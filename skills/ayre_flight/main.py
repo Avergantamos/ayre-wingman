@@ -1,4 +1,8 @@
-"""Ayre's flight skill: a fast HUD reader, landing and approach callouts, and two short assists.
+"""Ayre's flight skill: landing and approach callouts, and two short assists.
+
+Altitude and vertical speed come from Star Citizen's own telemetry when her AyreTelemetry skill
+is linked (exact, 17 times a second, no screen reading). The HUD reader below is the fallback
+for those, and still the only source of target distance.
 
 calibrate_hud: one screen grab and one vision call find the readouts (radar altitude, vertical
   speed, speed, target distance on the Target Status MFD). Each box is verified by reading it
@@ -53,6 +57,18 @@ def _sibling(name: str):
     spec.loader.exec_module(module)
     return module
 
+
+def telemetry():
+    """Ayre's telemetry state module (loaded by her AyreTelemetry skill), or None."""
+    return sys.modules.get("ayre_telemetry_state")
+
+
+def live_ship():
+    st = telemetry()
+    return st.live() if st else None
+
+
+TELEMETRY = ("altitude", "vertical_speed", "speed", "heading")  # target distance is not in it
 
 core = _sibling("flight_core")
 voice = _sibling("ayre_voice")
@@ -192,6 +208,28 @@ class AyreFlight(Skill):
         return Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX")
 
     def _make_reader(self, primary: str, extra: Optional[str] = None):
+        """read() -> (t, value, extra_value). Telemetry for what it carries while the link is up;
+        small HUD region grabs otherwise (built lazily, on the calling worker thread)."""
+        if primary not in TELEMETRY or not telemetry():
+            return self._make_hud_reader(primary, extra)
+        hud = {}
+
+        def read():
+            ship = live_ship()
+            if ship is not None:
+                st, t = telemetry(), time.monotonic()
+                value, other = st.reading(ship, primary), st.reading(ship, extra)
+                if value is not None:
+                    self._latest[primary] = (t, value)
+                return t, value, other
+            if "r" not in hud:  # link dropped: the screen, if calibrated
+                hud["r"] = self._make_hud_reader(primary, extra)
+            return hud["r"]()
+
+        read.close = lambda: hud["r"].close() if "r" in hud else None
+        return read
+
+    def _make_hud_reader(self, primary: str, extra: Optional[str] = None):
         """read() -> (t, value, extra_value) from small region grabs. Call from the worker thread."""
         mon = self._monitor()
         res = self._res(mon)
@@ -495,7 +533,7 @@ class AyreFlight(Skill):
         need = "altitude" if mode in ("landing_callouts", "descend") else "target_distance"
         if mode not in ("landing_callouts", "approach_callouts", "descend", "close_to_range", "mark_range"):
             return "Unknown mode."
-        if need not in regions:
+        if need not in regions and not (need in TELEMETRY and live_ship() is not None):
             return f"Can't read {need.replace('_', ' ')} yet. Run calibrate_hud first."
 
         if mode == "mark_range":

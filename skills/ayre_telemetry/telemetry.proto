@@ -41,6 +41,8 @@ message VehicleFlightInstruments {
   VehicleThrusterBoost boost = 5;
   float altitude = 6;
   float radar_altitude = 7;
+  float vertical_speed_indicator = 8;
+  float heading = 10;
 }
 message VehicleFlight {
   VehicleFlightState state = 1;
@@ -80,7 +82,8 @@ message Countermeasures {
   CountermeasureType type = 1;
   uint32 amount = 2;
 }
-message WeaponsFrame { uint32 preset_index = 2; string preset_name = 3; repeated Countermeasures countermeasures = 5; }
+message WeaponState { string name = 1; bool is_powered = 2; bool ready_to_fire = 3; bool contained_in_preset = 4; }
+message WeaponsFrame { uint32 preset_index = 2; string preset_name = 3; repeated WeaponState weapons = 4; repeated Countermeasures countermeasures = 5; }
 
 message GameEvent {
   enum GameEventType { EVENT_UNSPECIFIED = 0; ACTOR_SPAWN = 1; ACTOR_DEAD = 2; ACTOR_ENTER_SEAT = 3; ACTOR_LEAVE_SEAT = 4; ACTOR_RESPAWN = 5; ACTOR_DOWNED = 6; }

@@ -60,8 +60,9 @@ The pilot names a goal ("prep for mining", "go dark", "combat ready"). The model
 - Her prompt gets one live line: ship, NAV/SCM, landed, gear, fuel, quantum fuel, shields, hull, lights, doors, power, countermeasures, warnings; Raven's health, oxygen, hunger, thirst, seat, aUEC. No position or inventory exists in the stream.
 - Callouts through the speech gate (missile lock, hits, shields down in flight, hull, fuel, quantum fuel, oxygen, health, thirst, hunger, downed, the ship she just sat in), once per episode, quiet for the first 4 s after connecting.
 - One tool, `ship_action`: game actions through the API (5.0 lists 112). Toggles become explicit on/off from live state, never blind; self destruct, eject and emergency exit are refused; the result is confirmed from the stream. On LIVE it tells the model to use her key commands.
+- Telemetry first, screen second (Nov 23): `state.py` publishes the live ship (`state.live()`, None when the link is down or stale over 1 s); the other skills find it in `sys.modules["ayre_telemetry_state"]` at call time. Flight callouts and the descend assist read altitude (radar altitude, 0 when landed) and vertical speed from it, HUD OCR only if the link drops. `set_power` on/off skips what is already so and confirms from the stream. `read_loadout` falls back to the game's weapon list. `status_check` reports the link. Her prompt tells her to check state before any toggle. Still on the screen (not in telemetry): target distance, scans, weapon groups, missiles, power bar levels, emissions, the QED glow.
 - The first 40 frames of each session are saved under generated_files/AyreTelemetry/frames: check the units on the PC (fuel, shields, hull as fraction or percent; `pct()` assumes <= 1 is a fraction).
-- Tests: `python tests/ayre/test_telemetry.py` (logic plus a fake game server). Needs `grpcio` and `protobuf`.
+- Tests: `python tests/ayre/test_telemetry.py` (logic plus a fake game server; needs `grpcio` and `protobuf`) and `tests/ayre/test_telemetry_wiring.py` (flight, eyes and self-check on the live state).
 
 ## Ayre's eyes (skill, built)
 

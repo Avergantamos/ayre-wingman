@@ -23,6 +23,9 @@ DEPLOY = {1: "up", 2: "deploying", 3: "down", 4: "retracting"}
 LOCOMOTION = {1: "on foot", 2: "EVA", 3: "seated"}
 ROLE = {1: "pilot", 2: "gunner", 3: "crew"}
 OPENED, CLOSED, UNLOCKED, LOCKED = 1, 2, 1, 2
+POWER = ("powerplants", "engines", "weapons", "shield_generators", "shield_emitters", "coolers",
+         "life_support", "sensors", "gravity_generators")
+SHOWN_POWER = ("powerplants", "engines", "weapons", "shield_generators", "coolers", "life_support", "sensors")
 MAJOR = {5, 6}  # annunciator MAJOR_FLASHING, MAJOR_ON
 ENTER_SEAT, DOWNED, RESPAWN = 3, 6, 5
 
@@ -49,6 +52,13 @@ class Ship:
     shields: float | None = None
     fuel: float | None = None
     quantum: float | None = None
+    speed: float | None = None
+    altitude: float | None = None
+    radar_alt: float | None = None
+    vs: float | None = None  # vertical speed indicator
+    heading: float | None = None
+    weapons: list = field(default_factory=list)  # [{"name", "powered", "ready", "in_preset"}]
+    preset: str | None = None
     landed: bool | None = None
     gear: str | None = None
     lights: bool | None = None
@@ -98,15 +108,24 @@ class Ship:
                     if f.state.HasField("gear"):
                         self.gear = DEPLOY.get(f.state.gear, self.gear)
                 if f.HasField("instruments"):
-                    self.fuel = pct(f.instruments.hydrogen_fuel)
-                    self.quantum = pct(f.instruments.quantum_fuel)
+                    i = f.instruments
+                    self.fuel = pct(i.hydrogen_fuel)
+                    self.quantum = pct(i.quantum_fuel)
+                    self.speed, self.altitude, self.radar_alt = i.speed, i.altitude, i.radar_altitude
+                    self.vs, self.heading = i.vertical_speed_indicator, i.heading
             if v.HasField("power"):
                 p = v.power
-                self.power = {k: getattr(p, k) for k in ("powerplants", "engines", "weapons", "shield_generators", "coolers", "life_support")}
+                self.power = {k: getattr(p, k) for k in POWER}
             if v.HasField("annunciators"):
                 a = v.annunciators
                 self.alarms = {k: getattr(a, k) in MAJOR for k in ("pwr", "wpn", "thr", "shld", "cool", "qdrv", "prox", "hit", "misl")}
         if frame.HasField("weapons"):
+            w = frame.weapons
+            if w.preset_name:
+                self.preset = w.preset_name
+            if len(w.weapons):
+                self.weapons = [{"name": x.name, "powered": x.is_powered, "ready": x.ready_to_fire,
+                                 "in_preset": x.contained_in_preset} for x in w.weapons]
             for cm in frame.weapons.countermeasures:
                 if cm.type == 1:
                     self.decoys = cm.amount
@@ -141,6 +160,8 @@ class Ship:
                 bits.append(self.mode)
             if self.landed is not None:
                 bits.append("landed" if self.landed else "flying")
+            if self.landed is False and self.speed is not None:
+                bits.append(f"{self.speed:.0f} m/s")
             if self.gear:
                 bits.append(f"gear {self.gear}")
             for label, v in (("fuel", self.fuel), ("quantum fuel", self.quantum), ("shields", self.shields), ("hull", self.hull)):
@@ -150,7 +171,7 @@ class Ship:
                 bits.append("lights on" if self.lights else "lights off")
             if self.doors_open is not None:
                 bits.append(("doors open" if self.doors_open else "doors closed") + (", locked" if self.doors_locked else ""))
-            off = [k.replace("_", " ") for k, on in self.power.items() if on is False]
+            off = [k.replace("_", " ") for k, on in self.power.items() if on is False and k in SHOWN_POWER]
             if self.power:
                 bits.append("power: " + ("all on" if not off else "off: " + ", ".join(off)))
             if self.decoys is not None or self.noise is not None:
@@ -270,3 +291,63 @@ def confirmed(action: str, s: Ship) -> bool | None:
         return None
     attr, want = CONFIRMABLE[action]
     return getattr(s, attr) == want
+
+
+# ---------------------------------------------------------------- shared with her other skills
+# The telemetry skill publishes itself here; flight, eyes and ship find this module in
+# sys.modules["ayre_telemetry_state"] at call time (any load order) and read the live ship.
+_LIVE: dict = {"skill": None}
+
+
+def publish(skill) -> None:
+    _LIVE["skill"] = skill
+
+
+def live(max_age: float = 1.0) -> Ship | None:
+    """The live ship while the stream is up and fresh, else None (then they use the screen)."""
+    sk = _LIVE["skill"]
+    if sk is None or not getattr(sk, "connected", False) or time.monotonic() - sk.ship.updated > max_age:
+        return None
+    return sk.ship
+
+
+def link() -> tuple[bool, str]:
+    """For her self-check: is the game data flowing, and can she act through it."""
+    sk = _LIVE["skill"]
+    if sk is None:
+        return False, "telemetry skill not loaded"
+    if live(5.0) is None:
+        return False, "no game data (game closed, not spawned, or the user.cfg telemetry line missing)"
+    acts = getattr(sk, "available", None)
+    return True, f"live game data, {len(acts)} game actions" if acts else "live game data, read only (LIVE)"
+
+
+def reading(s: Ship, name: str | None) -> float | None:
+    """A flight readout from telemetry, named like the HUD regions. Landing altitude is height
+    above ground: 0 once landed, radar altitude in range, sea-level altitude above it."""
+    if s is None or not name:
+        return None
+    if name == "altitude":
+        if s.landed:
+            return 0.0
+        return s.radar_alt if s.radar_alt else s.altitude
+    return {"vertical_speed": s.vs, "speed": s.speed, "heading": s.heading}.get(name)
+
+
+# power on/off by her power-skill names (bar levels and emissions stay on the power screen)
+POWER_OF = {"weapons": "weapons", "thrusters": "engines", "shields": "shield_generators",
+            "radar": "sensors", "life_support": "life_support", "cooler_1": "coolers", "cooler_2": "coolers"}
+
+
+def power_on(s: Ship | None, system: str) -> bool | None:
+    if s is None or not s.power or system not in POWER_OF:
+        return None
+    return s.power.get(POWER_OF[system])
+
+
+def weapons_line(s: Ship | None) -> str:
+    if s is None or not s.weapons:
+        return ""
+    names = ", ".join(w["name"] + ("" if w["powered"] else " (unpowered)") for w in s.weapons)
+    ready = sum(1 for w in s.weapons if w["ready"])
+    return f"Weapons: {names}; {ready} of {len(s.weapons)} ready to fire" + (f"; preset {s.preset}" if s.preset else "")
